@@ -175,7 +175,7 @@ Internet-Draft               TACACS+ TLS 1.3                    May 2022
    TACACS+ connections are TCP/IP connections initiated by the Client to
    the Server.  The well-known TCP/IP port 49 on the Server is used for
    unencrypted and encrypted connections as defined in the TACACS+
-   Protocol [RFC8907].  A connection may be used for only a single
+   Protocol [RFC8907].  A connection might be used for only a single
    Session or the multiplexing of multiple Sessions in TACACS+ Single
    Connection Mode.
 
