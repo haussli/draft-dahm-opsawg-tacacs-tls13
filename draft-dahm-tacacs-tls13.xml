@@ -100,18 +100,7 @@
        <t>
          The Technical Definitions section of the <xref target="RFC8907">TACACS+ Protocol</xref> is fully applicable here and will not be repeated, though might be augmented.
          The following terms are also used in this document.
-XXX are all of these terms used within this version of the document?
        </t>
-       <section title="AVP">
-         <t>
-           An Attribute-Value Pair or AVP is another name a TACACS+ argument as defined in <xref target="RFC8907"/> Sections 6.1 and 8.
-         </t>
-       </section>
-       <section title="Empty Value">
-         <t>
-           An empty or zero-length value of an AVP as defined in <xref target="RFC8907"/> Sections 8.1.
-         </t>
-       </section>
        <section title="Unsecure Connection">
          <t>
            This is another term for a Connection as defined in <xref target="RFC8907">TACACS+ Protocol</xref>.
