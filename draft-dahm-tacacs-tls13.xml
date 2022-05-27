@@ -10,7 +10,7 @@
   <!ENTITY wj     "&#8288;">
 ]>
 <rfc docName="draft-dahm-tacacs-tls13-00"
-     category="info"
+     category="std"
      ipr="trust200902"
      submissionType='IETF'
      consensus="true"
@@ -49,7 +49,7 @@
          <email>dcmgash@cisco.com</email>
        </address>
      </author>
-      
+
      <author fullname="Andrej Ota" initials="A." surname="Ota">
        <address>
          <postal>
@@ -59,6 +59,19 @@
            <country></country>
          </postal>
          <email>andrej@ota.si</email>
+       </address>
+     </author>
+
+     <author fullname="John Heasley" initials="J." surname="Heasley">
+       <organization abbrev="NTT">NTT</organization>
+       <address>
+         <postal>
+           <street></street>
+           <code></code>
+           <city></city>
+           <country></country>
+         </postal>
+         <email>heas@shrubbery.net</email>
        </address>
      </author>
 

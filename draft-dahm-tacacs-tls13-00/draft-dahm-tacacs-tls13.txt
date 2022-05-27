@@ -5,9 +5,12 @@
 Operations and Management Area Working Group                     T. Dahm
 Internet-Draft                                                          
 Updates: RFC8097 (if approved)                                   D. Gash
-Intended status: Informational                       Cisco Systems, Inc.
-Expires: 26 November 2022                                         A. Ota
-                                                             25 May 2022
+Intended status: Standards Track                     Cisco Systems, Inc.
+Expires: 28 November 2022                                         A. Ota
+                                                                        
+                                                              J. Heasley
+                                                                     NTT
+                                                             27 May 2022
 
 
                             TACACS+ TLS 1.3
@@ -45,15 +48,12 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 26 November 2022.
+   This Internet-Draft will expire on 28 November 2022.
 
 
 
 
-
-
-
-Dahm, et al.            Expires 26 November 2022                [Page 1]
+Dahm, et al.            Expires 28 November 2022                [Page 1]
 
 Internet-Draft               TACACS+ TLS 1.3                    May 2022
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Dahm, et al.            Expires 26 November 2022                [Page 2]
+Dahm, et al.            Expires 28 November 2022                [Page 2]
 
 Internet-Draft               TACACS+ TLS 1.3                    May 2022
 
@@ -165,7 +165,7 @@ Internet-Draft               TACACS+ TLS 1.3                    May 2022
 
 
 
-Dahm, et al.            Expires 26 November 2022                [Page 3]
+Dahm, et al.            Expires 28 November 2022                [Page 3]
 
 Internet-Draft               TACACS+ TLS 1.3                    May 2022
 
@@ -221,7 +221,7 @@ Internet-Draft               TACACS+ TLS 1.3                    May 2022
 
 
 
-Dahm, et al.            Expires 26 November 2022                [Page 4]
+Dahm, et al.            Expires 28 November 2022                [Page 4]
 
 Internet-Draft               TACACS+ TLS 1.3                    May 2022
 
@@ -277,7 +277,7 @@ Internet-Draft               TACACS+ TLS 1.3                    May 2022
 
 
 
-Dahm, et al.            Expires 26 November 2022                [Page 5]
+Dahm, et al.            Expires 28 November 2022                [Page 5]
 
 Internet-Draft               TACACS+ TLS 1.3                    May 2022
 
@@ -333,7 +333,7 @@ Internet-Draft               TACACS+ TLS 1.3                    May 2022
 
 
 
-Dahm, et al.            Expires 26 November 2022                [Page 6]
+Dahm, et al.            Expires 28 November 2022                [Page 6]
 
 Internet-Draft               TACACS+ TLS 1.3                    May 2022
 
@@ -389,7 +389,7 @@ Internet-Draft               TACACS+ TLS 1.3                    May 2022
 
 
 
-Dahm, et al.            Expires 26 November 2022                [Page 7]
+Dahm, et al.            Expires 28 November 2022                [Page 7]
 
 Internet-Draft               TACACS+ TLS 1.3                    May 2022
 
@@ -445,7 +445,7 @@ Internet-Draft               TACACS+ TLS 1.3                    May 2022
 
 
 
-Dahm, et al.            Expires 26 November 2022                [Page 8]
+Dahm, et al.            Expires 28 November 2022                [Page 8]
 
 Internet-Draft               TACACS+ TLS 1.3                    May 2022
 
@@ -501,7 +501,7 @@ Internet-Draft               TACACS+ TLS 1.3                    May 2022
 
 
 
-Dahm, et al.            Expires 26 November 2022                [Page 9]
+Dahm, et al.            Expires 28 November 2022                [Page 9]
 
 Internet-Draft               TACACS+ TLS 1.3                    May 2022
 
@@ -557,7 +557,7 @@ Internet-Draft               TACACS+ TLS 1.3                    May 2022
 
 
 
-Dahm, et al.            Expires 26 November 2022               [Page 10]
+Dahm, et al.            Expires 28 November 2022               [Page 10]
 
 Internet-Draft               TACACS+ TLS 1.3                    May 2022
 
@@ -601,6 +601,10 @@ Authors' Addresses
    Email: andrej@ota.si
 
 
+   John Heasley
+   NTT
+
+   Email: heas@shrubbery.net
 
 
 
@@ -609,8 +613,4 @@ Authors' Addresses
 
 
 
-
-
-
-
-Dahm, et al.            Expires 26 November 2022               [Page 11]
+Dahm, et al.            Expires 28 November 2022               [Page 11]
