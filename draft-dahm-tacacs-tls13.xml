@@ -161,7 +161,7 @@
        </section>
        <section title="TLS Connection" anchor="TLSConn">
          <t>
-           A TACACS+ Client initiates a TLS connection by making a TCP connection to a configured Server on the TACACS+ TLS well-known port (<xref target="TLSPort"/>).
+           A TACACS+ Client initiates a TLS connection by making a TCP connection to a configured Server on the TACACS+ TLS well-known port ([TBD]) (<xref target="TLSPort"/>).
            Once the TCP connection is established, the Client MUST immediately begin the TLS negotiation before sending any TACACS+ protocol data.
          </t>
          <t>
@@ -318,8 +318,8 @@
 
      <section title="IANA Considerations" anchor="ICTBD">
        <t>
-         The authors request that, when this draft is accepted by the working group, the OPSAWG Chairs submit a request to IANA for an early allocation, per <xref target="RFC4020"/> and <xref target="RFC6335"/>, of a new well-known system TCP/IP port number for the service name "tacacss", described as "TACACS+ over TLS".
-         The service name "tacacss" follows the common practice of appending an "s" to the name given of the non-TLS well-known port name.
+         The authors request that, when this draft is accepted by the working group, the OPSAWG Chairs submit a request to IANA for an early allocation, per <xref target="RFC4020"/> and <xref target="RFC6335"/>, of a new well-known system TCP/IP port number for the service name "tacacss" (referenced in this document also as "TACACS+ TLS well-known port ([TBD])"), described as "TACACS+ over TLS".
+         The service name "tacacss" follows the common practice of appending an "s" to the name given to the non-TLS well-known port name.
          This allocation is justified in <xref target="wellknown"/>.
        </t>
        <t>
