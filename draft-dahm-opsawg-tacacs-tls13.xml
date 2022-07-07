@@ -239,11 +239,14 @@
          Peers MUST NOT use Obfuscation with TLS.
        </t>
        <t>
-         The TACACS+ server or client receiving TACACS+ Packets MUST process the packet as if TAC_PLUS_UNENCRYPTED_FLAG was set, thereby assuming that Obfuscation is not used.
-         The actual value of the TAC_PLUS_UNENCRYPTED_FLAG flag in the TACACS+ header MUST be ignored.
+         A TACACS+ client initiating a TACACS+ TLS connection MUST set the TAC_PLUS_UNENCRYPTED_FLAG bit, thereby asserting that Obfuscation is not used for the Session.
+         All subsequent packages MUST have the TAC_PLUS_UNENCRYPTED_FLAG set.
        </t>
        <t>
-         Peers SHOULD set the TAC_PLUS_UNENCRYPTED_FLAG flag in the Packet Header of packets on TLS Connections, indicating that the Obfuscation is not used.
+        A TACACS+ server that receives a packet with the TAC_PLUS_UNENCRYPTED_FLAG not set (cleared), MUST return the error TAC_PLUS_AUTHEN_STATUS_FAIL, TAC_PLUS_AUTHOR_STATUS_FAIL, or TAC_PLUS_ACCT_STATUS_ERROR as appropriate for the TACACS+ message type and terminate the Session.
+       </t>
+       <t>
+	A TACACS+ client that receives a packet with the TAC_PLUS_UNENCRYPTED_FLAG not set (cleared), MUST terminate the Session.
        </t>
      </section>
 
