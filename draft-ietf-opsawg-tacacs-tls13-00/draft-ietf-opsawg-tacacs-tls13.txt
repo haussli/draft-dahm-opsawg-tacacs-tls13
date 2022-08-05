@@ -6,15 +6,15 @@ Operations and Management Area Working Group                     T. Dahm
 Internet-Draft                                                          
 Updates: RFC8907 (if approved)                                   D. Gash
 Intended status: Standards Track                     Cisco Systems, Inc.
-Expires: 5 December 2022                                          A. Ota
+Expires: 6 February 2023                                          A. Ota
                                                                         
                                                               J. Heasley
                                                                      NTT
-                                                             3 June 2022
+                                                           5 August 2022
 
 
                             TACACS+ TLS 1.3
-                   draft-dahm-opsawg-tacacs-tls13-00
+                   draft-ietf-opsawg-tacacs-tls13-00
 
 Abstract
 
@@ -48,14 +48,14 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 5 December 2022.
+   This Internet-Draft will expire on 6 February 2023.
 
 
 
 
-Dahm, et al.             Expires 5 December 2022                [Page 1]
+Dahm, et al.             Expires 6 February 2023                [Page 1]
 
-Internet-Draft               TACACS+ TLS 1.3                   June 2022
+Internet-Draft               TACACS+ TLS 1.3                 August 2022
 
 
 Copyright Notice
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Dahm, et al.             Expires 5 December 2022                [Page 2]
+Dahm, et al.             Expires 6 February 2023                [Page 2]
 
-Internet-Draft               TACACS+ TLS 1.3                   June 2022
+Internet-Draft               TACACS+ TLS 1.3                 August 2022
 
 
 1.  Introduction
@@ -165,9 +165,9 @@ Internet-Draft               TACACS+ TLS 1.3                   June 2022
 
 
 
-Dahm, et al.             Expires 5 December 2022                [Page 3]
+Dahm, et al.             Expires 6 February 2023                [Page 3]
 
-Internet-Draft               TACACS+ TLS 1.3                   June 2022
+Internet-Draft               TACACS+ TLS 1.3                 August 2022
 
 
 3.  TLS for TACACS+
@@ -221,9 +221,9 @@ Internet-Draft               TACACS+ TLS 1.3                   June 2022
 
 
 
-Dahm, et al.             Expires 5 December 2022                [Page 4]
+Dahm, et al.             Expires 6 February 2023                [Page 4]
 
-Internet-Draft               TACACS+ TLS 1.3                   June 2022
+Internet-Draft               TACACS+ TLS 1.3                 August 2022
 
 
    Implementations MUST support TLS 1.3 [RFC8446] and MAY permit TLS 1.3
@@ -277,9 +277,9 @@ Internet-Draft               TACACS+ TLS 1.3                   June 2022
 
 
 
-Dahm, et al.             Expires 5 December 2022                [Page 5]
+Dahm, et al.             Expires 6 February 2023                [Page 5]
 
-Internet-Draft               TACACS+ TLS 1.3                   June 2022
+Internet-Draft               TACACS+ TLS 1.3                 August 2022
 
 
 3.3.  TLS Identification
@@ -333,9 +333,9 @@ Internet-Draft               TACACS+ TLS 1.3                   June 2022
 
 
 
-Dahm, et al.             Expires 5 December 2022                [Page 6]
+Dahm, et al.             Expires 6 February 2023                [Page 6]
 
-Internet-Draft               TACACS+ TLS 1.3                   June 2022
+Internet-Draft               TACACS+ TLS 1.3                 August 2022
 
 
 5.1.  TLS
@@ -389,9 +389,9 @@ Internet-Draft               TACACS+ TLS 1.3                   June 2022
 
 
 
-Dahm, et al.             Expires 5 December 2022                [Page 7]
+Dahm, et al.             Expires 6 February 2023                [Page 7]
 
-Internet-Draft               TACACS+ TLS 1.3                   June 2022
+Internet-Draft               TACACS+ TLS 1.3                 August 2022
 
 
 5.1.4.  TLS Options
@@ -445,9 +445,9 @@ Internet-Draft               TACACS+ TLS 1.3                   June 2022
 
 
 
-Dahm, et al.             Expires 5 December 2022                [Page 8]
+Dahm, et al.             Expires 6 February 2023                [Page 8]
 
-Internet-Draft               TACACS+ TLS 1.3                   June 2022
+Internet-Draft               TACACS+ TLS 1.3                 August 2022
 
 
    TLS.  Furthermore, Peers SHOULD be configurable to limit offered or
@@ -501,9 +501,9 @@ Internet-Draft               TACACS+ TLS 1.3                   June 2022
 
 
 
-Dahm, et al.             Expires 5 December 2022                [Page 9]
+Dahm, et al.             Expires 6 February 2023                [Page 9]
 
-Internet-Draft               TACACS+ TLS 1.3                   June 2022
+Internet-Draft               TACACS+ TLS 1.3                 August 2022
 
 
    [RFC5425]  Miao, F., Ed., Ma, Y., Ed., and J. Salowey, Ed.,
@@ -526,7 +526,7 @@ Internet-Draft               TACACS+ TLS 1.3                   June 2022
               DOI 10.17487/RFC8773, March 2020,
               <https://www.rfc-editor.org/info/rfc8773>.
 
-   [RFC8907]  Dahm, T., Ota, A., Medway Gash, D.C., Carrel, D., and L.
+   [RFC8907]  Dahm, T., Ota, A., Medway Gash, D C., Carrel, D., and L.
               Grant, "The Terminal Access Controller Access-Control
               System Plus (TACACS+) Protocol", RFC 8907,
               DOI 10.17487/RFC8907, September 2020,
@@ -538,9 +538,9 @@ Internet-Draft               TACACS+ TLS 1.3                   June 2022
               Housley, R., Hoyland, J., Sethi, M., and C. A. Wood,
               "Guidance for External PSK Usage in TLS", Work in
               Progress, Internet-Draft, draft-ietf-tls-external-psk-
-              guidance-06, 4 February 2022,
-              <https://datatracker.ietf.org/doc/html/draft-ietf-tls-
-              external-psk-guidance-06>.
+              guidance-06, February 2022,
+              <https://www.ietf.org/archive/id/draft-ietf-tls-external-
+              psk-guidance-06.txt>.
 
    [RFC3365]  Schiller, J., "Strong Security Requirements for Internet
               Engineering Task Force Standard Protocols", BCP 61,
@@ -557,9 +557,9 @@ Internet-Draft               TACACS+ TLS 1.3                   June 2022
 
 
 
-Dahm, et al.             Expires 5 December 2022               [Page 10]
+Dahm, et al.             Expires 6 February 2023               [Page 10]
 
-Internet-Draft               TACACS+ TLS 1.3                   June 2022
+Internet-Draft               TACACS+ TLS 1.3                 August 2022
 
 
    [RFC6335]  Cotton, M., Eggert, L., Touch, J., Westerlund, M., and S.
@@ -613,4 +613,4 @@ Authors' Addresses
 
 
 
-Dahm, et al.             Expires 5 December 2022               [Page 11]
+Dahm, et al.             Expires 6 February 2023               [Page 11]
