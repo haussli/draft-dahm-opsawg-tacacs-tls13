@@ -9,7 +9,7 @@
   <!ENTITY nbhy   "&#8209;">
   <!ENTITY wj     "&#8288;">
 ]>
-<rfc docName="draft-dahm-opsawg-tacacs-tls13-01"
+<rfc docName="draft-ietf-opsawg-tacacs-tls13-01"
      category="std"
      ipr="trust200902"
      submissionType='IETF'
