@@ -232,7 +232,7 @@
          It is insufficient for modern purposes.
        </t>
        <t>   
-         The introduction of TLS PSK and certificate Peer authentication and TLS encryption to TACACS+ replaces these former mechanisms and so Obfuscation is hereby obsoleted.
+         The introduction of TLS PSK, certificate Peer authentication, and TLS encryption to TACACS+ replaces these former mechanisms and so Obfuscation is hereby obsoleted.
          This section describes how the TACACS+ client and servers MUST operate with regards to the obfuscation mechanism.
        </t>
        <t>
@@ -240,10 +240,10 @@
        </t>
        <t>
          A TACACS+ client initiating a TACACS+ TLS connection MUST set the TAC_PLUS_UNENCRYPTED_FLAG bit, thereby asserting that Obfuscation is not used for the Session.
-         All subsequent packages MUST have the TAC_PLUS_UNENCRYPTED_FLAG set.
+         All subsequent packets MUST have the TAC_PLUS_UNENCRYPTED_FLAG set.
        </t>
        <t>
-        A TACACS+ server that receives a packet with the TAC_PLUS_UNENCRYPTED_FLAG not set (cleared), MUST return the error TAC_PLUS_AUTHEN_STATUS_FAIL, TAC_PLUS_AUTHOR_STATUS_FAIL, or TAC_PLUS_ACCT_STATUS_ERROR as appropriate for the TACACS+ message type and terminate the Session.
+        A TACACS+ server that receives a packet with the TAC_PLUS_UNENCRYPTED_FLAG not set (cleared), MUST return an error of TAC_PLUS_AUTHEN_STATUS_FAIL, TAC_PLUS_AUTHOR_STATUS_FAIL, or TAC_PLUS_ACCT_STATUS_ERROR as appropriate for the TACACS+ message type and terminate the Session.
        </t>
        <t>
 	A TACACS+ client that receives a packet with the TAC_PLUS_UNENCRYPTED_FLAG not set (cleared), MUST terminate the Session.
