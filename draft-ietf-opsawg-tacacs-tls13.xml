@@ -243,10 +243,10 @@
          All subsequent packets MUST have the TAC_PLUS_UNENCRYPTED_FLAG set.
        </t>
        <t>
-        A TACACS+ server that receives a packet with the TAC_PLUS_UNENCRYPTED_FLAG not set (cleared), MUST return an error of TAC_PLUS_AUTHEN_STATUS_FAIL, TAC_PLUS_AUTHOR_STATUS_FAIL, or TAC_PLUS_ACCT_STATUS_ERROR as appropriate for the TACACS+ message type and terminate the Session.
+        A TACACS+ server that receives a packet with the TAC_PLUS_UNENCRYPTED_FLAG not set (cleared) over a TLS connection, MUST return an error of TAC_PLUS_AUTHEN_STATUS_ERROR, TAC_PLUS_AUTHOR_STATUS_ERROR, or TAC_PLUS_ACCT_STATUS_ERROR as appropriate for the TACACS+ message type, with the TAC_PLUS_UNENCRYPTED_FLAG set, and terminate the Session.
        </t>
        <t>
-	A TACACS+ client that receives a packet with the TAC_PLUS_UNENCRYPTED_FLAG not set (cleared), MUST terminate the Session.
+	A TACACS+ client that receives a packet with the TAC_PLUS_UNENCRYPTED_FLAG not set (cleared), MUST terminate the Session, and SHOULD log this error.
        </t>
      </section>
 
