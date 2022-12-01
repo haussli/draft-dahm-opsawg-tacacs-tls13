@@ -9,7 +9,7 @@
   <!ENTITY nbhy   "&#8209;">
   <!ENTITY wj     "&#8288;">
 ]>
-<rfc docName="draft-ietf-opsawg-tacacs-tls13-01"
+<rfc docName="draft-ietf-opsawg-tacacs-tls13-02"
      category="std"
      ipr="trust200902"
      submissionType='IETF'
@@ -244,6 +244,7 @@
        </t>
        <t>
         A TACACS+ server that receives a packet with the TAC_PLUS_UNENCRYPTED_FLAG not set (cleared) over a TLS connection, MUST return an error of TAC_PLUS_AUTHEN_STATUS_ERROR, TAC_PLUS_AUTHOR_STATUS_ERROR, or TAC_PLUS_ACCT_STATUS_ERROR as appropriate for the TACACS+ message type, with the TAC_PLUS_UNENCRYPTED_FLAG set, and terminate the Session.
+        This behavior corresponds to the behavior defined in <xref target="RFC8907">RFC8907 Section 4.5. Data Obfuscation</xref> for TAC_PLUS_UNENCRYPTED_FLAG or key mismatches.
        </t>
        <t>
 	A TACACS+ client that receives a packet with the TAC_PLUS_UNENCRYPTED_FLAG not set (cleared), MUST terminate the Session, and SHOULD log this error.
