@@ -1349,6 +1349,9 @@ li > p:last-of-type {
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.1.2.5">
                     <p id="section-toc.1-1.5.2.1.2.5.1"><a href="#section-5.1.5" class="xref">5.1.5</a>.  <a href="#name-unreachable-certificate-aut" class="xref">Unreachable Certificate Authority (CA)</a></p>
 </li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.1.2.6">
+                    <p id="section-toc.1-1.5.2.1.2.6.1"><a href="#section-5.1.6" class="xref">5.1.6</a>.  <a href="#name-tls-server-name-indicator-s" class="xref">TLS Server Name Indicator (SNI)</a></p>
+</li>
                 </ul>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2">
@@ -1521,12 +1524,15 @@ li > p:last-of-type {
 <p id="section-3.3-1">
            In addition to authentication of TLS certificates, implementations MUST support policy consideration of Peer-identifying certificate fields and policy used to verify that the Peer is a valid source for the received certificate and that it is permitted access to TACACS+.
            Implementations MUST support either:<a href="#section-3.3-1" class="pilcrow">¶</a></p>
-<p id="section-3.3-2">Network location based validation methods as described in <span>[<a href="#RFC5425" class="xref">RFC5425</a>], <a href="https://rfc-editor.org/rfc/rfc5425#section-5.2." class="relref">Section 5.2.</a></span><a href="#section-3.3-2" class="pilcrow">¶</a></p>
+<p id="section-3.3-2">Network location based validation methods as described in <span>[<a href="#RFC5425" class="xref">RFC5425</a>], <a href="https://rfc-editor.org/rfc/rfc5425#section-5.2" class="relref">Section 5.2</a></span>.<a href="#section-3.3-2" class="pilcrow">¶</a></p>
 <p id="section-3.3-3">or<a href="#section-3.3-3" class="pilcrow">¶</a></p>
 <p id="section-3.3-4">
      Device Identity based validation methods where the peer's identity is used in the certificate subjectName. This is applicable in deployments where the device securely supports an identity which is shared with its peer.
            This approach allows a peer's network location to be reconfigured without issuing a new client certificate.
            Only the local server mapping needs to be updated.<a href="#section-3.3-4" class="pilcrow">¶</a></p>
+<p id="section-3.3-5">
+           Implementations SHOULD support the TLS Server Name Inidication extension (<span>[<a href="#RFC6066" class="xref">RFC6066</a>], <a href="https://rfc-editor.org/rfc/rfc6066#section-3" class="relref">Section 3</a></span>).
+           Policy can be applied to this attribute and it can be useful for load balancing or multiplexing at the server.<a href="#section-3.3-5" class="pilcrow">¶</a></p>
 </section>
 </section>
 <div id="ObsolescenceOfTACACSObfuscation">
@@ -1620,6 +1626,16 @@ li > p:last-of-type {
              Certificate fingerprints are another option.<a href="#section-5.1.5-2" class="pilcrow">¶</a></p>
 </section>
 </div>
+<div id="TLSSNISec">
+<section id="section-5.1.6">
+          <h4 id="name-tls-server-name-indicator-s">
+<a href="#section-5.1.6" class="section-number selfRef">5.1.6. </a><a href="#name-tls-server-name-indicator-s" class="section-name selfRef">TLS Server Name Indicator (SNI)</a>
+          </h4>
+<p id="section-5.1.6-1">
+             Operators SHOULD be aware that the TLS SNI extension is part of the TLS client hello, and is therefore subject to eavesdropping.
+             Also see <span>[<a href="#RFC6066" class="xref">RFC6066</a>], <a href="https://rfc-editor.org/rfc/rfc6066#section-11.1" class="relref">Section 11.1</a></span>.<a href="#section-5.1.6-1" class="pilcrow">¶</a></p>
+</section>
+</div>
 </section>
 <div id="wellknown">
 <section id="section-5.2">
@@ -1707,6 +1723,10 @@ li > p:last-of-type {
 <dt id="RFC5425">[RFC5425]</dt>
       <dd>
 <span class="refAuthor">Miao, F., Ed.</span>, <span class="refAuthor">Ma, Y., Ed.</span>, and <span class="refAuthor">J. Salowey, Ed.</span>, <span class="refTitle">"Transport Layer Security (TLS) Transport Mapping for Syslog"</span>, <span class="seriesInfo">RFC 5425</span>, <span class="seriesInfo">DOI 10.17487/RFC5425</span>, <time datetime="2009-03" class="refDate">March 2009</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc5425">https://www.rfc-editor.org/info/rfc5425</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC6066">[RFC6066]</dt>
+      <dd>
+<span class="refAuthor">Eastlake 3rd, D.</span>, <span class="refTitle">"Transport Layer Security (TLS) Extensions: Extension Definitions"</span>, <span class="seriesInfo">RFC 6066</span>, <span class="seriesInfo">DOI 10.17487/RFC6066</span>, <time datetime="2011-01" class="refDate">January 2011</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc6066">https://www.rfc-editor.org/info/rfc6066</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC7525">[RFC7525]</dt>
       <dd>

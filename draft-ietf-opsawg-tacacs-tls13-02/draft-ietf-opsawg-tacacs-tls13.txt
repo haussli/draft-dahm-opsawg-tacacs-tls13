@@ -94,14 +94,14 @@ Table of Contents
        5.1.3.  TLS PSK . . . . . . . . . . . . . . . . . . . . . . .   8
        5.1.4.  TLS Options . . . . . . . . . . . . . . . . . . . . .   8
        5.1.5.  Unreachable Certificate Authority (CA)  . . . . . . .   8
+       5.1.6.  TLS Server Name Indicator (SNI) . . . . . . . . . . .   8
      5.2.  Well-Known TCP/IP Port  . . . . . . . . . . . . . . . . .   8
    6.  Operator Considerations . . . . . . . . . . . . . . . . . . .   9
    7.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   9
    8.  Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .  10
    9.  Normative References  . . . . . . . . . . . . . . . . . . . .  10
    10. Informative References  . . . . . . . . . . . . . . . . . . .  11
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  11
-
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  12
 
 
 
@@ -307,6 +307,11 @@ Internet-Draft               TACACS+ TLS 1.3                  March 2023
    to be reconfigured without issuing a new client certificate.  Only
    the local server mapping needs to be updated.
 
+   Implementations SHOULD support the TLS Server Name Inidication
+   extension ([RFC6066], Section 3).  Policy can be applied to this
+   attribute and it can be useful for load balancing or multiplexing at
+   the server.
+
 4.  Obsolescence of TACACS+ Obfuscation
 
    The original draft of TACACS+ described the Obfuscation mechanism,
@@ -326,11 +331,6 @@ Internet-Draft               TACACS+ TLS 1.3                  March 2023
    not used for the Session.  All subsequent packets MUST have the
    TAC_PLUS_UNENCRYPTED_FLAG set.
 
-   A TACACS+ server that receives a packet with the
-   TAC_PLUS_UNENCRYPTED_FLAG not set (cleared) over a TLS connection,
-   MUST return an error of TAC_PLUS_AUTHEN_STATUS_ERROR,
-   TAC_PLUS_AUTHOR_STATUS_ERROR, or TAC_PLUS_ACCT_STATUS_ERROR as
-
 
 
 Dahm, et al.            Expires 14 September 2023               [Page 6]
@@ -338,6 +338,10 @@ Dahm, et al.            Expires 14 September 2023               [Page 6]
 Internet-Draft               TACACS+ TLS 1.3                  March 2023
 
 
+   A TACACS+ server that receives a packet with the
+   TAC_PLUS_UNENCRYPTED_FLAG not set (cleared) over a TLS connection,
+   MUST return an error of TAC_PLUS_AUTHEN_STATUS_ERROR,
+   TAC_PLUS_AUTHOR_STATUS_ERROR, or TAC_PLUS_ACCT_STATUS_ERROR as
    appropriate for the TACACS+ message type, with the
    TAC_PLUS_UNENCRYPTED_FLAG set, and terminate the Session.  This
    behavior corresponds to the behavior defined in RFC8907 Section 4.5.
@@ -385,10 +389,6 @@ Internet-Draft               TACACS+ TLS 1.3                  March 2023
 
 
 
-
-
-
-
 Dahm, et al.            Expires 14 September 2023               [Page 7]
 
 Internet-Draft               TACACS+ TLS 1.3                  March 2023
@@ -427,6 +427,12 @@ Internet-Draft               TACACS+ TLS 1.3                  March 2023
    to help address this, but both are out of scope for this document.
    Certificate fingerprints are another option.
 
+5.1.6.  TLS Server Name Indicator (SNI)
+
+   Operators SHOULD be aware that the TLS SNI extension is part of the
+   TLS client hello, and is therefore subject to eavesdropping.  Also
+   see [RFC6066], Section 11.1.
+
 5.2.  Well-Known TCP/IP Port
 
    A new port is considered appropriate and superior to a "STARTTLS"
@@ -434,12 +440,6 @@ Internet-Draft               TACACS+ TLS 1.3                  March 2023
 
    *  ease of blocking the unobfuscated or obfuscated connections by the
       TCP/IP port number,
-
-   *  passive Intrusion Detection Systems (IDSs) monitoring the
-      unobfuscated to be unaffected by the introduction of TLS,
-
-   *  avoidance of Man in the Middle (MitM) attacks that can interfere
-      with STARTTLS,
 
 
 
@@ -449,6 +449,12 @@ Dahm, et al.            Expires 14 September 2023               [Page 8]
 
 Internet-Draft               TACACS+ TLS 1.3                  March 2023
 
+
+   *  passive Intrusion Detection Systems (IDSs) monitoring the
+      unobfuscated to be unaffected by the introduction of TLS,
+
+   *  avoidance of Man in the Middle (MitM) attacks that can interfere
+      with STARTTLS,
 
    *  and helps prevent the accidental exposure of sensitive information
       due to misconfiguration.
@@ -493,18 +499,15 @@ Internet-Draft               TACACS+ TLS 1.3                  March 2023
    practice of appending an "s" to the name given to the non-TLS well-
    known port name.  This allocation is justified in Section 5.2.
 
-   RFC EDITOR: this port number should replace "[TBD]" and the service
-   name should replace "[TBDN]" within this document.
-
-
-
-
 
 
 Dahm, et al.            Expires 14 September 2023               [Page 9]
 
 Internet-Draft               TACACS+ TLS 1.3                  March 2023
 
+
+   RFC EDITOR: this port number should replace "[TBD]" and the service
+   name should replace "[TBDN]" within this document.
 
 8.  Acknowledgments
 
@@ -534,6 +537,11 @@ Internet-Draft               TACACS+ TLS 1.3                  March 2023
               Syslog", RFC 5425, DOI 10.17487/RFC5425, March 2009,
               <https://www.rfc-editor.org/info/rfc5425>.
 
+   [RFC6066]  Eastlake 3rd, D., "Transport Layer Security (TLS)
+              Extensions: Extension Definitions", RFC 6066,
+              DOI 10.17487/RFC6066, January 2011,
+              <https://www.rfc-editor.org/info/rfc6066>.
+
    [RFC7525]  Sheffer, Y., Holz, R., and P. Saint-Andre,
               "Recommendations for Secure Use of Transport Layer
               Security (TLS) and Datagram Transport Layer Security
@@ -543,6 +551,16 @@ Internet-Draft               TACACS+ TLS 1.3                  March 2023
    [RFC8446]  Rescorla, E., "The Transport Layer Security (TLS) Protocol
               Version 1.3", RFC 8446, DOI 10.17487/RFC8446, August 2018,
               <https://www.rfc-editor.org/info/rfc8446>.
+
+
+
+
+
+
+Dahm, et al.            Expires 14 September 2023              [Page 10]
+
+Internet-Draft               TACACS+ TLS 1.3                  March 2023
+
 
    [RFC8773]  Housley, R., "TLS 1.3 Extension for Certificate-Based
               Authentication with an External Pre-Shared Key", RFC 8773,
@@ -554,13 +572,6 @@ Internet-Draft               TACACS+ TLS 1.3                  March 2023
               System Plus (TACACS+) Protocol", RFC 8907,
               DOI 10.17487/RFC8907, September 2020,
               <https://www.rfc-editor.org/info/rfc8907>.
-
-
-
-Dahm, et al.            Expires 14 September 2023              [Page 10]
-
-Internet-Draft               TACACS+ TLS 1.3                  March 2023
-
 
 10.  Informative References
 
@@ -599,6 +610,14 @@ Internet-Draft               TACACS+ TLS 1.3                  March 2023
               Port Numbers", BCP 165, RFC 7605, DOI 10.17487/RFC7605,
               August 2015, <https://www.rfc-editor.org/info/rfc7605>.
 
+
+
+
+Dahm, et al.            Expires 14 September 2023              [Page 11]
+
+Internet-Draft               TACACS+ TLS 1.3                  March 2023
+
+
    [TLSCSREC] IANA, "Transport Layer Security (TLS) Parameters",
               <https://www.iana.org/assignments/tls-parameters/tls-
               parameters.xhtml#tls-parameters-4>.
@@ -607,15 +626,6 @@ Authors' Addresses
 
    Thorsten Dahm
    Email: thorsten.dahm@gmail.com
-
-
-
-
-
-
-Dahm, et al.            Expires 14 September 2023              [Page 11]
-
-Internet-Draft               TACACS+ TLS 1.3                  March 2023
 
 
    Douglas Gash
@@ -630,16 +640,6 @@ Internet-Draft               TACACS+ TLS 1.3                  March 2023
    John Heasley
    NTT
    Email: heas@shrubbery.net
-
-
-
-
-
-
-
-
-
-
 
 
 

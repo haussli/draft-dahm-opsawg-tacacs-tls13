@@ -218,13 +218,17 @@
            In addition to authentication of TLS certificates, implementations MUST support policy consideration of Peer-identifying certificate fields and policy used to verify that the Peer is a valid source for the received certificate and that it is permitted access to TACACS+.
            Implementations MUST support either:
 	 </t>
-	 <t>Network location based validation methods as described in <xref target="RFC5425" section="5.2." sectionFormat="comma"/>
+	 <t>Network location based validation methods as described in <xref target="RFC5425" section="5.2" sectionFormat="comma"/>.
 	 </t>
          <t>or</t>
          <t>
  	   Device Identity based validation methods where the peer’s identity is used in the certificate subjectName. This is applicable in deployments where the device securely supports an identity which is shared with its peer.
            This approach allows a peer's network location to be reconfigured without issuing a new client certificate.
            Only the local server mapping needs to be updated.
+         </t>
+         <t>
+           Implementations SHOULD support the TLS Server Name Inidication extension (<xref target="RFC6066" section="3" sectionFormat="comma"/>).
+           Policy can be applied to this attribute and it can be useful for load balancing or multiplexing at the server.
          </t>
        </section>
      </section>
@@ -307,6 +311,12 @@
              Certificate fingerprints are another option.
            </t>
          </section>
+         <section title="TLS Server Name Indicator (SNI)" anchor="TLSSNISec">
+           <t>
+             Operators SHOULD be aware that the TLS SNI extension is part of the TLS client hello, and is therefore subject to eavesdropping.
+             Also see <xref target="RFC6066" section="11.1" sectionFormat="comma"/>.
+           </t>
+         </section>
        </section>
 
        <section title="Well-Known TCP/IP Port" anchor="wellknown">
@@ -374,6 +384,7 @@
        </referencegroup>
        <?rfc include="reference.RFC.5280.xml"?>
        <?rfc include="reference.RFC.5425.xml"?>
+       <?rfc include="reference.RFC.6066.xml"?>
        <?rfc include="reference.RFC.7525.xml"?>
        <?rfc include="reference.RFC.8446.xml"?>
        <?rfc include="reference.RFC.8773.xml"?>
