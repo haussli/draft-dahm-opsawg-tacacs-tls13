@@ -184,7 +184,7 @@
          </t>
        <section title="Cipher Requirements">
          <t>
-	   Implementations MUST support the TLS 1.3 mandatory cipher suites (See (<xref target="RFC8446">TLS 1.3</xref> Section 9.1).
+	   Implementations MUST support the TLS 1.3 mandatory cipher suites (See <xref target="RFC8446">TLS 1.3</xref> Section 9.1).
 	   The cipher suites offered or accepted SHOULD be configurable so that operators can adapt.
          </t>
          <t>
@@ -206,6 +206,9 @@
          <section title="TLS Certificate Path Verification" anchor="CertPV">
          <t>
            Implementations MUST support certificate Path verification as described in <xref target="RFC5280"/>.
+         </t>
+         <t>
+           Because a Peer could be isolated from a remote Peer's Certificate Authority (CA), implementations MUST support certificate chains (aka. bundles or chains of trust), where the entire chain of the remote's certificate is stored on the local Peer.
          </t>
          </section>
        </section>
@@ -293,11 +296,14 @@
 	     Useful examples are the TLS specifications themselves (<xref target="RFC8446">TLS 1.3</xref>), which prescribes mandatory support in Section 9, and TLS Recommendations <xref target="RFC7525"/>.
            </t>
          </section>
-         <section title="Unreachable TLS CA" anchor="CAcache">
+         <section title="Unreachable Certificate Authority (CA)" anchor="CAcache">
            <t>
-	     Operators SHOULD be cognizant of the potential of Server and/or Client isolation from their Peer's Certificate Authority (CA) by network failures.
+	     Operators SHOULD be cognizant of the potential of Server and/or Client isolation from their Peer's CA by network failures.
 	     Isolation from a public key certificate's CA will cause the verification of the certificate to fail and thus TLS authentication of the Peer to fail.
-	     Certificate caching and <xref target="RFC7250">Raw Public Keys</xref> are methods to address this, but both are out of scope for this document.
+             Operators SHOULD consider loading certificate chains on devices and servers to avoid this failure.
+           </t>
+           <t>
+	     Certificate caching and <xref target="RFC7250">Raw Public Keys</xref> are other methods to help address this, but both are out of scope for this document.
              Certificate fingerprints are another option.
            </t>
          </section>

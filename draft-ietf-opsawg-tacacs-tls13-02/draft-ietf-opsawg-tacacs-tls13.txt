@@ -91,9 +91,9 @@ Table of Contents
      5.1.  TLS . . . . . . . . . . . . . . . . . . . . . . . . . . .   7
        5.1.1.  TLS Use . . . . . . . . . . . . . . . . . . . . . . .   7
        5.1.2.  TLS 0-RTT . . . . . . . . . . . . . . . . . . . . . .   7
-       5.1.3.  TLS PSK . . . . . . . . . . . . . . . . . . . . . . .   7
+       5.1.3.  TLS PSK . . . . . . . . . . . . . . . . . . . . . . .   8
        5.1.4.  TLS Options . . . . . . . . . . . . . . . . . . . . .   8
-       5.1.5.  Unreachable TLS CA  . . . . . . . . . . . . . . . . .   8
+       5.1.5.  Unreachable TLS Certificate Authority (CA)  . . . . .   8
      5.2.  Well-Known TCP/IP Port  . . . . . . . . . . . . . . . . .   8
    6.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   9
    7.  Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .   9
@@ -246,7 +246,7 @@ Internet-Draft               TACACS+ TLS 1.3                  March 2023
 3.2.1.  Cipher Requirements
 
    Implementations MUST support the TLS 1.3 mandatory cipher suites (See
-   (TLS 1.3 [RFC8446] Section 9.1).  The cipher suites offered or
+   TLS 1.3 [RFC8446] Section 9.1).  The cipher suites offered or
    accepted SHOULD be configurable so that operators can adapt.
 
    This document makes no cipher suite recommendations, but
@@ -281,6 +281,11 @@ Dahm, et al.            Expires 14 September 2023               [Page 5]
 
 Internet-Draft               TACACS+ TLS 1.3                  March 2023
 
+
+   Because a Peer could be isolated from a remote Peer's Certificate
+   Authority (CA), implementations MUST support certificate chains (aka.
+   bundles or chains of trust), where the entire chain of the remote's
+   certificate is stored on the local Peer.
 
 3.3.  TLS Identification
 
@@ -325,11 +330,6 @@ Internet-Draft               TACACS+ TLS 1.3                  March 2023
    TAC_PLUS_UNENCRYPTED_FLAG not set (cleared) over a TLS connection,
    MUST return an error of TAC_PLUS_AUTHEN_STATUS_ERROR,
    TAC_PLUS_AUTHOR_STATUS_ERROR, or TAC_PLUS_ACCT_STATUS_ERROR as
-   appropriate for the TACACS+ message type, with the
-   TAC_PLUS_UNENCRYPTED_FLAG set, and terminate the Session.  This
-   behavior corresponds to the behavior defined in RFC8907 Section 4.5.
-   Data Obfuscation [RFC8907] for TAC_PLUS_UNENCRYPTED_FLAG or key
-   mismatches.
 
 
 
@@ -337,6 +337,12 @@ Dahm, et al.            Expires 14 September 2023               [Page 6]
 
 Internet-Draft               TACACS+ TLS 1.3                  March 2023
 
+
+   appropriate for the TACACS+ message type, with the
+   TAC_PLUS_UNENCRYPTED_FLAG set, and terminate the Session.  This
+   behavior corresponds to the behavior defined in RFC8907 Section 4.5.
+   Data Obfuscation [RFC8907] for TAC_PLUS_UNENCRYPTED_FLAG or key
+   mismatches.
 
    A TACACS+ client that receives a packet with the
    TAC_PLUS_UNENCRYPTED_FLAG not set (cleared), MUST terminate the
@@ -377,6 +383,17 @@ Internet-Draft               TACACS+ TLS 1.3                  March 2023
    handshake completes; that is, Clients MUST NOT send 0-RTT data and
    Servers MAY abruptly disconnect Clients that do.
 
+
+
+
+
+
+
+Dahm, et al.            Expires 14 September 2023               [Page 7]
+
+Internet-Draft               TACACS+ TLS 1.3                  March 2023
+
+
 5.1.3.  TLS PSK
 
    Implementations MAY support TLS authentication with Pre-Shared Keys
@@ -386,13 +403,6 @@ Internet-Draft               TACACS+ TLS 1.3                  March 2023
    Also see [RFC8773] and [I-D.ietf-tls-external-psk-guidance].
 
    PSKs are otherwise considered out-of-scope for this document.
-
-
-
-Dahm, et al.            Expires 14 September 2023               [Page 7]
-
-Internet-Draft               TACACS+ TLS 1.3                  March 2023
-
 
 5.1.4.  TLS Options
 
@@ -404,16 +414,18 @@ Internet-Draft               TACACS+ TLS 1.3                  March 2023
    themselves (TLS 1.3 [RFC8446]), which prescribes mandatory support in
    Section 9, and TLS Recommendations [RFC7525].
 
-5.1.5.  Unreachable TLS CA
+5.1.5.  Unreachable TLS Certificate Authority (CA)
 
    Operators SHOULD be cognizant of the potential of Server and/or
-   Client isolation from their Peer's Certificate Authority (CA) by
-   network failures.  Isolation from a public key certificate's CA will
-   cause the verification of the certificate to fail and thus TLS
-   authentication of the Peer to fail.  Certificate caching and Raw
-   Public Keys [RFC7250] are methods to address this, but both are out
-   of scope for this document.  Certificate fingerprints are another
-   option.
+   Client isolation from their Peer's CA by network failures.  Isolation
+   from a public key certificate's CA will cause the verification of the
+   certificate to fail and thus TLS authentication of the Peer to fail.
+   Operators SHOULD consider loading certificate chains on devices and
+   servers to avoid this failure.
+
+   Certificate caching and Raw Public Keys [RFC7250] are other methods
+   to help address this, but both are out of scope for this document.
+   Certificate fingerprints are another option.
 
 5.2.  Well-Known TCP/IP Port
 
@@ -429,18 +441,6 @@ Internet-Draft               TACACS+ TLS 1.3                  March 2023
    *  avoidance of Man in the Middle (MitM) attacks that can interfere
       with STARTTLS,
 
-   *  and helps prevent the accidental exposure of sensitive information
-      due to misconfiguration.
-
-   However, co-existence of inferior authentication and obfuscated,
-   whether an Unsecure Connection or deprecated parts that compose TLS,
-   also presents opportunity for down-grade attacks.  Causing failure of
-   connections to the TLS-enabled service or the negotiation of shared
-   algorithm support are two such down-grade attacks.
-
-
-
-
 
 
 
@@ -449,6 +449,15 @@ Dahm, et al.            Expires 14 September 2023               [Page 8]
 
 Internet-Draft               TACACS+ TLS 1.3                  March 2023
 
+
+   *  and helps prevent the accidental exposure of sensitive information
+      due to misconfiguration.
+
+   However, co-existence of inferior authentication and obfuscated,
+   whether an Unsecure Connection or deprecated parts that compose TLS,
+   also presents opportunity for down-grade attacks.  Causing failure of
+   connections to the TLS-enabled service or the negotiation of shared
+   algorithm support are two such down-grade attacks.
 
    Servers and Clients could maintain a cache of Peers that have engaged
    in TACACS+ TLS connections and demand TLS from that point forward.
@@ -489,15 +498,6 @@ Internet-Draft               TACACS+ TLS 1.3                  March 2023
 
 8.  Normative References
 
-   [BCP14]    Bradner, S., "Key words for use in RFCs to Indicate
-              Requirement Levels", BCP 14, RFC 2119, March 1997.
-
-              Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
-              2119 Key Words", BCP 14, RFC 8174, May 2017.
-
-              <https://www.rfc-editor.org/bcp/bcp14.txt>
-
-
 
 
 
@@ -505,6 +505,14 @@ Dahm, et al.            Expires 14 September 2023               [Page 9]
 
 Internet-Draft               TACACS+ TLS 1.3                  March 2023
 
+
+   [BCP14]    Bradner, S., "Key words for use in RFCs to Indicate
+              Requirement Levels", BCP 14, RFC 2119, March 1997.
+
+              Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
+              2119 Key Words", BCP 14, RFC 8174, May 2017.
+
+              <https://www.rfc-editor.org/bcp/bcp14.txt>
 
    [RFC5280]  Cooper, D., Santesson, S., Farrell, S., Boeyen, S.,
               Housley, R., and W. Polk, "Internet X.509 Public Key
@@ -540,6 +548,20 @@ Internet-Draft               TACACS+ TLS 1.3                  March 2023
 
 9.  Informative References
 
+
+
+
+
+
+
+
+
+
+Dahm, et al.            Expires 14 September 2023              [Page 10]
+
+Internet-Draft               TACACS+ TLS 1.3                  March 2023
+
+
    [I-D.ietf-tls-external-psk-guidance]
               Housley, R., Hoyland, J., Sethi, M., and C. A. Wood,
               "Guidance for External Pre-Shared Key (PSK) Usage in TLS",
@@ -552,15 +574,6 @@ Internet-Draft               TACACS+ TLS 1.3                  March 2023
               Engineering Task Force Standard Protocols", BCP 61,
               RFC 3365, DOI 10.17487/RFC3365, August 2002,
               <https://www.rfc-editor.org/info/rfc3365>.
-
-
-
-
-
-Dahm, et al.            Expires 14 September 2023              [Page 10]
-
-Internet-Draft               TACACS+ TLS 1.3                  March 2023
-
 
    [RFC4020]  Kompella, K. and A. Zinin, "Early IANA Allocation of
               Standards Track Code Points", RFC 4020,
@@ -599,6 +612,12 @@ Authors' Addresses
    Email: dcmgash@cisco.com
 
 
+
+Dahm, et al.            Expires 14 September 2023              [Page 11]
+
+Internet-Draft               TACACS+ TLS 1.3                  March 2023
+
+
    Andrej Ota
    Email: andrej@ota.si
 
@@ -613,4 +632,41 @@ Authors' Addresses
 
 
 
-Dahm, et al.            Expires 14 September 2023              [Page 11]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Dahm, et al.            Expires 14 September 2023              [Page 12]
