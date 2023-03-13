@@ -332,13 +332,6 @@
        </section>
      </section>
 
-     <section title="Operator Considerations" anchor="OPSCONS">
-       <t>
-	 Operational and deployments considerations are largely spread throughout the document.
-	 While avoiding repetition, it is useful for the impatient to direct particular attention to <xref target="wellknown"/>
-       </t>
-     </section>
-
      <section title="IANA Considerations" anchor="ICTBD">
        <t>
          The authors request that, when this draft is accepted by the working group, the OPSAWG Chairs submit a request to IANA for an early allocation, per <xref target="RFC4020"/> and <xref target="RFC6335"/>, of a new well-known system TCP/IP port number for the service name "tacacss" (referenced in this document also as "TACACS+ TLS well-known port ([TBD])"), described as "TACACS+ over TLS".
