@@ -179,12 +179,12 @@
          <t>
 	   The connection persists until the Server or Client closes it.
 	   It might be closed due to an error or at the conclusion of the TACACS+ Session.
-	   If Single Connection Mode has been negotiated, it might remain open after a successful Session, until an error or a timeout occurs.
+	   If Single Connection Mode has been negotiated, it might remain open after a successful Session, until an error or an inactivity timeout occurs.
 	   Why it closed has no bearing on TLS resumption, unless closed by a TLS error, in which case the ticket might be invalidated.
          </t>
        <section title="Cipher Requirements">
          <t>
-	   Implementations MUST support the TLS 1.3 mandatory cipher suites (See RFC8446 Section 9.1).
+	   Implementations MUST support the TLS 1.3 mandatory cipher suites (See (<xref target="RFC8446">TLS 1.3</xref> Section 9.1).
 	   The cipher suites offered or accepted SHOULD be configurable so that operators can adapt.
          </t>
          <t>
@@ -330,6 +330,13 @@
            Furthermore, Peers SHOULD be configurable to limit offered or recognized TLS versions and algorithms to those recommended by standards bodies and implementers.
          </t>
        </section>
+     </section>
+
+     <section title="Operator Considerations" anchor="OPSCONS">
+       <t>
+	 Operational and deployments considerations are largely spread throughout the document.
+	 While avoiding repetition, it is useful for the impatient to direct particular attention to <xref target="wellknown"/>
+       </t>
      </section>
 
      <section title="IANA Considerations" anchor="ICTBD">
