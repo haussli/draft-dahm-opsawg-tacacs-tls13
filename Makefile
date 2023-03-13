@@ -1,5 +1,5 @@
 BASENAME= draft-ietf-opsawg-tacacs-tls13
-VERSION=02
+VERSION=03
 
 EXT=.xml
 XMLNAME=${BASENAME}${EXT}
