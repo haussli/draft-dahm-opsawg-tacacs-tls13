@@ -254,7 +254,7 @@
        </t>
      </section>
 
-     <section title="Security Considerations">
+     <section title="Security Considerations" anchor="Security">
        <section title="TLS">
          <t>
            This document improves the confidentiality, integrity, and authentication of the connection and network traffic between TACACS+ Peers by adding TLS support.
@@ -336,6 +336,14 @@
            Furthermore, Peers SHOULD be configurable to limit offered or recognized TLS versions and algorithms to those recommended by standards bodies and implementers.
          </t>
        </section>
+     </section>
+
+     <section title="Operator Considerations" anchor="OPSCONS">
+       <t>
+         Operational and deployment considerations are spread throughout the document.
+         While avoiding repetition, it is useful for the impatient to direct particular attention to <xref target="wellknown"/> and <xref target="CAcache"/>.
+         However, it is important that the entire <xref target="Security"/> is observed.
+       </t>
      </section>
 
      <section title="IANA Considerations" anchor="ICTBD">

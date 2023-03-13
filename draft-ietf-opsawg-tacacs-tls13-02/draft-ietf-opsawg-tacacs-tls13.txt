@@ -93,14 +93,14 @@ Table of Contents
        5.1.2.  TLS 0-RTT . . . . . . . . . . . . . . . . . . . . . .   7
        5.1.3.  TLS PSK . . . . . . . . . . . . . . . . . . . . . . .   8
        5.1.4.  TLS Options . . . . . . . . . . . . . . . . . . . . .   8
-       5.1.5.  Unreachable TLS Certificate Authority (CA)  . . . . .   8
+       5.1.5.  Unreachable Certificate Authority (CA)  . . . . . . .   8
      5.2.  Well-Known TCP/IP Port  . . . . . . . . . . . . . . . . .   8
-   6.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   9
-   7.  Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .   9
-   8.  Normative References  . . . . . . . . . . . . . . . . . . . .   9
-   9.  Informative References  . . . . . . . . . . . . . . . . . . .  10
+   6.  Operator Considerations . . . . . . . . . . . . . . . . . . .   9
+   7.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   9
+   8.  Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .  10
+   9.  Normative References  . . . . . . . . . . . . . . . . . . . .  10
+   10. Informative References  . . . . . . . . . . . . . . . . . . .  11
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  11
-
 
 
 
@@ -205,8 +205,8 @@ Internet-Draft               TACACS+ TLS 1.3                  March 2023
    This document favors the predictable use of TLS security for a
    deployment, see (Section 5.2).  TACACS+ TLS will therefore follow
    [RFC7605], where a different well-known system TCP/IP port is
-   assigned by IANA, port [TBD] (Section 6) with the service name [TBDN]
-   (Section 6), for TLS connections.
+   assigned by IANA, port [TBD] (Section 7) with the service name [TBDN]
+   (Section 7), for TLS connections.
 
    TACACS+ TLS could use any other TCP port by operator configuration,
    though Section 5.2 should still be considered.
@@ -414,7 +414,7 @@ Internet-Draft               TACACS+ TLS 1.3                  March 2023
    themselves (TLS 1.3 [RFC8446]), which prescribes mandatory support in
    Section 9, and TLS Recommendations [RFC7525].
 
-5.1.5.  Unreachable TLS Certificate Authority (CA)
+5.1.5.  Unreachable Certificate Authority (CA)
 
    Operators SHOULD be cognizant of the potential of Server and/or
    Client isolation from their Peer's CA by network failures.  Isolation
@@ -475,7 +475,14 @@ Internet-Draft               TACACS+ TLS 1.3                  March 2023
    configurable to limit offered or recognized TLS versions and
    algorithms to those recommended by standards bodies and implementers.
 
-6.  IANA Considerations
+6.  Operator Considerations
+
+   Operational and deployment considerations are spread throughout the
+   document.  While avoiding repetition, it is useful for the impatient
+   to direct particular attention to Section 5.2 and Section 5.1.5.
+   However, it is important that the entire Section 5 is observed.
+
+7.  IANA Considerations
 
    The authors request that, when this draft is accepted by the working
    group, the OPSAWG Chairs submit a request to IANA for an early
@@ -489,14 +496,7 @@ Internet-Draft               TACACS+ TLS 1.3                  March 2023
    RFC EDITOR: this port number should replace "[TBD]" and the service
    name should replace "[TBDN]" within this document.
 
-7.  Acknowledgments
 
-   The author(s) would like to thank Russ Housley, Steven M.  Bellovin,
-   Stephen Farrell, Alan DeKok, Warren Kumari, and Tom Petch for their
-   support, insightful review, and/or comments.  [RFC5425] was also used
-   as a basis for the approach to TLS.
-
-8.  Normative References
 
 
 
@@ -505,6 +505,15 @@ Dahm, et al.            Expires 14 September 2023               [Page 9]
 
 Internet-Draft               TACACS+ TLS 1.3                  March 2023
 
+
+8.  Acknowledgments
+
+   The author(s) would like to thank Russ Housley, Steven M.  Bellovin,
+   Stephen Farrell, Alan DeKok, Warren Kumari, and Tom Petch for their
+   support, insightful review, and/or comments.  [RFC5425] was also used
+   as a basis for the approach to TLS.
+
+9.  Normative References
 
    [BCP14]    Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119, March 1997.
@@ -546,21 +555,14 @@ Internet-Draft               TACACS+ TLS 1.3                  March 2023
               DOI 10.17487/RFC8907, September 2020,
               <https://www.rfc-editor.org/info/rfc8907>.
 
-9.  Informative References
-
-
-
-
-
-
-
-
 
 
 Dahm, et al.            Expires 14 September 2023              [Page 10]
 
 Internet-Draft               TACACS+ TLS 1.3                  March 2023
 
+
+10.  Informative References
 
    [I-D.ietf-tls-external-psk-guidance]
               Housley, R., Hoyland, J., Sethi, M., and C. A. Wood,
@@ -607,15 +609,18 @@ Authors' Addresses
    Email: thorsten.dahm@gmail.com
 
 
-   Douglas Gash
-   Cisco Systems, Inc.
-   Email: dcmgash@cisco.com
+
 
 
 
 Dahm, et al.            Expires 14 September 2023              [Page 11]
 
 Internet-Draft               TACACS+ TLS 1.3                  March 2023
+
+
+   Douglas Gash
+   Cisco Systems, Inc.
+   Email: dcmgash@cisco.com
 
 
    Andrej Ota
@@ -625,11 +630,6 @@ Internet-Draft               TACACS+ TLS 1.3                  March 2023
    John Heasley
    NTT
    Email: heas@shrubbery.net
-
-
-
-
-
 
 
 
