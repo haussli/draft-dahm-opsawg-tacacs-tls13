@@ -14,7 +14,7 @@
      ipr="trust200902"
      submissionType='IETF'
      consensus="true"
-     updates="RFC8907"
+     updates="RFC8907" 
      xmlns:xi="http://www.w3.org/2001/XInclude" version="3"
      sortRefs="true"
      indexInclude="false"
@@ -36,7 +36,7 @@
          <email>thorsten.dahm@gmail.com</email>
        </address>
      </author>
-
+        
      <author fullname="Douglas Gash" initials="D." surname="Gash">
        <organization>Cisco Systems, Inc.</organization>
        <address>
@@ -146,7 +146,7 @@
        <t>TLS is introduced into TACACS+ to fulfill the following requirements:
        </t>
        <ol>
-       <li>Confidentiality and Integrity: The MD5 obfuscation specified in the original protocol definition is not fit for purpose, requiring that TACACS+ be
+       <li>Confidentiality and Integrity: The MD5 obfuscation specified in the original protocol definition is not fit for purpose, requiring that TACACS+ be 
        deployed over a secured network. Securing TACACS+ protocol with TLS is intended to provide confidentiality and integrity without requiring the provision of a secured network.</li>
        <li>Peer authentication: The use of shared keys to add and remove the MD5 obfuscation was intended to provide a form of Peer authentication for the TACACS+ protocol. This document obsoletes the MD5 obfuscation,
        and specifies that the authentication capabilities of TLS are used to allow the Peers to authenticate each other.</li>
@@ -157,7 +157,7 @@
            Therefore, TLS Hello MUST be initiated by the client immediately upon the establishment of the TCP/IP connection.
          </t>
          <t>
-           This document favors the predictable use of TLS security for a deployment, see (<xref target="wellknown"/>).
+           This document favors the predictable use of TLS security for a deployment, see (<xref target="wellknown"/>). 
            TACACS+ TLS will therefore follow <xref target="RFC7605"/>, where a different well-known system TCP/IP port is assigned by IANA, port <xref target="ICTBD">[TBD]</xref> with the service name <xref target="ICTBD">[TBDN]</xref>, for TLS connections.
          </t>
          <t>
@@ -238,7 +238,7 @@
          The original draft of TACACS+ described the Obfuscation mechanism, documented in <xref target="RFC5425" section="5.2" sectionFormat="comma"/>.
          It is insufficient for modern purposes.
        </t>
-       <t>
+       <t>   
          The introduction of TLS PSK, certificate Peer authentication, and TLS encryption to TACACS+ replaces these former mechanisms and so Obfuscation is hereby obsoleted.
          This section describes how the TACACS+ client and servers MUST operate with regards to the obfuscation mechanism.
        </t>
@@ -251,7 +251,7 @@
        </t>
        <t>
         A TACACS+ server that receives a packet with the TAC_PLUS_UNENCRYPTED_FLAG not set (cleared) over a TLS connection, MUST return an error of TAC_PLUS_AUTHEN_STATUS_ERROR, TAC_PLUS_AUTHOR_STATUS_ERROR, or TAC_PLUS_ACCT_STATUS_ERROR as appropriate for the TACACS+ message type, with the TAC_PLUS_UNENCRYPTED_FLAG set, and terminate the Session.
-        This behavior corresponds to the behavior defined in <xref target="RFC8907">RFC8907 Section 4.5. Data Obfuscation</xref> for TAC_PLUS_UNENCRYPTED_FLAG or key mismatches.
+        This behavior corresponds to that defined in <xref target="RFC8907">RFC8907 Section 4.5. Data Obfuscation</xref> for TAC_PLUS_UNENCRYPTED_FLAG or key mismatches.
        </t>
        <t>
 	A TACACS+ client that receives a packet with the TAC_PLUS_UNENCRYPTED_FLAG not set (cleared), MUST terminate the Session, and SHOULD log this error.
@@ -263,8 +263,15 @@
          <t>
            This document improves the confidentiality, integrity, and authentication of the connection and network traffic between TACACS+ Peers by adding TLS support.
            This does not in itself protect the server nor clients; the operator and equipment vendors have a role.
-           That role is to diligently follow current best practices for maintaining the integrity of network devices and selection of TLS key and encryption algorithms.
+           That role is to follow current best practices for maintaining the integrity of network devices and selection of TLS key and encryption algorithms.
          </t>
+         <section title="TLS Options" anchor="TLSoptions">
+           <t>
+	     No single and timely TLS recommendations document exists.
+	     Therefore, implementers and operators SHOULD refer to TLS RFCs to ensure the versions are current and which algorithms should be supported, deprecated, obsoleted, or abandoned, in the absence of updates to this document.
+	     Useful examples are the TLS specifications themselves (<xref target="RFC8446">TLS 1.3</xref>), which prescribes mandatory support in Section 9, and TLS Recommendations <xref target="RFC7525"/>.
+           </t>
+         </section>
          <section title="TLS 0-RTT">
            <t>
                TLS 1.3 resumption and PSK techniques make it possible to send Early Data, aka. 0-RTT data, data that is sent before the TLS handshake completes.
@@ -282,20 +289,19 @@
 	     PSKs are otherwise considered out-of-scope for this document.
            </t>
          </section>
-         <section title="TLS Options">
-           <t>
-	     Unfortunately, no single and timely TLS recommendations document exists.
-	     Therefore, implementers and operators SHOULD make use of the various RFCs to determine which TLS versions and algorithms should be supported, deprecated, obsoleted, or abandoned, in the absence of updates to this document.
-	     Useful examples are the TLS specifications themselves (<xref target="RFC8446">TLS 1.3</xref>), which prescribes mandatory support in Section 9, and TLS Recommendations <xref target="RFC7525"/>.
-           </t>
-         </section>
+
      </section>
 
      <section title="Operator Considerations" anchor="Operator">
+
+       <t>
+         This section outlines considerations which are specific to operators. It is important that operators ensure their deployments address the considerations in <xref target="Security"/>.
+       </t>
+
         <section title="TLS Use">
            <t>
              TLS encryption SHOULD be used in deployments when both the Clients and Servers support it.
-             Servers that support TLS encryption MAY be configured to allow Unsecure Connections when TLS encryption is not supported by the Client, but this is NOT RECOMMENDED because of the threat of downgrade attacks.
+             In order to prevent downgrade attacks, Servers SHOULD keep separate and disjoint lists of clients supporting TLS and Unsecure Connections.
              Unsecure Connections would be better served by separate Servers from the TLS Servers.
            </t>
            <t>
@@ -306,7 +312,7 @@
 
        <section title="Migration to TLS">
          <t>
-           When Migrating from legacy service to TLS, any mixture of both legacy and TLS-Protected Servers in the same
+           When Migrating from legacy service to TLS, any mixture of Unsecure Connected Servers and TLS-Protected Servers in the same
            redundant lists on clients SHOULD be minimised.
          </t>
          <t>
@@ -314,7 +320,20 @@
          </t>
        </section>
 
-           <section title="Unreachable Certificate Authority (CA)" anchor="CAcache">
+       <section title="Downgrade attacks in TLS">
+         <t>
+           All clients and servers in a deployment should be configured with consistent algorithm and cypher options <xref target="TLSoptions"/> to prevent harm from downgrade attacks.
+         </t>
+         <t>
+           Clients
+   and Servers SHOULD support configuration that requires Peers,
+   globally and individually, use TLS.  Furthermore, Peers SHOULD be
+   configurable to limit offered or recognized TLS versions and
+   algorithms to those recommended by standards bodies and implementers.
+         </t>
+       </section>
+
+       <section title="Unreachable Certificate Authority (CA)" anchor="CAcache">
            <t>
 	     Operators SHOULD be cognizant of the potential of Server and/or Client isolation from their Peer's CA by network failures.
 	     Isolation from a public key certificate's CA will cause the verification of the certificate to fail and thus TLS authentication of the Peer to fail.
