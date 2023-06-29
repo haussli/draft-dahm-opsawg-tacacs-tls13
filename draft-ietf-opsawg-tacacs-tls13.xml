@@ -111,7 +111,7 @@
 
      <section title="Technical Definitions">
        <t>
-         The Technical Definitions section of the <xref target="RFC8907">TACACS+ Protocol</xref> is fully applicable here and will not be repeated, though might be augmented.
+         The Technical Definitions section of the <xref target="RFC8907">TACACS+ Protocol</xref> is fully applicable here and will not be repeated.
          The following terms are also used in this document.
        </t>
        <section title="Unsecure Connection">
@@ -120,14 +120,14 @@
            It is a Connection without TLS and therefore being plaintext or possibly using unsecure TACACS+ authentication and obfuscation.
          </t>
        </section>
-       <section title="Peer">
-         <t>
-           This refers to a TACACS+ Server or Client.
-         </t>
-       </section>
        <section title="TLS Connection">
          <t>
-           A TLS Connection is a TCP/IP connection with TLS authentication and encryption used by TACACS+ for transport, similar to a Connection as defined in <xref target="RFC8907">TACACS+ Protocol</xref>.
+           A TLS Connection is a TCP/IP connection with TLS authentication and encryption used by TACACS+ for transport. The TLS Connection for TACACS+ is always between one Client and one Server as defined in <xref target="RFC8907">TACACS+ Protocol</xref>.
+         </t>
+       </section>
+       <section title="Peer">
+         <t>
+           In the context of a TLS Connection, the peer of a TACACS+ Client is the Server, and the peer is the TACACS+ Server is the Client. Together, the ends of a TLS Connection are referred as the peers.
          </t>
        </section>
        <section title="Obfuscation">
@@ -251,7 +251,7 @@
        </t>
        <t>
         A TACACS+ server that receives a packet with the TAC_PLUS_UNENCRYPTED_FLAG not set (cleared) over a TLS connection, MUST return an error of TAC_PLUS_AUTHEN_STATUS_ERROR, TAC_PLUS_AUTHOR_STATUS_ERROR, or TAC_PLUS_ACCT_STATUS_ERROR as appropriate for the TACACS+ message type, with the TAC_PLUS_UNENCRYPTED_FLAG set, and terminate the Session.
-        This behavior corresponds to the behavior defined in <xref target="RFC8907">RFC8907 Section 4.5. Data Obfuscation</xref> for TAC_PLUS_UNENCRYPTED_FLAG or key mismatches.
+        This behavior corresponds to that defined in <xref target="RFC8907">RFC8907 Section 4.5. Data Obfuscation</xref> for TAC_PLUS_UNENCRYPTED_FLAG or key mismatches.
        </t>
        <t>
 	A TACACS+ client that receives a packet with the TAC_PLUS_UNENCRYPTED_FLAG not set (cleared), MUST terminate the Session, and SHOULD log this error.
@@ -259,28 +259,24 @@
      </section>
 
      <section title="Security Considerations" anchor="Security">
-       <section title="TLS">
+
          <t>
            This document improves the confidentiality, integrity, and authentication of the connection and network traffic between TACACS+ Peers by adding TLS support.
            This does not in itself protect the server nor clients; the operator and equipment vendors have a role.
-           That role is to diligently follow current best practices for maintaining the integrity of network devices and selection of TLS key and encryption algorithms.
+           That role is to follow current best practices for maintaining the integrity of network devices and selection of TLS key and encryption algorithms.
          </t>
-         <section title="TLS Use">
+         <section title="TLS Options" anchor="TLSoptions">
            <t>
-             TLS encryption SHOULD be used in deployments when both the Clients and Servers support it.
-             Servers that support TLS encryption MAY be configured to allow Unsecure Connections when TLS encryption is not supported by the Client, but this is NOT RECOMMENDED because of the threat of downgrade attacks, as described in <xref target="wellknown"/>.
-             Unsecure Connections would be better served by separate Servers from the TLS Servers.
-           </t>
-           <t>
-             It is NOT RECOMMENDED to deploy TACACS+ without TLS authentication and encryption, including TLS using the NULL algorithm, except for within test and debug environments.
-             Also see <xref target="RFC3365"/>.
+	     No single and timely TLS recommendations document exists.
+	     Therefore, implementers and operators SHOULD refer to TLS RFCs to ensure the versions are current and which algorithms should be supported, deprecated, obsoleted, or abandoned, in the absence of updates to this document.
+	     Useful examples are the TLS specifications themselves (<xref target="RFC8446">TLS 1.3</xref>), which prescribes mandatory support in Section 9, and TLS Recommendations <xref target="RFC7525"/>.
            </t>
          </section>
          <section title="TLS 0-RTT">
            <t>
-	     TLS 1.3 resumption and PSK techniques make it possible to send Early Data, aka. 0-RTT data, data that is sent before the TLS handshake completes.
-	     Replay of this data is possible.
-	     Given the sensitivity of TACACS+ data, a Client MUST NOT send data until the full TLS handshake completes; that is, Clients MUST NOT send 0-RTT data and Servers MAY abruptly disconnect Clients that do.
+               TLS 1.3 resumption and PSK techniques make it possible to send Early Data, aka. 0-RTT data, data that is sent before the TLS handshake completes.
+               Replay of this data is possible.
+               Given the sensitivity of TACACS+ data, a Client MUST NOT send data until the full TLS handshake completes; that is, Clients MUST NOT send 0-RTT data and Servers MAY abruptly disconnect Clients that do.
            </t>
          </section>
          <section title="TLS PSK">
@@ -293,14 +289,51 @@
 	     PSKs are otherwise considered out-of-scope for this document.
            </t>
          </section>
-         <section title="TLS Options">
+
+     </section>
+
+     <section title="Operator Considerations" anchor="Operator">
+
+       <t>
+         This section outlines considerations which are specific to operators. It is important that operators ensure their deployments address the considerations in <xref target="Security"/>.
+       </t>
+
+        <section title="TLS Use">
            <t>
-	     Unfortunately, no single and timely TLS recommendations document exists.
-	     Therefore, implementers and operators SHOULD make use of the various RFCs to determine which TLS versions and algorithms should be supported, deprecated, obsoleted, or abandoned, in the absence of updates to this document.
-	     Useful examples are the TLS specifications themselves (<xref target="RFC8446">TLS 1.3</xref>), which prescribes mandatory support in Section 9, and TLS Recommendations <xref target="RFC7525"/>.
+             TLS encryption SHOULD be used in deployments when both the Clients and Servers support it.
+             In order to prevent downgrade attacks, Servers SHOULD keep separate and disjoint lists of clients supporting TLS and Unsecure Connections.
+             Unsecure Connections would be better served by separate Servers from the TLS Servers.
+           </t>
+           <t>
+             It is NOT RECOMMENDED to deploy TACACS+ without TLS authentication and encryption, including TLS using the NULL algorithm, except for within test and debug environments.
+             Also see <xref target="RFC3365"/>.
            </t>
          </section>
-         <section title="Unreachable Certificate Authority (CA)" anchor="CAcache">
+
+       <section title="Migration to TLS">
+         <t>
+           When Migrating from legacy service to TLS, any mixture of Unsecure Connected Servers and TLS-Protected Servers in the same
+           redundant lists on clients SHOULD be minimised.
+         </t>
+         <t>
+           After migration, the production deployment SHOULD NOT mix Legacy and TLS-Protected Servers within Server lists configured on clients.
+         </t>
+       </section>
+
+       <section title="Downgrade attacks in TLS">
+         <t>
+           All clients and servers in a deployment should be configured with consistent algorithm and cypher options <xref target="TLSoptions"/> to prevent harm from downgrade attacks.
+         </t>
+         <t>
+           Clients
+   and Servers SHOULD support configuration that requires Peers,
+   globally and individually, use TLS.  Furthermore, Peers SHOULD be
+   configurable to limit offered or recognized TLS versions and
+   algorithms to those recommended by standards bodies and implementers.
+         </t>
+       </section>
+
+       <section title="Unreachable Certificate Authority (CA)" anchor="CAcache">
            <t>
 	     Operators SHOULD be cognizant of the potential of Server and/or Client isolation from their Peer's CA by network failures.
 	     Isolation from a public key certificate's CA will cause the verification of the certificate to fail and thus TLS authentication of the Peer to fail.
@@ -317,43 +350,6 @@
              Also see <xref target="RFC6066" section="11.1" sectionFormat="comma"/>.
            </t>
          </section>
-       </section>
-
-       <section title="Well-Known TCP/IP Port" anchor="wellknown">
-         <t>
-           A new port is considered appropriate and superior to a "STARTTLS" command or other negotiation method because it allows:
-         </t>
-         <ul>
-           <li>ease of blocking the unobfuscated or obfuscated connections by the TCP/IP port number,</li>
-           <li>passive Intrusion Detection Systems (IDSs) monitoring the unobfuscated to be unaffected by the introduction of TLS,</li>
-           <li>avoidance of Man in the Middle (MitM) attacks that can interfere with STARTTLS,</li>
-           <li>and helps prevent the accidental exposure of sensitive information due to misconfiguration.</li>
-         </ul>
-         <t>
-           However, co-existence of inferior authentication and obfuscated, whether an Unsecure Connection or deprecated parts that compose TLS, also presents opportunity for down-grade attacks.
-           Causing failure of connections to the TLS-enabled service or the negotiation of shared algorithm support are two such down-grade attacks.
-         </t>
-         <t>
-           Servers and Clients could maintain a cache of Peers that have engaged in TACACS+ TLS connections and demand TLS from that point forward.
-           However, this too has potential to be a Denial of Service (DoS) vector, whereby an attacker causes a server to believe that a client that does not support TLS has successfully connected with TLS.
-         </t>
-         <t>
-           The simplest way to address exposure from Unsecure Connection methods is to refuse Unsecure Connections at the server entirely, perhaps using separate servers for Unsecure Connections and TLS.
-         </t>
-         <t>
-           Another approach is mutual configuration that requires TLS.
-           Clients and Servers SHOULD support configuration that requires Peers, globally and individually, use TLS.
-           Furthermore, Peers SHOULD be configurable to limit offered or recognized TLS versions and algorithms to those recommended by standards bodies and implementers.
-         </t>
-       </section>
-     </section>
-
-     <section title="Operator Considerations" anchor="OPSCONS">
-       <t>
-         Operational and deployment considerations are spread throughout the document.
-         While avoiding repetition, it is useful for the impatient to direct particular attention to <xref target="wellknown"/> and <xref target="CAcache"/>.
-         However, it is important that the entire <xref target="Security"/> is observed.
-       </t>
      </section>
 
      <section title="IANA Considerations" anchor="ICTBD">
@@ -365,6 +361,18 @@
        <t>
          RFC EDITOR: this port number should replace "[TBD]" and the service name should replace "[TBDN]" within this document.
        </t>
+     </section>
+
+     <section title="Discussion on Separate port vs Negotiated TLS" anchor="wellknown">
+       <t>
+           The authors concluded that a new port is considered superior to negotiation of TLS using "STARTTLS" command because:
+       </t>
+       <ul>
+         <li>it allows easy blocking the unobfuscated or obfuscated connections by the TCP/IP port number,</li>
+         <li>passive Intrusion Detection Systems (IDSs) monitoring the unobfuscated deployments will be unaffected by the introduction of TLS,</li>
+         <li>Man in the Middle (MitM) attacks that can interfere with STARTTLS will be avoided</li>
+         <li>helps prevent the accidental exposure of sensitive information due to misconfiguration.</li>
+       </ul>
      </section>
 
      <section title="Acknowledgments">
