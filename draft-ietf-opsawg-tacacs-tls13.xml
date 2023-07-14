@@ -309,6 +309,10 @@
                  <li>Any Traffic mechanisms essential to the deployment security also have port level granularity.</li>
                  <li>The TACACS+ Servers are deployed on different ports, and each Server permits either TLS or non-TLS (but not both).</li>
              </ul>
+	   <t>
+	      Clients are configured with the list of Non-TLS TACACS+ servers that they connect to in order to perform AAA transactions. For simple test deplyments, a client may be configured with a single TACACS+ Server. For production environments, clients are configured with a list of multiple TACACS+ Server to provide redundancy. 
+              In order to avoid downgrade attacks, TACACS+ clients MUST be configured to use all TLS or all non-TLS Servers (that is TLS and non-TLS should not be mixed)
+           </t>
            <t>
              It is NOT RECOMMENDED to deploy TACACS+ without TLS authentication and encryption, including TLS using the NULL algorithm, except for within test and debug environments.
              Also see <xref target="RFC3365"/>.
@@ -317,13 +321,10 @@
 
        <section title="Migration to TLS">
          <t>
-           Before migration to TLS, clients will be configured with the list of Non-TLS TACACS+ Servers that they connect to in order to perfrom AAA transactions. As a deployment migrates to
-	   use TLS for TACACS+, then TLS TACACS+ Servers will be made available for the clients to use.
-           During migration, each client SHOULD be configured to use all TLS or all non-TLS Servers. 
-         </t>
-         <t>
-           After migration, each client MUST be configured to use all TLS or all non-TLS Servers.
-         </t>
+           Before migration to TLS,  As a deployment migrates to
+	   use TLS for TACACS+, then TLS TACACS+ Servers will be made available for the clients to use. 
+           During migration, each client SHOULD be configured to use all TLS or all non-TLS Servers. Any transition period where Clients are configured to use both TLS and non-TLS Servers should be minimized.
+	 </t>
        </section>
 
        <section title="Downgrade attacks in TLS">
