@@ -298,7 +298,7 @@
          This section outlines considerations which are specific to operators. It is important that operators ensure their deployments address the considerations in <xref target="Security"/>.
        </t>
 
-        <section title="TLS Use">
+        <section title="TLS Use" anchor="TLSUse">
            <t>
              TLS encryption SHOULD be used in deployments when both the Clients and Servers support it.
 	   </t>
@@ -321,7 +321,7 @@
 
        <section title="Migration to TLS">
          <t>
-           Migration to TLS will see the inclusion of TLS TACACS+ Servers. As mentioned in <xref target="TLS Use"/>. it is recommended each client MUST be configured to use all TLS or all non-TLS Servers. During migration this may not be possible, but the period where any client is configured with TLS and non-TLS servers should be minimized.
+           Migration to TLS will see the inclusion of TLS TACACS+ Servers. As mentioned in <xref target="TLSUse"/>, it is recommended each client MUST be configured to use all TLS or all non-TLS Servers. During migration this may not be possible, but the period where any client is configured with TLS and non-TLS servers SHOULD be minimized.
 	 </t>
        </section>
 
