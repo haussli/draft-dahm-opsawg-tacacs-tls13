@@ -301,17 +301,17 @@
         <section title="TLS Use">
            <t>
              TLS encryption SHOULD be used in deployments when both the Clients and Servers support it.
-	     A TACACS+ Server is defined in TCP by both an address and a port.
-             In order to prevent downgrade attacks, TACACS+ Servers MUST NOT support both TLS and Non-TLS connections.
-             TCP and non-TCP Servers MUST NOT be deployed on the same address unless:
+	   </t>
+	   <t>
+             In order to prevent downgrade attacks, TCP and non-TCP TACACS+ servers MUST NOT be deployed on the same address unless:
 	   </t>
 	     <ul>
-                 <li>Any Traffic mechanisms essential to the deployment security also have port level granularity.</li>
+                 <li>The mechanisms essential to the deployment security also have port level granularity.</li>
                  <li>The TACACS+ Servers are deployed on different ports, and each Server permits either TLS or non-TLS (but not both).</li>
              </ul>
 	   <t>
-	      Clients are configured with the list of Non-TLS TACACS+ servers that they connect to in order to perform AAA transactions. For simple test deplyments, a client may be configured with a single TACACS+ Server. For production environments, clients are configured with a list of multiple TACACS+ Server to provide redundancy. 
-              In order to avoid downgrade attacks, TACACS+ clients MUST be configured to use all TLS or all non-TLS Servers (that is TLS and non-TLS should not be mixed)
+	      TACACS+ Clients are configured with a list of TACACS+ servers to connect to in order to perform AAA transactions. For simple test deployments, clients may be configured with a single TACACS+ Server. For production deployments, clients are normally configured with multiple TACACS+ Servers to improve deployment resilience. 
+	      In order to avoid downgrade attacks, TACACS+ clients MUST be configured to use all TLS or all non-TLS Servers.
            </t>
            <t>
              It is NOT RECOMMENDED to deploy TACACS+ without TLS authentication and encryption, including TLS using the NULL algorithm, except for within test and debug environments.
@@ -321,9 +321,7 @@
 
        <section title="Migration to TLS">
          <t>
-           Before migration to TLS,  As a deployment migrates to
-	   use TLS for TACACS+, then TLS TACACS+ Servers will be made available for the clients to use. 
-           During migration, each client SHOULD be configured to use all TLS or all non-TLS Servers. Any transition period where Clients are configured to use both TLS and non-TLS Servers should be minimized.
+           Migration to TLS will see the inclusion of TLS TACACS+ Servers. As mentioned in <xref target="TLS Use"/>. it is recommended each client MUST be configured to use all TLS or all non-TLS Servers. During migration this may not be possible, but the period where any client is configured with TLS and non-TLS servers should be minimized.
 	 </t>
        </section>
 
