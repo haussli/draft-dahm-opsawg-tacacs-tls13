@@ -235,8 +235,16 @@
            Only the local server mapping needs to be updated.
          </t>
          <t>
-           Implementations SHOULD support the TLS Server Name Inidication extension (<xref target="RFC6066" section="3" sectionFormat="comma"/>).
+           Implementations SHOULD support the TLS Server Name Indication extension (<xref target="RFC6066" section="3" sectionFormat="comma"/>).
            Policy can be applied to this attribute and it can be useful for load balancing or multiplexing at the server.
+         </t>
+       </section>
+
+
+       <section title="Application-Layer Protocol Negotiation" anchor="ALPN">
+         <t>
+              An ALPN number is registered for Secured TACACS+ <xref target="RFC7301"/>.
+              Implementations MUST use it, in accordance to the guideleines in <xref target="RFC9325"/>
          </t>
        </section>
      </section>
@@ -277,6 +285,17 @@
              to adhere to the latest best practices for ensuring the integrity of network devices
              and selecting secure TLS key and encryption algorithms.
          </t>
+           <t>
+            <xref target="RFC9325"/>. offers substantial guidance for implementing protocols that use
+            TLS and their deployment. Those implementing and deploying Secure TACACS+
+            must adhere to the recommendations relevant to TLS 1.3 outlined in <xref target="RFC9325"/>,
+            or its subsequent versions.
+           </t>
+           <t>
+           This document outlines additional restrictions permissible under <xref target="RFC9325"/>.
+            For example, any recommendations referring to TLS 1.2, including the mandatory
+            support, are not relevant for Secure TACACS+ as TLS 1.3 or above is mandated.
+           </t>
          <section title="TLS Use" anchor="TLSUSE">
            <t>
                TLS encryption SHOULD be used in deployments where both the clients and servers
@@ -290,6 +309,7 @@
                on the same host. Non-TLS Connections would be better served by deploying the
                required Non-TLS TACACS+ Servers on separate hosts.
            </t>
+
            <t>
              It is NOT RECOMMENDED to deploy TACACS+ without TLS authentication and encryption, including TLS using the NULL algorithm, except for within test and debug environments.
              Also see <xref target="RFC3365"/>.
@@ -314,9 +334,11 @@
          </section>
          <section title="TLS Options">
            <t>
-	     Unfortunately, no single and timely TLS recommendations document exists.
-	     Therefore, implementers and operators SHOULD make use of the various RFCs to determine which TLS versions and algorithms should be supported, deprecated, obsoleted, or abandoned, in the absence of updates to this document.
-	     Useful examples are the TLS specifications themselves (<xref target="RFC8446">TLS 1.3</xref>), which prescribes mandatory support in Section 9, and TLS Recommendations <xref target="RFC7525"/>.
+	     Implementors and operators SHOULD make use of the various RFCs to determine which TLS versions and algorithms should be supported, deprecated, obsoleted, or abandoned, in the absence of updates to this document.
+	     </t>
+             <t>Recommendations in <xref target="RFC9325"/> Section 4, or any RFCs which obsolete it, MUST be followed.</t>
+         <t>
+             Other useful examples are the TLS specifications themselves (<xref target="RFC8446">TLS 1.3</xref>), which prescribes mandatory support in Section 9, and TLS Recommendations <xref target="RFC7525"/>.
            </t>
          </section>
          <section title="Unreachable Certificate Authority (CA)" anchor="CAcache">
@@ -335,6 +357,7 @@
              Operators SHOULD be aware that the TLS SNI extension is part of the TLS client hello, and is therefore subject to eavesdropping.
              Also see <xref target="RFC6066" section="11.1" sectionFormat="comma"/>.
            </t>
+             <t>If TLS Encrypted Client Hello becomes standardized and applicable to TLS 1.3, then it SHOULD be included in Secure TACACS+ implementation.</t>
          </section>
        </section>
          <section title="TACACS+ Configuration" anchor="TACACSConfiguration">
@@ -452,10 +475,12 @@
        <?rfc include="reference.RFC.5280.xml"?>
        <?rfc include="reference.RFC.5425.xml"?>
        <?rfc include="reference.RFC.6066.xml"?>
+       <?rfc include="reference.RFC.7301.xml"?>
        <?rfc include="reference.RFC.7525.xml"?>
        <?rfc include="reference.RFC.8446.xml"?>
        <?rfc include="reference.RFC.8773.xml"?>
        <?rfc include="reference.RFC.8907.xml"?>
+       <?rfc include="reference.RFC.9325.xml"?>
      </references>
      <references title="Informative References">
        <xi:include href="http://xml2rfc.ietf.org/public/rfc/bibxml-ids/reference.I-D.ietf-tls-external-psk-guidance.xml"/>
