@@ -480,7 +480,6 @@
        <?rfc include="reference.RFC.8446.xml"?>
        <?rfc include="reference.RFC.8773.xml"?>
        <?rfc include="reference.RFC.8907.xml"?>
-       <?rfc include="reference.RFC.9325.xml"?>
      </references>
      <references title="Informative References">
        <xi:include href="http://xml2rfc.ietf.org/public/rfc/bibxml-ids/reference.I-D.ietf-tls-external-psk-guidance.xml"/>
@@ -489,6 +488,7 @@
        <?rfc include="reference.RFC.6335.xml"?>
        <?rfc include="reference.RFC.7250.xml"?>
        <?rfc include="reference.RFC.7605.xml"?>
+       <?rfc include="reference.RFC.9325.xml"?>
        <reference anchor="TLSCSREC" target="https://www.iana.org/assignments/tls-parameters/tls-parameters.xhtml#tls-parameters-4">
          <front>
            <title>Transport Layer Security (TLS) Parameters</title>
