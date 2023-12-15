@@ -6,11 +6,11 @@ Operations and Management Area Working Group                     T. Dahm
 Internet-Draft                                                          
 Updates: RFC8907 (if approved)                                   D. Gash
 Intended status: Standards Track                     Cisco Systems, Inc.
-Expires: 13 March 2024                                            A. Ota
+Expires: 16 June 2024                                             A. Ota
                                                                         
                                                               J. Heasley
                                                                      NTT
-                                                       10 September 2023
+                                                        14 December 2023
 
 
                             TACACS+ TLS 1.3
@@ -48,14 +48,14 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 13 March 2024.
+   This Internet-Draft will expire on 16 June 2024.
 
 
 
 
-Dahm, et al.              Expires 13 March 2024                 [Page 1]
+Dahm, et al.              Expires 16 June 2024                  [Page 1]
 
-Internet-Draft               TACACS+ TLS 1.3              September 2023
+Internet-Draft               TACACS+ TLS 1.3               December 2023
 
 
 Copyright Notice
@@ -87,32 +87,34 @@ Table of Contents
        3.2.1.  Cipher Requirements . . . . . . . . . . . . . . . . .   5
        3.2.2.  TLS Authentication  . . . . . . . . . . . . . . . . .   5
      3.3.  TLS Identification  . . . . . . . . . . . . . . . . . . .   6
-   4.  Obsolescence of TACACS+ Obfuscation . . . . . . . . . . . . .   6
+     3.4.  Application-Layer Protocol Negotiation  . . . . . . . . .   6
+   4.  Obsolescence of TACACS+ Obfuscation . . . . . . . . . . . . .   7
    5.  Security Considerations . . . . . . . . . . . . . . . . . . .   7
      5.1.  TLS . . . . . . . . . . . . . . . . . . . . . . . . . . .   7
        5.1.1.  TLS Use . . . . . . . . . . . . . . . . . . . . . . .   8
        5.1.2.  TLS 0-RTT . . . . . . . . . . . . . . . . . . . . . .   8
        5.1.3.  TLS PSK . . . . . . . . . . . . . . . . . . . . . . .   8
-       5.1.4.  TLS Options . . . . . . . . . . . . . . . . . . . . .   8
+       5.1.4.  TLS Options . . . . . . . . . . . . . . . . . . . . .   9
        5.1.5.  Unreachable Certificate Authority (CA)  . . . . . . .   9
        5.1.6.  TLS Server Name Indicator (SNI) . . . . . . . . . . .   9
      5.2.  TACACS+ Configuration . . . . . . . . . . . . . . . . . .   9
-     5.3.  Well-Known TCP/IP Port  . . . . . . . . . . . . . . . . .   9
-   6.  Operator Considerations . . . . . . . . . . . . . . . . . . .  10
-     6.1.  Migration . . . . . . . . . . . . . . . . . . . . . . . .  10
+     5.3.  Well-Known TCP/IP Port  . . . . . . . . . . . . . . . . .  10
+   6.  Operator Considerations . . . . . . . . . . . . . . . . . . .  11
+     6.1.  Migration . . . . . . . . . . . . . . . . . . . . . . . .  11
      6.2.  Maintaining Non-TLS TACACS+ Clients . . . . . . . . . . .  11
    7.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  11
-   8.  Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .  11
-   9.  Normative References  . . . . . . . . . . . . . . . . . . . .  11
-   10. Informative References  . . . . . . . . . . . . . . . . . . .  12
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  13
+   8.  Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .  12
+   9.  Normative References  . . . . . . . . . . . . . . . . . . . .  12
+   10. Informative References  . . . . . . . . . . . . . . . . . . .  13
 
 
 
-Dahm, et al.              Expires 13 March 2024                 [Page 2]
+Dahm, et al.              Expires 16 June 2024                  [Page 2]
 
-Internet-Draft               TACACS+ TLS 1.3              September 2023
+Internet-Draft               TACACS+ TLS 1.3               December 2023
 
+
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  14
 
 1.  Introduction
 
@@ -163,11 +165,9 @@ Internet-Draft               TACACS+ TLS 1.3              September 2023
 
 
 
-
-
-Dahm, et al.              Expires 13 March 2024                 [Page 3]
+Dahm, et al.              Expires 16 June 2024                  [Page 3]
 
-Internet-Draft               TACACS+ TLS 1.3              September 2023
+Internet-Draft               TACACS+ TLS 1.3               December 2023
 
 
 2.4.  TACACS+ Server
@@ -221,9 +221,9 @@ Internet-Draft               TACACS+ TLS 1.3              September 2023
 
 
 
-Dahm, et al.              Expires 13 March 2024                 [Page 4]
+Dahm, et al.              Expires 16 June 2024                  [Page 4]
 
-Internet-Draft               TACACS+ TLS 1.3              September 2023
+Internet-Draft               TACACS+ TLS 1.3               December 2023
 
 
    TACACS+ TLS could use any other TCP port by operator configuration,
@@ -277,9 +277,9 @@ Internet-Draft               TACACS+ TLS 1.3              September 2023
 
 
 
-Dahm, et al.              Expires 13 March 2024                 [Page 5]
+Dahm, et al.              Expires 16 June 2024                  [Page 5]
 
-Internet-Draft               TACACS+ TLS 1.3              September 2023
+Internet-Draft               TACACS+ TLS 1.3               December 2023
 
 
    If this succeeds, the authentication is successful and the connection
@@ -320,23 +320,29 @@ Internet-Draft               TACACS+ TLS 1.3              September 2023
    to be reconfigured without issuing a new client certificate.  Only
    the local server mapping needs to be updated.
 
-   Implementations SHOULD support the TLS Server Name Inidication
+   Implementations SHOULD support the TLS Server Name Indication
    extension ([RFC6066], Section 3).  Policy can be applied to this
    attribute and it can be useful for load balancing or multiplexing at
    the server.
+
+3.4.  Application-Layer Protocol Negotiation
+
+   An ALPN number is registered for Secured TACACS+ [RFC7301].
+   Implementations MUST use it, in accordance to the guideleines in
+   [RFC9325]
+
+
+
+Dahm, et al.              Expires 16 June 2024                  [Page 6]
+
+Internet-Draft               TACACS+ TLS 1.3               December 2023
+
 
 4.  Obsolescence of TACACS+ Obfuscation
 
    The original draft of TACACS+ described the Obfuscation mechanism,
    documented in [RFC5425], Section 5.2.  It is insufficient for modern
    purposes.
-
-
-
-Dahm, et al.              Expires 13 March 2024                 [Page 6]
-
-Internet-Draft               TACACS+ TLS 1.3              September 2023
-
 
    The introduction of TLS PSK, certificate Peer authentication, and TLS
    encryption to TACACS+ replaces these former mechanisms and so
@@ -383,16 +389,20 @@ Internet-Draft               TACACS+ TLS 1.3              September 2023
 
 
 
-
-
-
-
-
-
-Dahm, et al.              Expires 13 March 2024                 [Page 7]
+Dahm, et al.              Expires 16 June 2024                  [Page 7]
 
-Internet-Draft               TACACS+ TLS 1.3              September 2023
+Internet-Draft               TACACS+ TLS 1.3               December 2023
 
+
+   [RFC9325]. offers substantial guidance for implementing protocols
+   that use TLS and their deployment.  Those implementing and deploying
+   Secure TACACS+ must adhere to the recommendations relevant to TLS 1.3
+   outlined in [RFC9325], or its subsequent versions.
+
+   This document outlines additional restrictions permissible under
+   [RFC9325].  For example, any recommendations referring to TLS 1.2,
+   including the mandatory support, are not relevant for Secure TACACS+
+   as TLS 1.3 or above is mandated.
 
 5.1.1.  TLS Use
 
@@ -431,24 +441,28 @@ Internet-Draft               TACACS+ TLS 1.3              September 2023
 
    PSKs are otherwise considered out-of-scope for this document.
 
+
+
+
+
+Dahm, et al.              Expires 16 June 2024                  [Page 8]
+
+Internet-Draft               TACACS+ TLS 1.3               December 2023
+
+
 5.1.4.  TLS Options
 
-   Unfortunately, no single and timely TLS recommendations document
-   exists.  Therefore, implementers and operators SHOULD make use of the
-   various RFCs to determine which TLS versions and algorithms should be
-   supported, deprecated, obsoleted, or abandoned, in the absence of
-   updates to this document.  Useful examples are the TLS specifications
-   themselves (TLS 1.3 [RFC8446]), which prescribes mandatory support in
-   Section 9, and TLS Recommendations [RFC7525].
+   Implementors and operators SHOULD make use of the various RFCs to
+   determine which TLS versions and algorithms should be supported,
+   deprecated, obsoleted, or abandoned, in the absence of updates to
+   this document.
 
+   Recommendations in [RFC9325] Section 4, or any RFCs which obsolete
+   it, MUST be followed.
 
-
-
-
-Dahm, et al.              Expires 13 March 2024                 [Page 8]
-
-Internet-Draft               TACACS+ TLS 1.3              September 2023
-
+   Other useful examples are the TLS specifications themselves (TLS 1.3
+   [RFC8446]), which prescribes mandatory support in Section 9, and TLS
+   Recommendations [RFC7525].
 
 5.1.5.  Unreachable Certificate Authority (CA)
 
@@ -469,6 +483,9 @@ Internet-Draft               TACACS+ TLS 1.3              September 2023
    TLS client hello, and is therefore subject to eavesdropping.  Also
    see [RFC6066], Section 11.1.
 
+   If TLS Encrypted Client Hello becomes standardized and applicable to
+   TLS 1.3, then it SHOULD be included in Secure TACACS+ implementation.
+
 5.2.  TACACS+ Configuration
 
    Implementors MUST ensure that the configuration scheme introduced for
@@ -480,6 +497,14 @@ Internet-Draft               TACACS+ TLS 1.3              September 2023
    Servers will listen to.  Where deployments have not overridden the
    defaults explicitly, TACACS+ client implementations MUST use the
    correct values:
+
+
+
+
+Dahm, et al.              Expires 16 June 2024                  [Page 9]
+
+Internet-Draft               TACACS+ TLS 1.3               December 2023
+
 
    *  for non-TLS connection TACACS+: Port 49.
 
@@ -498,13 +523,6 @@ Internet-Draft               TACACS+ TLS 1.3              September 2023
 
    *  ease of blocking the unobfuscated or obfuscated connections by the
       TCP/IP port number,
-
-
-
-Dahm, et al.              Expires 13 March 2024                 [Page 9]
-
-Internet-Draft               TACACS+ TLS 1.3              September 2023
-
 
    *  passive Intrusion Detection Systems (IDSs) monitoring the
       unobfuscated to be unaffected by the introduction of TLS,
@@ -531,6 +549,19 @@ Internet-Draft               TACACS+ TLS 1.3              September 2023
    configurable to limit offered or recognized TLS versions and
    algorithms to those recommended by standards bodies and implementers.
 
+
+
+
+
+
+
+
+
+Dahm, et al.              Expires 16 June 2024                 [Page 10]
+
+Internet-Draft               TACACS+ TLS 1.3               December 2023
+
+
 6.  Operator Considerations
 
    Operational and deployment considerations are spread throughout the
@@ -552,15 +583,6 @@ Internet-Draft               TACACS+ TLS 1.3              September 2023
 
    *  the period where any client is configured with both TLS and non-
       TLS servers SHOULD be minimized.
-
-
-
-
-
-Dahm, et al.              Expires 13 March 2024                [Page 10]
-
-Internet-Draft               TACACS+ TLS 1.3              September 2023
-
 
    *  the operator MUST consider the impact of mixed TLS and Non-TLS on
       security.
@@ -587,6 +609,15 @@ Internet-Draft               TACACS+ TLS 1.3              September 2023
    RFC EDITOR: this port number should replace "[TBD]" and the service
    name should replace "[TBDN]" within this document.
 
+
+
+
+
+Dahm, et al.              Expires 16 June 2024                 [Page 11]
+
+Internet-Draft               TACACS+ TLS 1.3               December 2023
+
+
 8.  Acknowledgments
 
    The author(s) would like to thank Russ Housley, Steven M.  Bellovin,
@@ -610,14 +641,6 @@ Internet-Draft               TACACS+ TLS 1.3              September 2023
               (CRL) Profile", RFC 5280, DOI 10.17487/RFC5280, May 2008,
               <https://www.rfc-editor.org/info/rfc5280>.
 
-
-
-
-Dahm, et al.              Expires 13 March 2024                [Page 11]
-
-Internet-Draft               TACACS+ TLS 1.3              September 2023
-
-
    [RFC5425]  Miao, F., Ed., Ma, Y., Ed., and J. Salowey, Ed.,
               "Transport Layer Security (TLS) Transport Mapping for
               Syslog", RFC 5425, DOI 10.17487/RFC5425, March 2009,
@@ -628,6 +651,11 @@ Internet-Draft               TACACS+ TLS 1.3              September 2023
               DOI 10.17487/RFC6066, January 2011,
               <https://www.rfc-editor.org/info/rfc6066>.
 
+   [RFC7301]  Friedl, S., Popov, A., Langley, A., and E. Stephan,
+              "Transport Layer Security (TLS) Application-Layer Protocol
+              Negotiation Extension", RFC 7301, DOI 10.17487/RFC7301,
+              July 2014, <https://www.rfc-editor.org/info/rfc7301>.
+
    [RFC7525]  Sheffer, Y., Holz, R., and P. Saint-Andre,
               "Recommendations for Secure Use of Transport Layer
               Security (TLS) and Datagram Transport Layer Security
@@ -637,6 +665,14 @@ Internet-Draft               TACACS+ TLS 1.3              September 2023
    [RFC8446]  Rescorla, E., "The Transport Layer Security (TLS) Protocol
               Version 1.3", RFC 8446, DOI 10.17487/RFC8446, August 2018,
               <https://www.rfc-editor.org/info/rfc8446>.
+
+
+
+
+Dahm, et al.              Expires 16 June 2024                 [Page 12]
+
+Internet-Draft               TACACS+ TLS 1.3               December 2023
+
 
    [RFC8773]  Housley, R., "TLS 1.3 Extension for Certificate-Based
               Authentication with an External Pre-Shared Key", RFC 8773,
@@ -664,16 +700,6 @@ Internet-Draft               TACACS+ TLS 1.3              September 2023
               RFC 3365, DOI 10.17487/RFC3365, August 2002,
               <https://www.rfc-editor.org/info/rfc3365>.
 
-
-
-
-
-
-Dahm, et al.              Expires 13 March 2024                [Page 12]
-
-Internet-Draft               TACACS+ TLS 1.3              September 2023
-
-
    [RFC4020]  Kompella, K. and A. Zinin, "Early IANA Allocation of
               Standards Track Code Points", RFC 4020,
               DOI 10.17487/RFC4020, February 2005,
@@ -695,6 +721,20 @@ Internet-Draft               TACACS+ TLS 1.3              September 2023
    [RFC7605]  Touch, J., "Recommendations on Using Assigned Transport
               Port Numbers", BCP 165, RFC 7605, DOI 10.17487/RFC7605,
               August 2015, <https://www.rfc-editor.org/info/rfc7605>.
+
+
+
+
+Dahm, et al.              Expires 16 June 2024                 [Page 13]
+
+Internet-Draft               TACACS+ TLS 1.3               December 2023
+
+
+   [RFC9325]  Sheffer, Y., Saint-Andre, P., and T. Fossati,
+              "Recommendations for Secure Use of Transport Layer
+              Security (TLS) and Datagram Transport Layer Security
+              (DTLS)", BCP 195, RFC 9325, DOI 10.17487/RFC9325, November
+              2022, <https://www.rfc-editor.org/info/rfc9325>.
 
    [TLSCSREC] IANA, "Transport Layer Security (TLS) Parameters",
               <https://www.iana.org/assignments/tls-parameters/tls-
@@ -725,4 +765,20 @@ Authors' Addresses
 
 
 
-Dahm, et al.              Expires 13 March 2024                [Page 13]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Dahm, et al.              Expires 16 June 2024                 [Page 14]
