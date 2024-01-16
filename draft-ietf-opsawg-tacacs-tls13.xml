@@ -150,7 +150,8 @@
 
      <section title="TACACS+ over TLS">
        <t>
-           TACACS+ over TLS takes the protocol defined in <xref target="RFC8907">TACACS+ Protocol</xref>, removes the option for MD5 obfuscation, and specifies its use over a TLS 1.3 or later transport using a new default well-known server port. The next section provide further details and guidance,
+           TACACS+ over TLS takes the protocol defined in <xref target="RFC8907">TACACS+ Protocol</xref>, removes the option for MD5 obfuscation, and specifies the use of TLS (version 1.3 or later) for transport, to use a new well-known default server port.
+           The next sections provide further details and guidance.
        </t>
        <t>TLS is introduced into TACACS+ to fulfill the following requirements:
        </t>
