@@ -163,7 +163,7 @@
          <t>
            All data exchanged by TACACS+ Peers MUST be encrypted, including the
             authentication of the Peers. Therefore, when a TCP connection is
-            established for the service, a TLS handhsake begins immediately.
+            established for the service, a TLS handshake begins immediately.
          </t>
          <t>
            In order to ensure that the use of TLS and non-TLS TACACS+ traffic is clearly differentiated (see <xref target="wellknown"/>, TACACS+ over TLS will follow <xref target="RFC7605"/>, where a different well-known system TCP/IP port is assigned by IANA, port <xref target="ICTBD">[TBD]</xref> with the service name <xref target="ICTBD">[TBDN]</xref>, for TLS connections.

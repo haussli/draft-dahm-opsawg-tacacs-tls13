@@ -208,7 +208,7 @@ Internet-Draft               TACACS+ TLS 1.3                January 2024
 
    All data exchanged by TACACS+ Peers MUST be encrypted, including the
    authentication of the Peers.  Therefore, when a TCP connection is
-   established for the service, a TLS handhsake begins immediately.
+   established for the service, a TLS handshake begins immediately.
 
    In order to ensure that the use of TLS and non-TLS TACACS+ traffic is
    clearly differentiated (see Section 5.3, TACACS+ over TLS will follow
