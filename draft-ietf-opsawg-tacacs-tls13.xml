@@ -121,8 +121,10 @@
        </section>
        <section title="Non-TLS Connection">
          <t>
-           This is another term for a Connection as defined in <xref target="RFC8907">TACACS+ Protocol</xref>.
+           This is another term for a connection defined in the historic <xref target="RFC8907">TACACS+ Protocol</xref>.
            It is a Connection without TLS and therefore being plaintext or possibly using unsecure TACACS+ authentication and obfuscation.
+           The use of well-known TCP/IP Server Port 49 is specified as the default for Non-TLS connections.
+           Non-TLS Connections should not be used for new TACACS+ deployments.
          </t>
        </section>
        <section title="TLS Connection">
@@ -146,30 +148,27 @@
        </section>
      </section>
 
-     <section title="TLS for TACACS+">
+     <section title="TACACS+ over TLS">
        <t>
-         TACACS+ connections are TCP/IP connections initiated by the Client to the Server.
-         The well-known TCP/IP port 49 on the Server is used for unobfuscated and obfuscated connections as defined in the <xref target="RFC8907">TACACS+ Protocol</xref>.
-         A connection might be used for only a single Session or the multiplexing of multiple Sessions in TACACS+ Single Connection Mode.
+           TACACS+ over TLS takes the protocol defined in <xref target="RFC8907">TACACS+ Protocol</xref>, removes the option for MD5 obfuscation, and specifies its use over a TLS 1.3 or later transport using a new default well-known server port. The next section provide further details and guidance,
        </t>
        <t>TLS is introduced into TACACS+ to fulfill the following requirements:
        </t>
        <ol>
-       <li>Confidentiality and Integrity: The MD5 Obfuscation specified in the original protocol definition is not fit for purpose, requiring that TACACS+ be
-       deployed over a secured network. Securing TACACS+ protocol with TLS is intended to provide confidentiality and integrity without requiring the provision of a secured network.</li>
+       <li>Confidentiality and Integrity: The MD5 Obfuscation specified in the original protocol definition has been shown to be insecure <xref target="RFC6151"/>. This prevents TACACS+ being used in a FIPS-140 compliant deployment. Securing TACACS+ protocol with TLS is intended to provide confidentiality and integrity without requiring the provision of a secured network.</li>
        <li>Peer authentication: The  authentication capabilities of TLS replace the pre-shared keys of Obfuscation to authenticate Peers.</li>
        </ol>
        <section title="Well-Known TCP/IP Port" anchor="TLSPort">
          <t>
-           All data exchanged by TACACS+ Peers MUST be encrypted, including the authentication of the Peers.
-           Therefore, TLS Hello MUST be initiated by the client immediately upon the establishment of the TCP/IP connection.
+           All data exchanged by TACACS+ Peers MUST be encrypted, including the
+            authentication of the Peers. Therefore, when a TCP connection is
+            established for the service, a TLS handhsake begins immediately.
          </t>
          <t>
-           This document favors the predictable use of TLS security for a deployment, see (<xref target="wellknown"/>).
-           TACACS+ TLS will therefore follow <xref target="RFC7605"/>, where a different well-known system TCP/IP port is assigned by IANA, port <xref target="ICTBD">[TBD]</xref> with the service name <xref target="ICTBD">[TBDN]</xref>, for TLS connections.
+           In order to ensure that the use of TLS and non-TLS TACACS+ traffic is clearly differentiated (see <xref target="wellknown"/>, TACACS+ over TLS will follow <xref target="RFC7605"/>, where a different well-known system TCP/IP port is assigned by IANA, port <xref target="ICTBD">[TBD]</xref> with the service name <xref target="ICTBD">[TBDN]</xref>, for TLS connections.
          </t>
          <t>
-           TACACS+ TLS could use any other TCP port by operator configuration, though <xref target="wellknown"/> should still be considered.
+           TACACS+ TLS MAY be configured to use any other TCP port when required by deployment specifics, but the implications in <xref target="wellknown"/> should still be considered.
          </t>
        </section>
        <section title="TLS Connection" anchor="TLSConn">
@@ -211,6 +210,12 @@
          <t>
 	   Unless disabled by configuration, a Peer MUST disconnect a Peer that offers an invalid TLS Certificate.
          </t>
+           <t>
+	     Implementations MAY support TLS authentication with Pre-Shared Keys (PSKs), also known as external PSKs in TLS 1.3, which are not resumption PSKs.
+	     PSKs are considered out-of-scope for this document.
+           </t>
+
+
          <section title="TLS Certificate Path Verification" anchor="CertPV">
          <t>
            Implementations MUST support certificate Path verification as described in <xref target="RFC5280"/>.
@@ -240,13 +245,6 @@
          </t>
        </section>
 
-
-       <section title="Application-Layer Protocol Negotiation" anchor="ALPN">
-         <t>
-              An ALPN number is registered for Secured TACACS+ <xref target="RFC7301"/>.
-              Implementations MUST use it, in accordance to the guideleines in <xref target="RFC9325"/>
-         </t>
-       </section>
      </section>
 
      <section title="Obsolescence of TACACS+ Obfuscation" anchor="ObsolescenceOfTACACSObfuscation">
@@ -322,16 +320,7 @@
 	     Given the sensitivity of TACACS+ data, a Client MUST NOT send data until the full TLS handshake completes; that is, Clients MUST NOT send 0-RTT data and Servers MAY abruptly disconnect Clients that do.
            </t>
          </section>
-         <section title="TLS PSK">
-           <t>
-	     Implementations MAY support TLS authentication with Pre-Shared Keys (PSKs), also known as external PSKs in TLS 1.3, which are not resumption PSKs.
-	     PSKs SHOULD NOT be shared among Clients or Servers to limit exposure of a compromised key and to ease key rotation.
-	     Also see <xref target="RFC8773"/> and <xref target="I-D.ietf-tls-external-psk-guidance"/>.
-           </t>
-           <t>
-	     PSKs are otherwise considered out-of-scope for this document.
-           </t>
-         </section>
+
          <section title="TLS Options">
            <t>
 	     Implementors and operators SHOULD make use of the various RFCs to determine which TLS versions and algorithms should be supported, deprecated, obsoleted, or abandoned, in the absence of updates to this document.
@@ -475,6 +464,7 @@
        <?rfc include="reference.RFC.5280.xml"?>
        <?rfc include="reference.RFC.5425.xml"?>
        <?rfc include="reference.RFC.6066.xml"?>
+       <?rfc include="reference.RFC.6151.xml"?>
        <?rfc include="reference.RFC.7301.xml"?>
        <?rfc include="reference.RFC.7525.xml"?>
        <?rfc include="reference.RFC.8446.xml"?>
