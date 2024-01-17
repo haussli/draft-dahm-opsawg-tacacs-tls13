@@ -6,11 +6,11 @@ Operations and Management Area Working Group                     T. Dahm
 Internet-Draft                                                          
 Updates: RFC8907 (if approved)                                   D. Gash
 Intended status: Standards Track                     Cisco Systems, Inc.
-Expires: 19 July 2024                                             A. Ota
+Expires: 20 July 2024                                             A. Ota
                                                                         
                                                               J. Heasley
                                                                      NTT
-                                                         16 January 2024
+                                                         17 January 2024
 
 
                             TACACS+ TLS 1.3
@@ -48,12 +48,12 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 19 July 2024.
+   This Internet-Draft will expire on 20 July 2024.
 
 
 
 
-Dahm, et al.              Expires 19 July 2024                  [Page 1]
+Dahm, et al.              Expires 20 July 2024                  [Page 1]
 
 Internet-Draft               TACACS+ TLS 1.3                January 2024
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Dahm, et al.              Expires 19 July 2024                  [Page 2]
+Dahm, et al.              Expires 20 July 2024                  [Page 2]
 
 Internet-Draft               TACACS+ TLS 1.3                January 2024
 
@@ -152,7 +152,7 @@ Internet-Draft               TACACS+ TLS 1.3                January 2024
    being plaintext or possibly using unsecure TACACS+ authentication and
    obfuscation.  The use of well-known TCP/IP Server Port 49 is
    specified as the default for Non-TLS connections.  Non-TLS
-   Connections should not be used for new TACACS+ deployments.
+   connections SHOULD NOT be used for new TACACS+ deployments.
 
 2.3.  TLS Connection
 
@@ -165,23 +165,23 @@ Internet-Draft               TACACS+ TLS 1.3                January 2024
 
 
 
-Dahm, et al.              Expires 19 July 2024                  [Page 3]
+Dahm, et al.              Expires 20 July 2024                  [Page 3]
 
 Internet-Draft               TACACS+ TLS 1.3                January 2024
 
 
 2.4.  TACACS+ Server
 
-   In this document, we clarify that a TACACS+ Server is an instance of
+   In this document, we clarify that a TACACS+ server is an instance of
    the Server as defined in [RFC8907], Section 3.2 that responds to
    TACACS+ traffic on a specific port in a host, and does not refer to
-   the host itself.  A host may have multiple TACACS+ Servers installed,
+   the host itself.  A host may have multiple TACACS+ servers installed,
    listening to different ports.
 
 2.5.  Peer
 
    In the context of a TLS Connection, the peer of a TACACS+ Client is
-   the Server, and the peer of a TACACS+ Server is the Client.
+   the Server, and the peer of a TACACS+ server is the Client.
    Together, the ends of a TACACS+ Connection are referred as the peers.
 
 3.  TACACS+ over TLS
@@ -221,7 +221,7 @@ Internet-Draft               TACACS+ TLS 1.3                January 2024
 
 
 
-Dahm, et al.              Expires 19 July 2024                  [Page 4]
+Dahm, et al.              Expires 20 July 2024                  [Page 4]
 
 Internet-Draft               TACACS+ TLS 1.3                January 2024
 
@@ -277,7 +277,7 @@ Internet-Draft               TACACS+ TLS 1.3                January 2024
 
 
 
-Dahm, et al.              Expires 19 July 2024                  [Page 5]
+Dahm, et al.              Expires 20 July 2024                  [Page 5]
 
 Internet-Draft               TACACS+ TLS 1.3                January 2024
 
@@ -333,7 +333,7 @@ Internet-Draft               TACACS+ TLS 1.3                January 2024
 
 
 
-Dahm, et al.              Expires 19 July 2024                  [Page 6]
+Dahm, et al.              Expires 20 July 2024                  [Page 6]
 
 Internet-Draft               TACACS+ TLS 1.3                January 2024
 
@@ -389,7 +389,7 @@ Internet-Draft               TACACS+ TLS 1.3                January 2024
 
 
 
-Dahm, et al.              Expires 19 July 2024                  [Page 7]
+Dahm, et al.              Expires 20 July 2024                  [Page 7]
 
 Internet-Draft               TACACS+ TLS 1.3                January 2024
 
@@ -413,9 +413,9 @@ Internet-Draft               TACACS+ TLS 1.3                January 2024
    Section 5.2.  Instead, separate non-TLS TACACS+ servers can be set up
    to cater for these clients.
 
-   Further, TLS TACACS+ Servers and non-TLS TACACS+ servers SHOULD NOT
-   be deployed on the same host.  Non-TLS Connections would be better
-   served by deploying the required Non-TLS TACACS+ Servers on separate
+   Further, TLS TACACS+ servers and non-TLS TACACS+ servers SHOULD NOT
+   be deployed on the same host.  Non-TLS connections would be better
+   served by deploying the required Non-TLS TACACS+ servers on separate
    hosts.
 
    It is NOT RECOMMENDED to deploy TACACS+ without TLS authentication
@@ -445,7 +445,7 @@ Internet-Draft               TACACS+ TLS 1.3                January 2024
 
 
 
-Dahm, et al.              Expires 19 July 2024                  [Page 8]
+Dahm, et al.              Expires 20 July 2024                  [Page 8]
 
 Internet-Draft               TACACS+ TLS 1.3                January 2024
 
@@ -484,7 +484,7 @@ Internet-Draft               TACACS+ TLS 1.3                January 2024
    client and the TACACS+ server.
 
    This document introduces a separate port that TLS enabled TACACS+
-   Servers will listen to.  Where deployments have not overridden the
+   servers will listen to.  Where deployments have not overridden the
    defaults explicitly, TACACS+ client implementations MUST use the
    correct values:
 
@@ -501,7 +501,7 @@ Internet-Draft               TACACS+ TLS 1.3                January 2024
 
 
 
-Dahm, et al.              Expires 19 July 2024                  [Page 9]
+Dahm, et al.              Expires 20 July 2024                  [Page 9]
 
 Internet-Draft               TACACS+ TLS 1.3                January 2024
 
@@ -524,14 +524,14 @@ Internet-Draft               TACACS+ TLS 1.3                January 2024
       due to misconfiguration.
 
    However, co-existence of inferior authentication and obfuscated,
-   whether an Non-TLS Connection or deprecated parts that compose TLS,
+   whether an Non-TLS connection or deprecated parts that compose TLS,
    also presents opportunity for down-grade attacks.  Causing failure of
    connections to the TLS-enabled service or the negotiation of shared
    algorithm support are two such down-grade attacks.
 
-   The simplest way to address exposure from Non-TLS Connection methods
-   is to refuse Non-TLS Connections at the server entirely, perhaps
-   using separate servers for Non-TLS Connections and TLS.
+   The simplest way to address exposure from Non-TLS connection methods
+   is to refuse Non-TLS connections at the server entirely, perhaps
+   using separate servers for Non-TLS connections and TLS.
 
    Another approach is mutual configuration that requires TLS.  Clients
    and Servers SHOULD support configuration that requires Peers,
@@ -552,12 +552,12 @@ Internet-Draft               TACACS+ TLS 1.3                January 2024
    TACACS+, TLS should be universally applied throughout the deployment.
    However, during the migration process from a non-TLS TACACS+
    deployment, operators may need to support both TLS and Non-TLS
-   TACACS+ Servers.  This migration phase allows operators to gradually
+   TACACS+ servers.  This migration phase allows operators to gradually
    transition their deployments from an insecure state to a more secure
 
 
 
-Dahm, et al.              Expires 19 July 2024                 [Page 10]
+Dahm, et al.              Expires 20 July 2024                 [Page 10]
 
 Internet-Draft               TACACS+ TLS 1.3                January 2024
 
@@ -575,9 +575,9 @@ Internet-Draft               TACACS+ TLS 1.3                January 2024
 6.2.  Maintaining Non-TLS TACACS+ Clients
 
    Some TACACS+ client devices in a deployment may not implement TLS.
-   These devices will require access to Non-TLS TACACS+ Servers.
+   These devices will require access to Non-TLS TACACS+ servers.
    Operators MUST follow the recommendation of section Section 5.1.1 and
-   deploy separate TACACS+ Servers for these Non-TLS clients from those
+   deploy separate TACACS+ servers for these Non-TLS clients from those
    used for the TLS clients.
 
 7.  IANA Considerations
@@ -613,7 +613,7 @@ Internet-Draft               TACACS+ TLS 1.3                January 2024
 
 
 
-Dahm, et al.              Expires 19 July 2024                 [Page 11]
+Dahm, et al.              Expires 20 July 2024                 [Page 11]
 
 Internet-Draft               TACACS+ TLS 1.3                January 2024
 
@@ -669,7 +669,7 @@ Internet-Draft               TACACS+ TLS 1.3                January 2024
 
 
 
-Dahm, et al.              Expires 19 July 2024                 [Page 12]
+Dahm, et al.              Expires 20 July 2024                 [Page 12]
 
 Internet-Draft               TACACS+ TLS 1.3                January 2024
 
@@ -725,7 +725,7 @@ Authors' Addresses
 
 
 
-Dahm, et al.              Expires 19 July 2024                 [Page 13]
+Dahm, et al.              Expires 20 July 2024                 [Page 13]
 
 Internet-Draft               TACACS+ TLS 1.3                January 2024
 
@@ -781,4 +781,4 @@ Internet-Draft               TACACS+ TLS 1.3                January 2024
 
 
 
-Dahm, et al.              Expires 19 July 2024                 [Page 14]
+Dahm, et al.              Expires 20 July 2024                 [Page 14]

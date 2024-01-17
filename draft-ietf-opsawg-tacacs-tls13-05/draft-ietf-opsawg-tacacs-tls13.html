@@ -35,7 +35,7 @@
     wcwidth 0.2.13
     weasyprint 60.2
 -->
-<link href="/usr/src/app/tmp/e9633699-f621-464d-b324-55b7ee29d806/draft-ietf-opsawg-tacacs-tls13.xml" rel="alternate" type="application/rfc+xml">
+<link href="/usr/src/app/tmp/07e8c646-bede-40d9-a7d0-04892847c6a6/draft-ietf-opsawg-tacacs-tls13.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
 <style type="text/css">/*
 
@@ -1215,7 +1215,7 @@ li > p:last-of-type:only-child {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Dahm, et al.</td>
-<td class="center">Expires 19 July 2024</td>
+<td class="center">Expires 20 July 2024</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1229,12 +1229,12 @@ li > p:last-of-type:only-child {
 <a href="https://www.rfc-editor.org/rfc/rfcRFC8907" class="eref">RFC8907</a> (if approved)</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-01-16" class="published">16 January 2024</time>
+<time datetime="2024-01-17" class="published">17 January 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2024-07-19">19 July 2024</time></dd>
+<dd class="expires"><time datetime="2024-07-20">20 July 2024</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1287,7 +1287,7 @@ li > p:last-of-type:only-child {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 19 July 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 20 July 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1460,7 +1460,7 @@ li > p:last-of-type:only-child {
            This is another term for a connection defined in the historic <span><a href="#RFC8907" class="internal xref">TACACS+ Protocol</a> [<a href="#RFC8907" class="cite xref">RFC8907</a>]</span>.
            It is a Connection without TLS and therefore being plaintext or possibly using unsecure TACACS+ authentication and obfuscation.
            The use of well-known TCP/IP Server Port 49 is specified as the default for Non-TLS connections.
-           Non-TLS Connections should not be used for new TACACS+ deployments.<a href="#section-2.2-1" class="pilcrow">¶</a></p>
+           Non-TLS connections SHOULD NOT be used for new TACACS+ deployments.<a href="#section-2.2-1" class="pilcrow">¶</a></p>
 </section>
 <section id="section-2.3">
         <h3 id="name-tls-connection">
@@ -1474,10 +1474,10 @@ li > p:last-of-type:only-child {
 <a href="#section-2.4" class="section-number selfRef">2.4. </a><a href="#name-tacacs-server" class="section-name selfRef">TACACS+ Server</a>
         </h3>
 <p id="section-2.4-1">
-            In this document, we clarify that a TACACS+ Server is an instance of
+            In this document, we clarify that a TACACS+ server is an instance of
             the Server as defined in <span>[<a href="#RFC8907" class="cite xref">RFC8907</a>], <a href="https://rfc-editor.org/rfc/rfc8907#section-3.2" class="relref">Section 3.2</a></span> that
             responds to TACACS+ traffic on a specific port in a host, and does not
-            refer to the host itself. A host may have multiple TACACS+ Servers
+            refer to the host itself. A host may have multiple TACACS+ servers
             installed, listening to different ports.<a href="#section-2.4-1" class="pilcrow">¶</a></p>
 </section>
 <section id="section-2.5">
@@ -1485,7 +1485,7 @@ li > p:last-of-type:only-child {
 <a href="#section-2.5" class="section-number selfRef">2.5. </a><a href="#name-peer" class="section-name selfRef">Peer</a>
         </h3>
 <p id="section-2.5-1">
-           In the context of a TLS Connection, the peer of a TACACS+ Client is the Server, and the peer of a TACACS+ Server is the Client. Together, the ends of a TACACS+ Connection are referred as the peers.<a href="#section-2.5-1" class="pilcrow">¶</a></p>
+           In the context of a TLS Connection, the peer of a TACACS+ Client is the Server, and the peer of a TACACS+ server is the Client. Together, the ends of a TACACS+ Connection are referred as the peers.<a href="#section-2.5-1" class="pilcrow">¶</a></p>
 </section>
 </section>
 <section id="section-3">
@@ -1652,9 +1652,9 @@ li > p:last-of-type:only-child {
                as described in Section 5.2. Instead, separate non-TLS TACACS+ servers
                can be set up to cater for these clients.<a href="#section-5.1.1-1" class="pilcrow">¶</a></p>
 <p id="section-5.1.1-2">
-               Further, TLS TACACS+ Servers and non-TLS TACACS+ servers SHOULD NOT be deployed
-               on the same host. Non-TLS Connections would be better served by deploying the
-               required Non-TLS TACACS+ Servers on separate hosts.<a href="#section-5.1.1-2" class="pilcrow">¶</a></p>
+               Further, TLS TACACS+ servers and non-TLS TACACS+ servers SHOULD NOT be deployed
+               on the same host. Non-TLS connections would be better served by deploying the
+               required Non-TLS TACACS+ servers on separate hosts.<a href="#section-5.1.1-2" class="pilcrow">¶</a></p>
 <p id="section-5.1.1-3">
              It is NOT RECOMMENDED to deploy TACACS+ without TLS authentication and encryption, including TLS using the NULL algorithm, except for within test and debug environments.
              Also see <span>[<a href="#RFC3365" class="cite xref">RFC3365</a>]</span>.<a href="#section-5.1.1-3" class="pilcrow">¶</a></p>
@@ -1715,7 +1715,7 @@ li > p:last-of-type:only-child {
             for enabling TLS is straightforward and leaves no room for ambiguity regarding whether
             TLS or non-TLS will be used between the TACACS+ client and the TACACS+ server.<a href="#section-5.2-1" class="pilcrow">¶</a></p>
 <p id="section-5.2-2">
-             This document introduces a separate port that TLS enabled TACACS+ Servers
+             This document introduces a separate port that TLS enabled TACACS+ servers
              will listen to. Where deployments have not overridden the defaults explicitly,
              TACACS+ client implementations MUST use the correct values:<a href="#section-5.2-2" class="pilcrow">¶</a></p>
 <ul class="normal">
@@ -1749,10 +1749,10 @@ li > p:last-of-type:only-child {
 </li>
         </ul>
 <p id="section-5.3-3">
-           However, co-existence of inferior authentication and obfuscated, whether an Non-TLS Connection or deprecated parts that compose TLS, also presents opportunity for down-grade attacks.
+           However, co-existence of inferior authentication and obfuscated, whether an Non-TLS connection or deprecated parts that compose TLS, also presents opportunity for down-grade attacks.
            Causing failure of connections to the TLS-enabled service or the negotiation of shared algorithm support are two such down-grade attacks.<a href="#section-5.3-3" class="pilcrow">¶</a></p>
 <p id="section-5.3-4">
-           The simplest way to address exposure from Non-TLS Connection methods is to refuse Non-TLS Connections at the server entirely, perhaps using separate servers for Non-TLS Connections and TLS.<a href="#section-5.3-4" class="pilcrow">¶</a></p>
+           The simplest way to address exposure from Non-TLS connection methods is to refuse Non-TLS connections at the server entirely, perhaps using separate servers for Non-TLS connections and TLS.<a href="#section-5.3-4" class="pilcrow">¶</a></p>
 <p id="section-5.3-5">
            Another approach is mutual configuration that requires TLS.
            Clients and Servers SHOULD support configuration that requires Peers, globally and individually, use TLS.
@@ -1780,7 +1780,7 @@ li > p:last-of-type:only-child {
                    In section 5.2, it is mentioned that for an optimal deployment of TLS TACACS+,
                    TLS should be universally applied throughout the deployment. However, during
                    the migration process from a non-TLS TACACS+ deployment, operators may need
-                   to support both TLS and Non-TLS TACACS+ Servers. This migration phase allows
+                   to support both TLS and Non-TLS TACACS+ servers. This migration phase allows
                    operators to gradually transition their deployments from an insecure state to
                    a more secure one, but it is important to note that it is vulnerable to
                    downgrade attacks. Therefore, the migration phase should be considered
@@ -1801,9 +1801,9 @@ li > p:last-of-type:only-child {
         </h3>
 <p id="section-6.2-1">
                    Some TACACS+ client devices in a deployment may not implement TLS.
-                   These devices will require access to Non-TLS TACACS+ Servers.
+                   These devices will require access to Non-TLS TACACS+ servers.
                    Operators MUST follow the recommendation of section <a href="#TLSUSE" class="auto internal xref">Section 5.1.1</a> and deploy
-                   separate TACACS+ Servers for these Non-TLS clients from those used
+                   separate TACACS+ servers for these Non-TLS clients from those used
                    for the TLS clients.<a href="#section-6.2-1" class="pilcrow">¶</a></p>
 </section>
 </div>
