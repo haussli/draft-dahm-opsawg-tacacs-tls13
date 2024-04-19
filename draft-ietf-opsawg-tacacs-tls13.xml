@@ -92,7 +92,7 @@
      <abstract>
      <t>
        The Terminal Access Controller Access-Control System Plus (TACACS+) Protocol provides device administration for routers, network access servers and other networked computing devices via one or more centralized servers.
-       This document adds Transport Layer Security (TLS 1.3) support and obsoletes former inferior security mechanisms.
+       This document adds Transport Layer Security (TLS 1.3) support to TACACS+ and obsoletes former inferior security mechanisms.
      </t>
      </abstract>
      <note title="Requirements Language">
@@ -105,34 +105,33 @@
    <middle>
      <section title="Introduction">
        <t>
-         The <xref target="RFC8907">Terminal Access Controller Access-Control System Plus (TACACS+)+ Protocol</xref> provides device administration for routers, network access servers and other networked computing devices via one or more centralized servers.
-         The protocol provides authentication, authorization and accounting services (AAA) for TACACS+ clients within the device administration use case.
+         The <xref target="RFC8907">Terminal Access Controller Access-Control System Plus (TACACS+) Protocol</xref> provides Device Administration for routers, network access servers and other networked computing devices via one or more centralized servers.
+         The protocol provides authentication, authorization and accounting services (AAA) for TACACS+ clients within the Device Administration use case.
        </t>
        <t>
-	 While the content of the protocol is highly sensitive, TACACS+ lacks modern and/or effective confidentiality, integrity, and authentication of the connection and network traffic between the server and client, requiring secure transport to safeguard the deployment.
-	 The existing TACACS+ mechanisms are extremely weak as described in section 10 of <xref target="RFC8907">TACACS+ Protocol</xref>.
+	 While the content of the protocol is highly sensitive, TACACS+ lacks effective confidentiality, integrity, and authentication of the connection and network traffic between the server and client, requiring secure transport to safeguard a deployment.
+	 The existing TACACS+ mechanisms are extremely weak as described in Section 10 of <xref target="RFC8907"/>.
        </t>
        <t>
-	 To address these deficiencies, this document updates the TACACS+ protocol to use <xref target="RFC8446">TLS 1.3</xref> authentication and encryption, and obsoletes the use of its former mechanisms.
+	 To address these deficiencies, this document updates the TACACS+ protocol to use <xref target="RFC8446">TLS 1.3</xref> authentication and encryption, and obsoletes the use of its former mechanisms (Section 10.5 of <xref target="RFC8907"/>).
        </t>
      </section>
 
      <section title="Technical Definitions">
        <t>
-         The terms defined in section 3 of <xref target="RFC8907">TACACS+ Protocol</xref> are fully applicable here and will not be repeated.
+         The terms defined in Section 3 of <xref target="RFC8907"/> are fully applicable here and will not be repeated.
          The following terms are also used in this document.
        </t>
        <section title="Obfuscation">
          <t>
-           Obfuscation is the inferior form of encryption used in TACACS+, labelled as such in <xref target="RFC8907" section="10.5.2" sectionFormat="comma"/> to indicate that it is not encryption and is insufficient.
+           TACACS+ was originally conceived to incorporate a mechanism for securing the body of its packets. The algorithm used has been labelled Obfuscation in <xref target="RFC8907" section="10.5.2"/> to ensure that it is not mistaken for encryption.
          </t>
        </section>
        <section title="Non-TLS Connection">
          <t>
-           This is another term for a connection defined in the historic <xref target="RFC8907">TACACS+ Protocol</xref>.
+           This term refers to the connection defined in <xref target="RFC8907"/>.
            It is a connection without TLS and therefore being plaintext or possibly using unsecure TACACS+ authentication and obfuscation.
-           The use of well-known TCP/IP server port 49 is specified as the default for Non-TLS connections.
-           Non-TLS connections SHOULD NOT be used for new TACACS+ deployments.
+           The use of well-known TCP/IP server port number 49 is specified as the default for Non-TLS connections.
          </t>
        </section>
        <section title="TLS Connection">
@@ -143,49 +142,48 @@
        <section title="TACACS+ Server">
          <t>
             A TACACS+ server is an instance of
-            the server as defined in <xref target="RFC8907" section="3.2" sectionFormat="comma"/> that
-            responds to TACACS+ traffic on a specific port in a host. This document distinguishes the TACACS+ server instance from the host itself. A host may have multiple TACACS+ servers
-            installed, listening to different ports.
+            the server as defined in <xref target="RFC8907" section="3.2"/> that
+            responds to TACACS+ traffic bound to a specific port number on a host. This document distinguishes the TACACS+ server instance from the host itself. A host may have multiple TACACS+ server
+            running, each listening on different port numbers.
          </t>
        </section>
        <section title="Peer">
          <t>
-           The peer of a TACACS+ client (or server) in the context of a TACACS+ connection, is the server (or client). Together, the ends of a TACACS+ connection are referred as the peers.
+           The peer of a TACACS+ client (or server) in the context of a TACACS+ connection, is a server (or client). Together, the ends of a TACACS+ connection are referred to as peers.
          </t>
        </section>
      </section>
 
      <section title="TACACS+ over TLS">
        <t>
-           TACACS+ over TLS takes the protocol defined in <xref target="RFC8907">TACACS+ Protocol</xref>, removes the option for MD5 obfuscation, and specifies the use of TLS (version 1.3 or later) for transport using a new well-known default server port.
+           TACACS+ over TLS takes the protocol defined in <xref target="RFC8907"/>, removes the option for MD5 obfuscation, and specifies the use of TLS (version 1.3 or later) for transport using a new well-known default server port number.
            The next sections provide further details and guidance.
        </t>
        <t>TLS is introduced into TACACS+ to fulfill the following requirements:
        </t>
        <ol>
-       <li>Confidentiality and Integrity: The MD5 obfuscation specified in <xref target="RFC8907">RFC8907</xref> has been shown to be insecure <xref target="RFC6151"/>. This prevents TACACS+ being used in a FIPS-140 compliant deployment. Securing TACACS+ protocol with TLS is intended to provide confidentiality and integrity without requiring the provision of a secured network.</li>
+       <li>Confidentiality and Integrity: The MD5 obfuscation specified in <xref target="RFC8907"/> has been shown to be insecure <xref target="RFC6151"/>. This prevents TACACS+ being used in a FIPS-140 compliant deployment. Securing TACACS+ protocol with TLS is intended to provide confidentiality and integrity without requiring the provision of a secured network.</li>
        <li>Peer authentication: The  authentication capabilities of TLS replace the pre-shared keys of obfuscation for mutual authentication.</li>
        </ol>
        <section title="Separating TLS Connections" anchor="TLSPort">
          <t>
-           All data exchanged by TACACS+ peers MUST be encrypted, including the
+           All data exchanged by TACACS+ peers MUST be encrypted, including the mutual
             authentication of the peers. Therefore, when a TCP connection is
             established for the service, a TLS handshake begins immediately.
          </t>
          <t>
-             To ensure separation of TACACS+ traffic that uses TLS from that which does not (see <xref target="wellknown"/>),
-             TACACS+ over TLS will follow <xref target="RFC7605"/>.
-             This entails dedicating separate TCP/IP ports to each protocol type.
+             To ensure separation of TACACS+ traffic that uses TLS from that which does not (<xref target="wellknown"/>),
+             TACACS+ over TLS will dedicate separate TCP/IP port numbers to each protocol type.
              Additionally, considering the widespread use of default settings in numerous existing TACACS+ configurations,
-             the designated port for TLS TACACS+ will be defined as a well-known system TCP/IP port assigned by IANA, port <xref target="ICTBD">[TBD]</xref> with the service name <xref target="ICTBD">[TBDN]</xref>.
+             the designated port number for TLS TACACS+ will be defined as a well-known system TCP/IP port number assigned by IANA, port number <xref target="ICTBD">[TBD]</xref> with the service name <xref target="ICTBD">[TBDN]</xref>.
          </t>
          <t>
-             Under exceptional circumstances, this document permits any other TCP port to be configured when required by deployment specifics, but the implications in <xref target="wellknown"/> MUST still be considered by operators.
+             Under exceptional circumstances, this document permits any other TCP port number to be configured when required by deployment specifics, but the implications in <xref target="wellknown"/> have to be considered by operators.
          </t>
        </section>
        <section title="TLS Connection" anchor="TLSConn">
          <t>
-           A TACACS+ client initiates a TLS connection by making a TCP connection to a server on the TACACS+ TLS well-known port ([TBD]) (<xref target="TLSPort"/>).
+           A TACACS+ client initiates a TLS connection by making a TCP connection to a configured server on the TACACS+ TLS port number ([TBD]) (<xref target="TLSPort"/>).
            Once the TCP connection is established, the client MUST immediately begin the TLS negotiation before sending any TACACS+ protocol data.
          </t>
          <t>
@@ -193,7 +191,7 @@
 	   If resumption is supported, the resumption ticket_lifetime SHOULD be configurable, including a zero seconds lifetime.
          </t>
          <t>
-	   Once the TLS connection is established, the exchange of TACACS+ data proceeds as normal, except that it is transmitted over TLS as TLS application data and without TACACS+ obfuscation (see <xref target="ObsolescenceOfTACACSObfuscation"/>)
+	   Once the TLS connection is established, the exchange of TACACS+ data proceeds as normal, except that it is transmitted over TLS as TLS application data and without TACACS+ obfuscation (<xref target="ObsolescenceOfTACACSObfuscation"/>)
          </t>
          <t>
 	   The connection persists until the server or client closes it.
@@ -203,11 +201,11 @@
          </t>
        <section title="Cipher Requirements">
          <t>
-	   Implementations MUST support the TLS 1.3 mandatory cipher suites (See <xref target="RFC8446">TLS 1.3</xref> Section 9.1).
+	   Implementations MUST support the TLS 1.3 mandatory cipher suites (<xref target="RFC8446">TLS 1.3</xref> Section 9.1).
 	   The cipher suites offered or accepted SHOULD be configurable so that operators can adapt.
          </t>
          <t>
-	   This document makes no cipher suite recommendations, but recommendations can be found in the TLS Cipher Suites section of the <xref target="RFC9325"/>.
+	   This document makes no cipher suite recommendations, but recommendations can be found in the TLS Cipher Suites section of the <xref target="RFC9325" section="4"/>.
          </t>
        </section>
        <section title="TLS Authentication">
@@ -243,7 +241,7 @@
            In addition to authentication of TLS certificates, implementations MUST allow operators to specify which certificate fields are to be used for peer-identification, to verify that the peer is a valid source for the received certificate and that it is permitted access to TACACS+.
            Implementations MUST support either:
 	 </t>
-	 <t>Network location based validation methods as described in <xref target="RFC5425" section="5.2" sectionFormat="comma"/>.
+	 <t>Network location based validation methods as described in <xref target="RFC5425" section="5.2"/>.
 	 </t>
          <t>or</t>
          <t>
@@ -252,7 +250,7 @@
            Only the local server mapping needs to be updated.
          </t>
          <t>
-           Implementations SHOULD support the TLS Server Name Indication extension (<xref target="RFC6066" section="3" sectionFormat="comma"/>).
+           Implementations SHOULD support the TLS Server Name Indication extension (<xref target="RFC6066" section="3"/>).
            Policy can be applied to this attribute and it can be useful for load balancing or multiplexing at the server.
          </t>
            <t>Certificate Provisioning is out of scope of this document.</t>
@@ -262,8 +260,8 @@
 
      <section title="Obsolescence of TACACS+ Obfuscation" anchor="ObsolescenceOfTACACSObfuscation">
        <t>
-         <xref target="RFC8907">The original draft of TACACS+</xref> described the obfuscation mechanism, documented in <xref target="RFC5425" section="5.2" sectionFormat="comma"/>.
-         It is insufficient for modern purposes.
+         <xref target="RFC8907"/> describes the obfuscation mechanism, documented in <xref target="RFC5425" section="5.2"/>.
+         Such a mechod is weak.
        </t>
        <t>
          The introduction of TLS PSK, certificate peer authentication, and TLS encryption to TACACS+ replaces these former mechanisms and so obfuscation is hereby obsoleted.
@@ -278,10 +276,10 @@
        </t>
        <t>
         A TACACS+ server that receives a packet with the TAC_PLUS_UNENCRYPTED_FLAG not set (cleared) over a TLS connection, MUST return an error of TAC_PLUS_AUTHEN_STATUS_ERROR, TAC_PLUS_AUTHOR_STATUS_ERROR, or TAC_PLUS_ACCT_STATUS_ERROR as appropriate for the TACACS+ message type, with the TAC_PLUS_UNENCRYPTED_FLAG set, and terminate the session.
-        This behavior corresponds to that defined in <xref target="RFC8907">RFC8907 Section 4.5. Data Obfuscation</xref> for TAC_PLUS_UNENCRYPTED_FLAG or key mismatches.
+        This behavior corresponds to that defined in Section 4.5 of <xref target="RFC8907"/> Data Obfuscation for TAC_PLUS_UNENCRYPTED_FLAG or key mismatches.
        </t>
        <t>
-	A TACACS+ client that receives a packet with the TAC_PLUS_UNENCRYPTED_FLAG not set (cleared), MUST terminate the session, and SHOULD log this error.
+	A TACACS+ client that receives a packet with the TAC_PLUS_UNENCRYPTED_FLAG not set (i.e., cleared), MUST terminate the session, and SHOULD log this error.
        </t>
      </section>
 
@@ -297,7 +295,7 @@
              and selecting secure TLS key and encryption algorithms.
          </t>
            <t>
-            <xref target="RFC9325"/>. offers substantial guidance for implementing protocols that use
+            <xref target="RFC9325"/> offers substantial guidance for implementing protocols that use
             TLS and their deployment. Those implementing and deploying Secure TACACS+
             must adhere to the recommendations relevant to TLS 1.3 outlined in <xref target="RFC9325"/>,
             or its subsequent versions.
@@ -308,15 +306,16 @@
             support, are not relevant for Secure TACACS+ as TLS 1.3 or above is mandated.
            </t>
          <section title="TLS Use" anchor="TLSUSE">
+             <t>
+                 Non-TLS connections should not be used for new TACACS+ deployments.
+             </t>
            <t>
-               TLS encryption SHOULD be used in deployments where both the clients and servers
-               support it. TACACS+ servers that have TLS support MUST NOT allow non-TLS connections
-               from clients that do not support TLS, because of the threat of downgrade attacks,
-               as described in Section 5.2. Instead, separate non-TLS TACACS+ servers
+               TACACS+ servers that have TLS support MUST NOT allow Non-TLS connections, because of the threat of downgrade attacks,
+               as described in Section 5.2. Instead, separate Non-TLS TACACS+ servers
                can be set up to cater for these clients.
          </t>
          <t>
-               Further, TLS TACACS+ servers and non-TLS TACACS+ servers SHOULD NOT be deployed
+               Further, TLS TACACS+ servers and Non-TLS TACACS+ servers SHOULD NOT be deployed
                on the same host. Non-TLS connections would be better served by deploying the
                required Non-TLS TACACS+ servers on separate hosts.
            </t>
@@ -335,10 +334,8 @@
          </section>
 
          <section title="TLS Options">
-           <t>
-	     Implementors and operators SHOULD make use of the various RFCs to determine which TLS versions and algorithms should be supported, deprecated, obsoleted, or abandoned, in the absence of updates to this document.
-	     </t>
-             <t>Recommendations in <xref target="RFC9325"/> Section 4, or any RFCs which obsolete it, MUST be followed.</t>
+
+             <t>Recommendations in Section 4 of  <xref target="RFC9325"/>  or any RFCs which obsolete it, MUST be followed, in order to determine which TLS versions and algorithms should be supported, deprecated, obsoleted, or abandoned</t>
          <t>
              Other useful examples are the TLS specifications themselves (<xref target="RFC8446">TLS 1.3</xref>), which prescribes mandatory support in Section 9, and TLS Recommendations <xref target="RFC7525"/>.
            </t>
@@ -357,7 +354,7 @@
          <section title="TLS Server Name Indicator (SNI)" anchor="TLSSNISec">
            <t>
              Operators SHOULD be aware that the TLS SNI extension is part of the TLS client hello, and is therefore subject to eavesdropping.
-             Also see <xref target="RFC6066" section="11.1" sectionFormat="comma"/>.
+             Also see <xref target="RFC6066" section="11.1"/>.
            </t>
              <t>If TLS Encrypted Client Hello becomes standardized and applicable to TLS 1.3, then it SHOULD be included in Secure TACACS+ implementation.</t>
          </section>
@@ -366,23 +363,23 @@
            <t>
             Implementors MUST ensure that the configuration scheme introduced
             for enabling TLS is straightforward and leaves no room for ambiguity regarding whether
-            TLS or non-TLS will be used between the TACACS+ client and the TACACS+ server.
+            TLS or Non-TLS will be used between the TACACS+ client and the TACACS+ server.
           </t>
           <t>
-             This document introduces a separate port that TLS enabled TACACS+ servers
+             This document recommends the use of a separate port number that TLS enabled TACACS+ servers
              will listen to. Where deployments have not overridden the defaults explicitly,
              TACACS+ client implementations MUST use the correct values:
           </t>
           <ul>
-             <li>for non-TLS connection TACACS+: Port 49.</li>
+             <li>for Non-TLS connection TACACS+: Port 49.</li>
              <li>for TLS connection TACACS+: (TBD).</li>
           </ul>
 
           <t>
              Implementors MAY offer a single option for TACACS+ clients and servers to disable all
-             non-TLS TACACS+ operations. When enabled on a TACACS+ server, it will
-             not respond to any requests from non-TLS TACACS+ client connections. When enabled on
-             a TACACS+ client, it will not establish any non-TLS TACACS+ server connections.
+             Non-TLS TACACS+ operations. When enabled on a TACACS+ server, it will
+             not respond to any requests from Non-TLS TACACS+ client connections. When enabled on
+             a TACACS+ client, it will not establish any Non-TLS TACACS+ server connections.
           </t>
        </section>
 
@@ -415,14 +412,14 @@
            <t>
                Operational and deployment considerations are spread throughout the
                document. While avoiding repetition, it is useful for the impatient
-               to direct particular attention to Section 5.2 and Section 5.1.5.
+               to direct particular attention to Sections 5.2 and 5.1.5.
                However, it is important that the entire Section 5 is observed.
            </t>
            <section title="Migration" anchor="MIGRATION">
                <t>
-                   In section 5.2, it is mentioned that for an optimal deployment of TLS TACACS+,
+                   In Section 5.2, it is mentioned that for an optimal deployment of TLS TACACS+,
                    TLS should be universally applied throughout the deployment. However, during
-                   the migration process from a non-TLS TACACS+ deployment, operators may need
+                   the migration process from a Non-TLS TACACS+ deployment, operators may need
                    to support both TLS and Non-TLS TACACS+ servers. This migration phase allows
                    operators to gradually transition their deployments from an insecure state to
                    a more secure one, but it is important to note that it is vulnerable to
@@ -430,10 +427,10 @@
                    insecure until it is fully completed. To mitigate this hazard:
                </t>
                <ul>
-                   <li>the period where any client is configured with both TLS and non-TLS servers SHOULD be
+                   <li>the period where any client is configured with both TLS and Non-TLS servers should be
                        minimized.
                    </li>
-                   <li>the operator MUST consider the impact of mixed TLS and Non-TLS on security.</li>
+                   <li>the operator must consider the impact of mixed TLS and Non-TLS on security.</li>
                </ul>
            </section>
 
@@ -451,10 +448,18 @@
        <section title="IANA Considerations" anchor="ICTBD">
        <t>
          The authors request that, when this draft is accepted by the working group, the OPSAWG Chairs submit a request to IANA for an early allocation, per <xref target="RFC4020"/> and <xref target="RFC6335"/>, of a new well-known system TCP/IP port number for the service name "tacacss" (referenced in this document also as "TACACS+ TLS well-known port ([TBD])"), described as "TACACS+ over TLS".
-         The service name "tacacss" follows the common practice of appending an "s" to the name given to the non-TLS well-known port name.
+         The service name "tacacss" follows the common practice of appending an "s" to the name given to the Non-TLS well-known port name.
          This allocation is justified in <xref target="wellknown"/>.
        </t>
-       <t>
+        <t>This document requests IANA to add a new entity from the "Service name and Transport Protocol Port Number Registry" available at https://www.iana.org/assignments/service-name-port-numbers/</t>
+       <t>Service Name: tacacss</t>
+           <t>Port Number: [TBD]</t>
+           <t>Transport Protocol: TCP</t>
+           <t>Description: Login Host Protocol (TACACSS)</t>
+           <t>Assignee: IESG</t>
+           <t>Contact: IETF Chair</t>
+           <t>Reference: [TBDN] (This Document)</t>
+           <t>
          RFC EDITOR: this port number should replace "[TBD]" and the service name should replace "[TBDN]" within this document.
        </t>
      </section>
@@ -477,8 +482,6 @@
        <?rfc include="reference.RFC.5280.xml"?>
        <?rfc include="reference.RFC.5425.xml"?>
        <?rfc include="reference.RFC.6066.xml"?>
-       <?rfc include="reference.RFC.6151.xml"?>
-       <?rfc include="reference.RFC.7301.xml"?>
        <?rfc include="reference.RFC.7525.xml"?>
        <?rfc include="reference.RFC.8446.xml"?>
        <?rfc include="reference.RFC.8773.xml"?>
@@ -486,9 +489,9 @@
          <?rfc include="reference.RFC.9325.xml"?>
      </references>
      <references title="Informative References">
-       <xi:include href="http://xml2rfc.ietf.org/public/rfc/bibxml-ids/reference.I-D.ietf-tls-external-psk-guidance.xml"/>
        <?rfc include="reference.RFC.3365.xml"?>
        <?rfc include="reference.RFC.4020.xml"?>
+          <?rfc include="reference.RFC.6151.xml"?>
        <?rfc include="reference.RFC.6335.xml"?>
        <?rfc include="reference.RFC.7250.xml"?>
        <?rfc include="reference.RFC.7605.xml"?>
