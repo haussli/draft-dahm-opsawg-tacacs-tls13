@@ -250,22 +250,22 @@
        </section>
        </section>
        <section title="TLS Identification">
-           <t>RFC EDITOR: [authors to add reference to RFC 9525 here]</t>
-         <t>
-           In addition to authentication of TLS certificates, implementations MUST allow operators to specify which certificate fields are to be used for peer-identification, to verify that the peer is a valid source for the received certificate and that it is permitted access to TACACS+.
-           Implementations MUST support either:
-	 </t>
-	 <t>Network location based validation methods as described in <xref target="RFC5425" section="5.2"/>.
-	 </t>
+           <t>For the client-side validation of presented server identities, implementations MUST follow <xref target="RFC9525"/> validation techniques. Identifier types DNS-ID, IP-ID or SRV-ID
+             are applicable for use with the TLS TACACS+ protocol, selected by operators depending upon the deployment design. TLS TACACS+ does not use URI-IDs for server identity verification. The wildcard character MUST NOT be included in the presented server identities.
+	     </t>
+           <t>
+           For the server-side validation of client identities, Implementations must support the ability to configure which fields of a certificate are used for client identification, to verify that the client is a valid
+   source for the received certificate and that it is permitted access
+   to TACACS+. Implementations MUST support either:</t>
+	     <t>Network location based validation methods as described in <xref target="RFC5425" section="5.2"/>.
+	     </t>
          <t>or</t>
          <t>
- 	   Device Identity based validation methods where the peer's identity is used in the certificate subjectName. This is applicable in deployments where the device securely supports an identity which is shared with its peer.
-           This approach allows a peer's network location to be reconfigured without issuing a new client certificate.
-           Only the local server mapping needs to be updated.
+ 	       Client Identity validation of a shared identity in the certificate subjectAltName. This is applicable in deployments where the client securely supports an identity which is shared with the server.
+           This approach allows a client's network location to be reconfigured without issuing a new client certificate, in this case, only the server mapping needs to be updated.
          </t>
          <t>
-           Implementations SHOULD support the TLS Server Name Indication extension (<xref target="RFC6066" section="3"/>), and SHOULD include the server domain name in the SNI
-    "server_name" extension of the client hello.
+           Implementations SHOULD support the TLS Server Name Indication extension (SNI) (<xref target="RFC6066" section="3"/>), and SHOULD support the ability to configure the server's domain name, so that it may be included in the SNI "server_name" extension of the client hello.
          </t>
            <t>Certificate provisioning is out of scope of this document.</t>
        </section>
@@ -510,6 +510,7 @@
        <?rfc include="reference.RFC.8773.xml"?>
        <?rfc include="reference.RFC.8907.xml"?>
          <?rfc include="reference.RFC.9325.xml"?>
+         <?rfc include="reference.RFC.9525.xml"?>
      </references>
      <references title="Informative References">
        <?rfc include="reference.RFC.3365.xml"?>
