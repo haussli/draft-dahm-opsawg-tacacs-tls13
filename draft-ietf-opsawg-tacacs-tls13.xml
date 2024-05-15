@@ -9,7 +9,7 @@
   <!ENTITY nbhy   "&#8209;">
   <!ENTITY wj     "&#8288;">
 ]>
-<rfc docName="draft-ietf-opsawg-tacacs-tls13-08"
+<rfc docName="draft-ietf-opsawg-tacacs-tls13-09"
      category="std"
      ipr="trust200902"
      submissionType='IETF'
@@ -158,7 +158,7 @@
 
      <section title="TACACS+ over TLS">
        <t>
-           TACACS+ over TLS takes the protocol defined in <xref target="RFC8907"/>, removes the option for MD5 obfuscation, and specifies the use of TLS (version 1.3 or later) for transport using a new well-known default server port number.
+           TACACS+ over TLS takes the protocol defined in <xref target="RFC8907"/>, removes the option for MD5 obfuscation, and specifies that TLS 1.3 MUST be used for transport (it is expected that TACACS+ as described in this document will work with future versions of TLS). A new well-known default server port number is used.
            The next sections provide further details and guidance.
        </t>
        <t>TLS is introduced into TACACS+ to fulfill the following requirements:
