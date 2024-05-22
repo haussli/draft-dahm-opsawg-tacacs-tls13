@@ -23,7 +23,7 @@
 
    <front>
      <title abbrev="The Terminal Access Controller Access-Control System Plus (TACACS+) over TLS 1.3">
-            TACACS+ TLS 1.3
+            TACACS+ over TLS 1.3
      </title>
      <author fullname="Thorsten Dahm" initials="T." surname="Dahm">
        <address>
@@ -98,7 +98,7 @@
      </abstract>
      <note title="Requirements Language">
        <t>
-         The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in <xref target="BCP14"/> when, and only when, they appear in all capitals, as shown here.
+       The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 <xref target="RFC2119"/> <xref target="RFC8174"/> when, and only when, they appear in all capitals, as shown here.
        </t>
      </note>
    </front>
@@ -158,7 +158,7 @@
 
      <section title="TACACS+ over TLS">
        <t>
-           TACACS+ over TLS takes the protocol defined in <xref target="RFC8907"/>, removes the option for MD5 obfuscation, and specifies that TLS 1.3 MUST be used for transport (it is expected that TACACS+ as described in this document will work with future versions of TLS). A new well-known default server port number is used.
+           TACACS+ over TLS takes the protocol defined in <xref target="RFC8907"/>, removes the option for MD5 obfuscation, and specifies that TLS 1.3 MUST be used for transport (<xref target="TLSPort"/> elaborates TLS version support). A new well-known default server port number is used.
            The next sections provide further details and guidance.
        </t>
        <t>TLS is introduced into TACACS+ to fulfill the following requirements:
@@ -167,7 +167,7 @@
        <li>Confidentiality and Integrity: The MD5 obfuscation specified in <xref target="RFC8907"/> has been shown to be insecure <xref target="RFC6151"/>. This prevents TACACS+ being used in a <xref target="FIPS-140-3"/>  compliant deployment. Securing TACACS+ protocol with TLS is intended to provide confidentiality and integrity without requiring the provision of a secured network.</li>
        <li>Peer authentication: The  authentication capabilities of TLS replace the pre-shared keys of obfuscation for mutual authentication.</li>
        </ol>
-       <section title="Separating TLS Connections" anchor="TLSPort">
+                <section title="Separating TLS Connections" anchor="TLSPort">
          <t>
            All data exchanged by TACACS+ peers MUST be encrypted, including the mutual
             authentication of the peers. Therefore, when a TCP connection is
@@ -188,26 +188,24 @@
            A TACACS+ client initiates a TLS connection by making a TCP connection to a configured server on the TACACS+ TLS port number ([TBD]) (<xref target="TLSPort"/>).
            Once the TCP connection is established, the client MUST immediately begin the TLS negotiation before sending any TACACS+ protocol data.
          </t>
-         <t>
-	   Implementations MUST support <xref target="RFC8446">TLS 1.3</xref> and MAY permit TLS 1.3 session resumption.
-	   If resumption is supported, the resumption ticket_lifetime SHOULD be configurable, including a zero seconds lifetime.
+         <t><xref target="RFC8446">TLS 1.3</xref> MUST be used for transport, though it is expected that TACACS+ as described in this document will work with future versions of TLS. Earlier versions of TLS MUST NOT be used.
+         </t>
+	   <t>When resumption is supported, the resumption ticket_lifetime SHOULD be configurable, including a zero seconds lifetime.
          </t>
          <t>
-	   Once the TLS connection is established, the exchange of TACACS+ data proceeds as normal, except that it is transmitted over TLS as TLS application data and without TACACS+ obfuscation (<xref target="ObsolescenceOfTACACSObfuscation"/>)
+	   Once the TLS connection is established, the exchange of TACACS+ data proceeds as defined in <xref target="RFC8907"/>, except that it is transmitted over TLS as TLS application data and without TACACS+ obfuscation (<xref target="ObsolescenceOfTACACSObfuscation"/>)
          </t>
          <t>
-	   The connection persists until the server or client closes it.
-	   It might be closed due to an error or at the conclusion of the TACACS+ session.
-	   If Single Connection Mode has been negotiated, it might remain open after a successful session, until an error or an inactivity timeout occurs.
+	   The connection persists until the server or client closes it, either due to an error, or at the conclusion of the TACACS+ session, or, if  Single Connection Mode <xref target="RFC8907" section="4.3"/> has been negotiated, when an inactivity timeout occurs.
 	   Why it closed has no bearing on TLS resumption, unless closed by a TLS error, in which case the ticket might be invalidated.
          </t>
-       <section title="Cipher Requirements">
+       <section title="Cipher Suites Requirements">
          <t>
 	   Implementations MUST support the TLS 1.3 mandatory cipher suites (<xref target="RFC8446">TLS 1.3</xref> Section 9.1).
 	   The cipher suites offered or accepted SHOULD be configurable so that operators can adapt.
          </t>
          <t>
-	   This document makes no cipher suite recommendations, but recommendations can be found in the TLS Cipher Suites section of the <xref target="RFC9325" section="4.3"/>.
+	   This document makes no cipher suite recommendations, please refer to <xref target="BCP195"/> for guidance.
          </t>
        </section>
        <section title="TLS Authentication">
@@ -219,13 +217,13 @@
            Policy may impose further constraints upon the peer, allowing or denying the connection based on certificate fields or any other parameters exposed by the implementation.
          </t>
          <t>
-	   Unless disabled by configuration, a peer MUST disconnect any peer that presents an invalid TLS Certificate.
+	   Unless disabled by configuration, a peer MUST not permit connection of any peer that presents an invalid TLS Certificate.
          </t>
            <t>
 	     In addition to full certificate-based TLS authentication, implementations MAY support:</t>
            <ul>
-               <li>Raw Public Keys <xref target="RFC7250"/> </li>
-               <li>Pre-Shared Keys (PSKs) <xref target="RFC8773"/>, also known as external PSKs in TLS 1.3, which are not resumption PSKs.</li>
+               <li>Raw Public Keys (There is no definitive description of Raw Public Keys in TLS 1.3 at time of writing, so <xref target="RFC7250"/> must be used in context of <xref target="RFC8446"/>. </li>
+               <li>Pre-Shared Keys (PSKs) <xref target="RFC8446"/>, also known as external PSKs in TLS 1.3, which are not resumption PSKs.</li>
            </ul>
          <t>
                The details of these mechanisms are considered out-of-scope for this document. Please refer to the RFCs above for implementation, deployment, and security considerations.
@@ -234,14 +232,14 @@
 
          <section title="TLS Certificate Path Verification" anchor="CertPV">
          <t>
-           Implementations MUST support certificate Path verification as described in <xref target="RFC5280"/>.
+           The implementation of certificate based mutual authentication MUST support certificate Path verification as described in <xref target="RFC5280" section="6"/>.
          </t>
          <t>
-           Because a peer could be isolated from a remote peer's Certification Authority (CA), implementations MUST support certificate chains
+           In some deployments, a peer could be isolated from a remote peer's Certification Authority (CA). Implementations for these deployments MUST support certificate chains
              (a.k.a. bundles or chains of trust), where the entire chain of the remote's certificate is stored on the local peer.
              </t>
            <t>
-             TLS Cached Information Extension <xref target="RFC7924"/> SHOULD be implemented. This MAY be augmented with Raw Public Keys <xref target="RFC7250"/>.
+             TLS Cached Information Extension <xref target="RFC7924"/> SHOULD be implemented. This MAY be augmented with Raw Public Keys <xref target="RFC7250"/>, though revocation must be handled as it is not part of the standard. .
              </t>
            <t>
                Other approaches may be used for loading the intermediate certificates onto the client, but MUST include support for revocation checking. For example, <xref target="RFC5280"/> details the AIA (Authority Information Access) extension to provide information about the issuer of the certificate in which the extension appears. It can be used to provide the address of the Online Certificate Status Protocol (OCSP) responder from where revocation status of the certificate (which includes the extension) can be checked.
@@ -257,7 +255,7 @@
            For the server-side validation of client identities, Implementations must support the ability to configure which fields of a certificate are used for client identification, to verify that the client is a valid
    source for the received certificate and that it is permitted access
    to TACACS+. Implementations MUST support either:</t>
-	     <t>Network location based validation methods as described in <xref target="RFC5425" section="5.2"/>.
+	     <t>Network address based validation methods as described in <xref target="RFC5425" section="5.2"/>.
 	     </t>
          <t>or</t>
          <t>
@@ -265,7 +263,7 @@
            This approach allows a client's network location to be reconfigured without issuing a new client certificate, in this case, only the server mapping needs to be updated.
          </t>
          <t>
-           Implementations SHOULD support the TLS Server Name Indication extension (SNI) (<xref target="RFC6066" section="3"/>), and SHOULD support the ability to configure the server's domain name, so that it may be included in the SNI "server_name" extension of the client hello.
+           Implementations MUST support the TLS Server Name Indication extension (SNI) (<xref target="RFC6066" section="3"/>), and MUST support the ability to configure the server's domain name, so that it may be included in the SNI "server_name" extension of the client hello. Please see <xref target="TLSSNISec"/> for securitly related operator considerations.
          </t>
            <t>Certificate provisioning is out of scope of this document.</t>
        </section>
@@ -335,7 +333,7 @@
            </t>
 
            <t>
-             It is NOT RECOMMENDED to deploy TACACS+ without TLS authentication and encryption, including TLS using the NULL algorithm, except for within test and debug environments.
+             It is NOT RECOMMENDED to deploy TACACS+ without TLS authentication and encryption, unless within test and debug environments.
              Also see <xref target="RFC3365"/>.
            </t>
          </section>
@@ -349,29 +347,28 @@
 
          <section title="TLS Options">
 
-             <t>Recommendations in Section 4 of  <xref target="RFC9325"/>  or any RFCs which obsolete it, MUST be followed, in order to determine which TLS versions and algorithms should be supported, deprecated, obsoleted, or abandoned.</t>
+             <t>Recommendations in <xref target="BCP195"/>  MUST be followed, in order to determine which TLS versions and algorithms should be supported, deprecated, obsoleted, or abandoned.</t>
          <t>
-             Other useful examples are the TLS specifications themselves (<xref target="RFC8446">TLS 1.3</xref>), which prescribes mandatory support in Section 9, and TLS Recommendations <xref target="RFC7525"/>.
+             Also useful are TLS 1.3 specifications themselves (<xref target="RFC8446">TLS 1.3</xref>), which prescribes mandatory support in Section 9.
            </t>
          </section>
          <section title="Unreachable Certification Authority (CA)" anchor="CAcache">
            <t>
-	     Operators SHOULD be cognizant of the potential of server and/or client isolation from their peer's CA by network failures.
+	     Operators should be cognizant of the potential of server and/or client isolation from their peer's CA by network failures.
 	     Isolation from a public key certificate's CA will cause the verification of the certificate to fail and thus TLS authentication of the peer to fail.
                The approach mentioned in <xref target="CertPV"/> can help address this, and should be considered where implemented.
            </t>
          </section>
          <section title="TLS Server Name Indicator (SNI)" anchor="TLSSNISec">
            <t>
-             Operators SHOULD be aware that the TLS SNI extension is part of the TLS client hello, and is therefore subject to eavesdropping.
+             Operators should be aware that the TLS SNI extension is part of the TLS client hello, and is therefore subject to eavesdropping.
              Also see <xref target="RFC6066" section="11.1"/>.
            </t>
-             <t>If TLS Encrypted Client Hello becomes standardized and applicable to TLS 1.3, then it SHOULD be included in Secure TACACS+ implementation.</t>
          </section>
        </section>
          <section title="TACACS+ Configuration" anchor="TACACSConfiguration">
            <t>
-            Implementors MUST ensure that the configuration scheme introduced
+            Implementors must ensure that the configuration scheme introduced
             for enabling TLS is straightforward and leaves no room for ambiguity regarding whether
             TLS or Non-TLS will be used between the TACACS+ client and the TACACS+ server.
           </t>
@@ -386,7 +383,7 @@
           </ul>
 
           <t>
-             Implementors MAY offer a single option for TACACS+ clients and servers to disable all
+             Implementors may offer a single option for TACACS+ clients and servers to disable all
              Non-TLS TACACS+ operations. When enabled on a TACACS+ server, it will
              not respond to any requests from Non-TLS TACACS+ client connections. When enabled on
              a TACACS+ client, it will not establish any Non-TLS TACACS+ server connections.
@@ -418,7 +415,7 @@
        </section>
      </section>
 
-       <section title="Operator Considerations" anchor="OPSCONS">
+       <section title="Operational Considerations" anchor="OPSCONS">
            <t>
                Operational and deployment considerations are spread throughout the
                document. While avoiding repetition, it is useful for the impatient
@@ -448,7 +445,7 @@
                <t>
                    Some TACACS+ client devices in a deployment may not implement TLS.
                    These devices will require access to Non-TLS TACACS+ servers.
-                   Operators MUST follow the recommendation of <xref target="TLSUSE"/> and deploy
+                   Operators must follow the recommendation of <xref target="TLSUSE"/> and deploy
                    separate TACACS+ servers for these Non-TLS clients from those used
                    for the TLS clients.
                </t>
@@ -488,10 +485,6 @@
 
    <back>
      <references title="Normative References">
-       <referencegroup anchor="BCP14" target="https://www.rfc-editor.org/bcp/bcp14.txt">
-         <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.2119.xml"/>
-         <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8174.xml"/>
-       </referencegroup>
          <reference anchor="FIPS-140-3" target="https://csrc.nist.gov/pubs/fips/140-3/final">
          <front>
            <title>NIST Federal Information Processing Standards (FIPS) Publication 140-3</title>
@@ -500,16 +493,34 @@
             </author>
          </front>
        </reference>
-       <?rfc include="reference.RFC.5280.xml"?>
+         <referencegroup anchor="BCP195" target="https://www.rfc-editor.org/info/bcp195">
+          <reference anchor="RFC9325" target="https://www.rfc-editor.org/info/rfc9325">
+            <front>
+              <title>Recommendations for Secure Use of Transport Layer Security (TLS) and Datagram Transport Layer Security (DTLS)</title>
+              <author fullname="Y. Sheffer" initials="Y." surname="Sheffer"/>
+              <author fullname="P. Saint-Andre" initials="P." surname="Saint-Andre"/>
+              <author fullname="T. Fossati" initials="T." surname="Fossati"/>
+              <date month="November" year="2022"/>
+              <abstract>
+                <t>Transport Layer Security (TLS) and Datagram Transport Layer Security (DTLS) are used to protect data exchanged over a wide range of application protocols and can also form the basis for secure transport protocols. Over the years, the industry has witnessed several serious attacks on TLS and DTLS, including attacks on the most commonly used cipher suites and their modes of operation. This document provides the latest recommendations for ensuring the security of deployed services that use TLS and DTLS. These recommendations are applicable to the majority of use cases.</t>
+                <t>RFC 7525, an earlier version of the TLS recommendations, was published when the industry was transitioning to TLS 1.2. Years later, this transition is largely complete, and TLS 1.3 is widely available. This document updates the guidance given the new environment and obsoletes RFC 7525. In addition, this document updates RFCs 5288 and 6066 in view of recent attacks.</t>
+              </abstract>
+            </front>
+            <seriesInfo name="BCP" value="195"/>
+            <seriesInfo name="RFC" value="9325"/>
+            <seriesInfo name="DOI" value="10.17487/RFC9325"/>
+          </reference>
+        </referencegroup>
+
+         <?rfc include="reference.RFC.2119.xml"?>
+         <?rfc include="reference.RFC.5280.xml"?>
        <?rfc include="reference.RFC.5425.xml"?>
        <?rfc include="reference.RFC.6066.xml"?>
-       <?rfc include="reference.RFC.7525.xml"?>
          <?rfc include="reference.RFC.7250.xml"?>
          <?rfc include="reference.RFC.7924.xml"?>
+         <?rfc include="reference.RFC.8174.xml"?>
        <?rfc include="reference.RFC.8446.xml"?>
-       <?rfc include="reference.RFC.8773.xml"?>
        <?rfc include="reference.RFC.8907.xml"?>
-         <?rfc include="reference.RFC.9325.xml"?>
          <?rfc include="reference.RFC.9525.xml"?>
      </references>
      <references title="Informative References">
