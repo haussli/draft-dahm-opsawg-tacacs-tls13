@@ -178,12 +178,12 @@ Internet-Draft  Terminal Access Controller Access-Contro     August 2024
 
 2.4.  TACACS+ Server
 
-   In this document, a TACACS+ server is specifically the entity as
-   defined in Section 3.2 of [RFC8907] that responds to TACACS+ traffic,
-   and is bound to a single port number on a single IP Address/Hostname.
-   This definition becomes critical when concerned with how TACACS+
-   clients refer to TACACS+ Servers in their configuration, to ensure
-   that clients direct traffic to the correct TACACS+ Servers.
+   A TACACS+ server is an instance of the entity defined in Section 3.2
+   of [RFC8907] that responds to TACACS+ traffic, and is bound to a
+   specific port number on a specific IP Address/Hostname.  This
+   definition becomes critical when concerned with how TACACS+ clients
+   refer to TACACS+ Servers in their configuration, to ensure that
+   clients direct traffic to the correct TACACS+ Servers.
 
 2.5.  Peer
 
@@ -235,7 +235,8 @@ Internet-Draft  Terminal Access Controller Access-Contro     August 2024
    number is assigned: the designated port number is [TBD] (Section 7)
    with the service name [TBDN] (Section 7).  This way the client can
    ensure that TLS and non TLS traffic are separated even where default
-   ports are omitted from its TACACS+ server connection configuration.
+   port numbers are omitted from its TACACS+ server connection
+   configuration.
 
    Under exceptional circumstances, this document permits any other TCP
    port number to be configured when required by deployment specifics,
@@ -272,7 +273,6 @@ Internet-Draft  Terminal Access Controller Access-Contro     August 2024
 
    In addition to full certificate-based TLS authentication,
    implementations MAY support:
-
 
 
 
@@ -365,7 +365,7 @@ Internet-Draft  Terminal Access Controller Access-Contro     August 2024
    server.  This approach allows a client's network location to be
    reconfigured without issuing a new client certificate.
 
-   Implementations MUST support the Server Name Indication extension
+   Implementations MUST support the TLS Server Name Indication extension
    (SNI) (Section 3 of [RFC6066]), and MUST support the ability to
    configure the TACACS+ server's domain name, so that it may be
    included in the SNI "server_name" extension of the client hello.

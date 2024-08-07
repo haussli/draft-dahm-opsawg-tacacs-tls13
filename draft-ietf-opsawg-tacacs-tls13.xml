@@ -166,9 +166,8 @@
             </section>
             <section title="TACACS+ Server">
                 <t>
-                    In this document, a TACACS+ server is specifically the entity as defined in
-                    <xref target="RFC8907" section="3.2"/> that
-                    responds to TACACS+ traffic, and is bound to a single port number on a single IP Address/Hostname.
+                    A TACACS+ server is an instance of the entity defined in <xref target="RFC8907" section="3.2"/> that
+                    responds to TACACS+ traffic, and is bound to a specific port number on a specific IP Address/Hostname.
                     This definition becomes critical when concerned with how TACACS+ clients refer to TACACS+ Servers in their configuration, to ensure that clients direct traffic to the correct TACACS+ Servers.
                 </t>
             </section>
@@ -212,7 +211,7 @@
                     known system TCP/IP port number is assigned: the designated port
                     number is <xref target="ICTBD">[TBD]</xref> with the service name <xref target="ICTBD">[TBDN]</xref>.
                     This way the client can ensure that TLS and non TLS traffic are
-                    separated even where default ports are omitted from its TACACS+ server connection
+                    separated even where default port numbers are omitted from its TACACS+ server connection
                     configuration.
                 </t>
                 <t>
@@ -351,7 +350,7 @@
                         certificate.
                     </t>
                     <t>
-                        Implementations MUST support the Server Name Indication extension (SNI) (<xref
+                        Implementations MUST support the TLS Server Name Indication extension (SNI) (<xref
                             target="RFC6066"
                             section="3"/>),
                         and MUST support the ability to configure the TACACS+ server's domain name, so that it may be
