@@ -167,7 +167,7 @@
             <section title="TACACS+ Server">
                 <t>
                     A TACACS+ server is an instance of the entity defined in <xref target="RFC8907" section="3.2"/> that
-                    responds to TACACS+ traffic, and is bound to a specific port number on a specific IP Address/Hostname.
+                    responds to TACACS+ traffic, and is bound to a specific port number on a specific IP address/hostname.
                     This definition becomes critical when concerned with how TACACS+ clients refer to TACACS+ Servers in their configuration, to ensure that clients direct traffic to the correct TACACS+ Servers.
                 </t>
             </section>
@@ -207,8 +207,7 @@
                     To ensure separation of TACACS+ traffic that uses TLS from that which does not (<xref
                         target="wellknown"/>), TLS TACACS+ Servers MUST be deployed on a separate TCP/IP port number from Non-TLS TACACS+ Servers (preferably on a separate host, as recommended in <xref target="TLSUSE"/>).
                     Because of the widespread use of default port number
-                    settings in numerous existing TACACS+ client configurations, a well-
-                    known system TCP/IP port number is assigned: the designated port
+                    settings in numerous existing TACACS+ client configurations, a well-known system TCP/IP port number is assigned: the designated port
                     number is <xref target="ICTBD">[TBD]</xref> with the service name <xref target="ICTBD">[TBDN]</xref>.
                     This way the client can ensure that TLS and non TLS traffic are
                     separated even where default port numbers are omitted from its TACACS+ server connection
@@ -685,8 +684,10 @@
                 The author(s) would like to thank Russ Housley, Steven M. Bellovin, Stephen Farrell, Alan DeKok, Warren
                 Kumari, Tom Petch, Tirumal Reddy, Valery Smyslov, and Mohamed Boucadair for their support, insightful
                 review, and/or comments.
-                <xref target="RFC5425"/>
-                was also used as a basis for the approach to TLS.
+                <xref target="RFC5425"/> was also used as a basis for the general approach to TLS.
+                <xref target="RFC9190"/> was used as a basis for TLS Resumption Recommendations.
+                draft-ietf-radext-tls-psk, although still in draft form at the time of writing, was used as a model for PSK Recommendations.
+
             </t>
         </section>
 
@@ -737,6 +738,7 @@
             <?rfc include="reference.RFC.8174.xml"?>
             <?rfc include="reference.RFC.8446.xml"?>
             <?rfc include="reference.RFC.8907.xml"?>
+            <?rfc include="reference.RFC.9190.xml"?>
             <?rfc include="reference.RFC.9525.xml"?>
         </references>
         <references title="Informative References">
