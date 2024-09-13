@@ -164,11 +164,13 @@
                     transport. A TLS connection for TACACS+ is always between one TACACS+ client and one TACACS+ Server.
                 </t>
             </section>
-            <section title="TACACS+ Server">
+            <section title="TLS TACACS+ Server">
                 <t>
-                    A TACACS+ server is an instance of the entity defined in <xref target="RFC8907" section="3.2"/> that
-                    responds to TACACS+ traffic, and is bound to a specific port number on a specific IP address/hostname.
-                    This definition becomes critical when concerned with how TACACS+ clients refer to TACACS+ Servers in their configuration, to ensure that clients direct traffic to the correct TACACS+ Servers.
+                    This document describes a variant of the TACACS+ Server, introduced in Section 3.2 of [RFC8907],  which
+                    utilises TLS for transport, and makes some associated protocol optimisations. Both variants respond to
+                    TACACS+ traffic, but we specifically define a TACACS+ Server (whether TLS or Non-TLS) as being bound to specific port number
+                    on a particular IP address or hostname. This definition is important in the context of the configuration
+                    of TACACS+ clients, to ensure they direct their traffic to the correct TACACS+ servers.
                 </t>
             </section>
             <section title="Peer">
@@ -221,7 +223,7 @@
             </section>
             <section title="TLS Connection" anchor="TLSConn">
                 <t>
-                    A TACACS+ client initiates a TLS connection by making a TCP connection to a configured TACACS+ server on the
+                    A TACACS+ client initiates a TLS connection by making a TCP connection to a configured TLS TACACS+ server on the
                     TACACS+ TLS port number ([TBD]) (<xref target="ICTBD"/>).
                     Once the TCP connection is established, the client MUST immediately begin the TLS negotiation before
                     sending any TACACS+ protocol data.
@@ -239,7 +241,7 @@
                     TACACS+ obfuscation (<xref target="ObsolescenceOfTACACSObfuscation"/>)
                 </t>
                 <t>
-                    The connection persists until the TACACS+ server or client closes it, either due to an error, or at the
+                    The connection persists until the TLS TACACS+ server or client closes it, either due to an error, or at the
                     conclusion of the TACACS+ session, or, if Single Connection Mode (<xref target="RFC8907" section="4.3"/>)
                     has been negotiated, when an inactivity timeout occurs.
                     Why it closed has no bearing on TLS resumption, unless closed by a TLS error, in which case the
@@ -316,17 +318,17 @@
                     </t>
                 </section>
                 <section title="TLS Certificate Identification">
-                    <t>For the client-side validation of presented TACACS+ server identities, implementations MUST follow
+                    <t>For the client-side validation of presented TLS TACACS+ server identities, implementations MUST follow
                         <xref target="RFC9525"/>
                         validation techniques. Identifier types DNS-ID, IP-ID or SRV-ID
                         are applicable for use with the TLS TACACS+ protocol, selected by operators depending upon
                         the
-                        deployment design. TLS TACACS+ does not use URI-IDs for TACACS+ server identity verification. The
+                        deployment design. TLS TACACS+ does not use URI-IDs for TLS TACACS+ server identity verification. The
                         wildcard
-                        character MUST NOT be included in the presented TACACS+ server identities.
+                        character MUST NOT be included in the presented TLS TACACS+ server identities.
                     </t>
                     <t>
-                        For the TACACS+ server-side validation of client identities, implementations MUST support the
+                        For the TLS TACACS+ server-side validation of client identities, implementations MUST support the
                         ability to
                         configure which fields of a certificate are used for client identification, to verify that
                         the
@@ -343,7 +345,7 @@
                         Client Identity validation of a shared identity in the certificate subjectAltName. This is
                         applicable
                         in deployments where the client securely supports an identity which is shared with the
-                        TACACS+ server.
+                        TLS TACACS+ server.
                         This approach allows a client's network location to be reconfigured without issuing a new
                         client
                         certificate.
@@ -352,7 +354,7 @@
                         Implementations MUST support the TLS Server Name Indication extension (SNI) (<xref
                             target="RFC6066"
                             section="3"/>),
-                        and MUST support the ability to configure the TACACS+ server's domain name, so that it may be
+                        and MUST support the ability to configure the TLS TACACS+ server's domain name, so that it may be
                         included
                         in
                         the
@@ -385,11 +387,11 @@
                     RECOMMENDED that systems follow the directions of <xref target="RFC8446" section="4"/>, and <xref target="RFC9257"/>
                 </t>
                 <t>
-                    Where PSK Authentication is implemented, PSK lengths of at least 64 octets or more MUST be supported.
+                    Where PSK Authentication is implemented, PSK lengths of at least 16 octets MUST be supported.
                 </t>
                 <t>
                     PSK Identity MUST follow recommendations of <xref target="RFC9257" section="6.1"/>. Implementations MUST support PSK identities
-                    of 128 octets or more.
+                    of at least 16 octets.
                 </t>
                 <t>
                     Although this document removes the option of MD5 obfuscation <xref target="ObsolescenceOfTACACSObfuscation"/>, it is still possible that the TLS and non TLS
@@ -403,8 +405,8 @@
                 <section title="TLS Resumption" anchor="TLSResumption">
                 <t>
                     The TLS Resumption protocol, detailed in <xref target="RFC8446"/>, can minimize the number of round trips required during the handshake process.
-                    If a TLS client holds a ticket previously extracted from a NewSessionTicket message from the TACACS+ server, it can use the PSK identity tied to that ticket.
-                    If the TACACS+ server consents, the resumed session is acknowledged as authenticated and securely linked to
+                    If a TLS client holds a ticket previously extracted from a NewSessionTicket message from the TLS TACACS+ server, it can use the PSK identity tied to that ticket.
+                    If the TLS TACACS+ server consents, the resumed session is acknowledged as authenticated and securely linked to
                     the initial session.
                 </t>
                 <t>The client SHOULD use resumption when it holds a valid unused ticket from the TLS TACACS+ server,
@@ -450,7 +452,7 @@
                 All subsequent packets MUST have the TAC_PLUS_UNENCRYPTED_FLAG set.
             </t>
             <t>
-                A TACACS+ server that receives a packet with the TAC_PLUS_UNENCRYPTED_FLAG not set (cleared) over a TLS
+                A TLS TACACS+ server that receives a packet with the TAC_PLUS_UNENCRYPTED_FLAG not set (cleared) over a TLS
                 connection, MUST return an error of TAC_PLUS_AUTHEN_STATUS_ERROR, TAC_PLUS_AUTHOR_STATUS_ERROR, or
                 TAC_PLUS_ACCT_STATUS_ERROR as appropriate for the TACACS+ message type, with the
                 TAC_PLUS_UNENCRYPTED_FLAG set, and terminate the session.
@@ -471,7 +473,7 @@
                 </t>
                 <t>
                     Simply adding TLS support to the protocol does not guarantee the protection
-                    of the TACACS+ server and clients. It is essential for the operators and equipment vendors
+                    of the TLS TACACS+ server and clients. It is essential for the operators and equipment vendors
                     to adhere to the latest best practices for ensuring the integrity of network devices
                     and selecting secure TLS key and encryption algorithms.
                 </t>
@@ -492,7 +494,7 @@
                         Non-TLS connections should not be used for new TACACS+ deployments.
                     </t>
                     <t>
-                        TACACS+ servers that have TLS support MUST NOT allow Non-TLS connections, because of the threat
+                        TLS TACACS+ servers  MUST NOT allow Non-TLS connections, because of the threat
                         of downgrade attacks, as described in Section 5.2, or misconfiguration. Instead, separate Non-TLS TACACS+ servers
                         SHOULD be set up to cater for these clients.
                     </t>
@@ -514,7 +516,7 @@
                         that is sent before the TLS handshake completes.
                         Replay of this data is a risk.
                         Given the sensitivity of TACACS+ data, clients MUST NOT send data until the full TLS handshake
-                        completes; that is, clients MUST NOT send 0-RTT data and TACACS+ servers MUST abruptly disconnect
+                        completes; that is, clients MUST NOT send 0-RTT data and TLS TACACS+ servers MUST abruptly disconnect
                         clients
                         that do.
                     </t>
@@ -535,7 +537,7 @@
                 </section>
                 <section title="Unreachable Certification Authority (CA)" anchor="CAcache">
                     <t>
-                        Operators should be cognizant of the potential of TACACS+ server and/or client isolation from their
+                        Operators should be cognizant of the potential of TLS TACACS+ server and/or client isolation from their
                         peer's CA by network failures.
                         Isolation from a public key certificate's CA will cause the verification of the certificate to
                         fail and thus TLS authentication of the peer to fail.
@@ -559,7 +561,7 @@
                     TLS or Non-TLS will be used between the TACACS+ client and the TACACS+ server.
                 </t>
                 <t>
-                    This document recommends the use of a separate port number that TLS enabled TACACS+ servers
+                    This document recommends the use of a separate port number that TLS TACACS+ servers
                     will listen to. Where deployments have not overridden the defaults explicitly,
                     TACACS+ client implementations MUST use the correct values:
                 </t>
@@ -642,7 +644,7 @@
                     Operators must follow the recommendation of
                     <xref target="TLSUSE"/>
                     and deploy
-                    separate TACACS+ servers for these Non-TLS clients from those used
+                    separate Non-TLS TACACS+ servers for these Non-TLS clients from those used
                     for the TLS clients.
                 </t>
             </section>
