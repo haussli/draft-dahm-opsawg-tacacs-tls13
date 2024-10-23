@@ -9,7 +9,7 @@
         <!ENTITY nbhy   "&#8209;">
         <!ENTITY wj     "&#8288;">
         ]>
-<rfc docName="draft-ietf-opsawg-tacacs-tls13-13"
+<rfc docName="draft-ietf-opsawg-tacacs-tls13-14"
      category="std"
      ipr="trust200902"
      submissionType='IETF'
@@ -433,9 +433,6 @@
                 <t>The resumption ticket_lifetime SHOULD be configurable, including a zero
                     seconds lifetime. Please refer to <xref target="RFC8446" section="4.6.1"/> for guidance on ticket lifetime.
                 </t>
-<t>
-    As mentioned in <xref target="TLSUSE"/>, the TLS data MUST NOT be used as part of the TACACS+ protocol data. This is particularly relevant for resumption, to ensure that cached Resumption material does not require re-authorization of the TACACS+ session.
-</t>
             </section>
         </section>
 
