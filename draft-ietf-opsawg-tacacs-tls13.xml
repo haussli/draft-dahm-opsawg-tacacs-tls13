@@ -145,15 +145,14 @@
                 <t>
                     TACACS+ was originally intended to incorporate a mechanism for securing the body of its packets.
                     The algorithm is categorized as Obfuscation in <xref target="RFC8907" section="10.5.2"/>. The term
-                    should be interpreted to mean "plaintext", it is used to ensure that the algorithm is not mistaken
-                    for encryption.
+                    is used to ensure that the algorithm is not mistaken for encryption. It should not be considered secure.
                 </t>
             </section>
             <section title="Non-TLS Connection">
                 <t>
                     This term refers to the connection defined in <xref target="RFC8907"/>.
-                    It is a connection without TLS and therefore being plaintext or possibly using unsecure TACACS+
-                    authentication and obfuscation.
+                    It is a connection without TLS and therefore would be using the unsecure TACACS+
+                    authentication and obfuscation (or the totally unobfuscated option for test).
                     The use of well-known TCP/IP host port number 49 is specified as the default for Non-TLS
                     connections.
                 </t>
@@ -164,7 +163,7 @@
                     transport. A TLS connection for TACACS+ is always between one TACACS+ client and one TACACS+ Server.
                 </t>
             </section>
-            <section title="TLS TACACS+ Server">
+            <section title="TLS TACACS+ Server" anchor="TLSTacacsServerDefinition">
                 <t>
                     This document describes a variant of the TACACS+ Server, introduced in Section 3.2 of [RFC8907],  which
                     utilises TLS for transport, and makes some associated protocol optimisations. Both variants respond to
@@ -190,13 +189,11 @@
             <t>TLS is introduced into TACACS+ to fulfill the following requirements:
             </t>
             <ol>
-                <li>Confidentiality and Integrity: The MD5 obfuscation specified in <xref target="RFC8907"/> has been shown
-                    to be insecure <xref target="RFC6151"/>. This prevents TACACS+ being used in a <xref target="FIPS-140-3"/> compliant deployment. Securing TACACS+ protocol with TLS is intended to provide confidentiality and
+                <li>Confidentiality and Integrity: The MD5 algorithm underlying the obfuscation mechanism specified in <xref target="RFC8907"/> has been shown
+                    to be insecure <xref target="RFC6151"/> when used for encryption. This prevents TACACS+ being used in a <xref target="FIPS-140-3"/> compliant deployment. Securing TACACS+ protocol with TLS is intended to provide confidentiality and
                     integrity without requiring the provision of a secured network.
                 </li>
-                <li>Peer authentication: The authentication capabilities of TLS replace the pre-shared keys of
-                    obfuscation
-                    for mutual authentication.
+                <li>Peer authentication: The authentication capabilities of TLS replace the shared secrets of obfuscation for mutual authentication.
                 </li>
             </ol>
             <section title="Separating TLS Connections" anchor="TLSPort">
@@ -252,7 +249,7 @@
                     TACACS+ connections are not long-lived. Non single-connect mode connections are closed as soon as the TACACS+ session completes. Single-connect mode connections are longer lived, but even these are timed out and closed after a short period of inactivity. For this reason, keepalives are not required to be supported.
                 </t>
                 <t>
-                    TACACS+ clients and servers widely support IPV6 configuration in addition to IPV4. This document makes no changes to recommendations in this area.
+                    TACACS+ clients and servers widely support IPv6 configuration in addition to IPv4. This document makes no changes to recommendations in this area.
                 </t>
 
             </section>
@@ -264,7 +261,7 @@
                     In addition to full certificate-based TLS authentication, implementations MAY support:
                 </t>
                 <ul>
-                    <li>Pre-Shared Keys (PSKs) <xref target="PSKAuth"/>, also known as external PSKs in TLS 1.3
+                    <li>Pre-Shared Keys (PSKs) (<xref target="PSKAuth"/>), also known as external PSKs in TLS 1.3
                     </li>
                     <li>Raw Public Keys (RPK). There is no definitive description of Raw Public Keys in TLS 1.3 at
                         time
@@ -373,14 +370,8 @@
                 </section>
                 <section title="Cipher Suites Requirements">
                     <t>
-                        Implementations MUST support the TLS 1.3 mandatory cipher suites (<xref target="RFC8446"
-                                                                                                section="9.1"/>).
-                        The cipher suites offered or accepted SHOULD be configurable so that operators can adapt.
-                    </t>
-                    <t>
-                        This document makes no cipher suite recommendations. Readers should refer to
-                        <xref target="BCP195"/>
-                        for guidance.
+                        Implementations MUST support the TLS 1.3 mandatory cipher suites (<xref target="RFC8446" section="9.1"/>).
+                        Readers should refer to <xref target="BCP195"/>. The cipher suites offered or accepted SHOULD be configurable so that operators can adapt.
                     </t>
                 </section>
             </section>
@@ -401,7 +392,7 @@
                     of at least 16 octets.
                 </t>
                 <t>
-                    Although this document removes the option of MD5 obfuscation <xref target="ObsolescenceOfTACACSObfuscation"/>, it is still possible that the TLS and non TLS
+                    Although this document removes the option of MD5 obfuscation (<xref target="ObsolescenceOfTACACSObfuscation"/>), it is still possible that the TLS and non TLS
                     versions of TACACS+ may exist in an organisation, for example, during migration (see <xref target="MIGRATION"/>).
                     In such cases, the shared secrets configured for TACACS+ obfuscation clients MUST NOT be the same as the PSKs configured for TLS clients.
                 </t>
@@ -501,23 +492,17 @@
                 </t>
                 <section title="TLS Use" anchor="TLSUSE">
                     <t>
-                        Non-TLS connections should not be used for new TACACS+ deployments.
+                        New TACACS+ production deployments SHOULD use TLS authentication and encryption. Also see <xref target="RFC3365"/>.
                     </t>
                     <t>
-                        TLS TACACS+ servers  MUST NOT allow Non-TLS connections, because of the threat
-                        of downgrade attacks, as described in Section 5.2, or misconfiguration. Instead, separate Non-TLS TACACS+ servers
+                        TLS TACACS+ servers (see definition in <xref target ="TLSTacacsServerDefinition"/>) MUST NOT allow Non-TLS connections, because of the threat
+                        of downgrade attacks or misconfiguration described in <xref target="wellknown"/>. Instead, separate Non-TLS TACACS+ servers
                         SHOULD be set up to cater for these clients.
                     </t>
                     <t>
-                        Further, TLS TACACS+ servers and Non-TLS TACACS+ servers SHOULD NOT be deployed
-                        on the same host. Non-TLS connections would be better served by deploying the
+                        It is NOT RECOMMENDED that TLS TACACS+ servers and Non-TLS TACACS+ servers be deployed
+                        on the same host, for reasons discussed in <xref target="wellknown"/>. Non-TLS connections would be better served by deploying the
                         required Non-TLS TACACS+ servers on separate hosts.
-                    </t>
-
-                    <t>
-                        It is NOT RECOMMENDED to deploy TACACS+ without TLS authentication and encryption, unless within
-                        test and debug environments.
-                        Also see <xref target="RFC3365"/>.
                     </t>
                 </section>
                 <section title="TLS 0-RTT">
@@ -751,7 +736,6 @@
             <?rfc include="reference.RFC.8174.xml"?>
             <?rfc include="reference.RFC.8446.xml"?>
             <?rfc include="reference.RFC.8907.xml"?>
-            <?rfc include="reference.RFC.9190.xml"?>
             <?rfc include="reference.RFC.9525.xml"?>
         </references>
         <references title="Informative References">
@@ -769,6 +753,7 @@
             <?rfc include="reference.RFC.4020.xml"?>
             <?rfc include="reference.RFC.6151.xml"?>
             <?rfc include="reference.RFC.6335.xml"?>
+            <?rfc include="reference.RFC.9190.xml"?>
             <?rfc include="reference.RFC.9257.xml"?>
 
             <reference anchor="TLSCSREC"
