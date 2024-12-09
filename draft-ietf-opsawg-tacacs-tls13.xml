@@ -275,6 +275,10 @@
             </section>
 
             <section title="TLS Certificate Authentication" anchor="CertAuth">
+                <t>Deploying TLS Certificate Authentication correctly will considerably improve the security of TACACS+
+                    deployments. It is essential for implementers and operators to understand the implications of a TLS
+                    Certificate Authentication solution, including the correct handling of certificates, CAs, and all
+                    elements of TLS configuration. For guidance, please start with BCP195.</t>
                 <t>Each peer MUST validate the certificate path of the remote peer, including revocation checking,
                     as
                     described in <xref target="CertPV"/>.
@@ -473,14 +477,14 @@
                     and selecting secure TLS key and encryption algorithms.
                 </t>
                 <t>
-                    <xref target="RFC9325"/>
+                    <xref target="BCP195"/>
                     offers substantial guidance for implementing protocols that use
                     TLS and their deployment. Those implementing and deploying Secure TACACS+
-                    must adhere to the recommendations relevant to TLS 1.3 outlined in <xref target="RFC9325"/>,
+                    must adhere to the recommendations relevant to TLS 1.3 outlined in <xref target="BCP195"/>
                     or its subsequent versions.
                 </t>
                 <t>
-                    This document outlines additional restrictions permissible under <xref target="RFC9325"/>.
+                    This document outlines additional restrictions permissible under <xref target="BCP195"/>
                     For example, any recommendations referring to TLS 1.2, including the mandatory
                     support, are not relevant for Secure TACACS+ as TLS 1.3 or above is mandated.
                 </t>
