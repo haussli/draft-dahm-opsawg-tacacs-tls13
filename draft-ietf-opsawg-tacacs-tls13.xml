@@ -9,7 +9,7 @@
         <!ENTITY nbhy   "&#8209;">
         <!ENTITY wj     "&#8288;">
         ]>
-<rfc docName="draft-ietf-opsawg-tacacs-tls13-16"
+<rfc docName="draft-ietf-opsawg-tacacs-tls13-17"
      category="std"
      ipr="trust200902"
      submissionType='IETF'
@@ -361,8 +361,8 @@
                     <t>
                         Implementations MUST support the TLS Server Name Indication extension (SNI) (<xref
                             target="RFC6066"
-                            section="3"/>),
-                        and MUST support the ability to configure the TLS TACACS+ server's domain name, so that it may be
+                            section="3"/>).
+                        TLS TACACS+ clients MUST support the ability to configure the TLS TACACS+ server's domain name, so that it may be
                         included
                         in
                         the
@@ -508,6 +508,9 @@
                         on the same host, for reasons discussed in <xref target="wellknown"/>. Non-TLS connections would be better served by deploying the
                         required Non-TLS TACACS+ servers on separate hosts.
                     </t>
+                    <t>
+                        TACACS+ Clients MUST NOT fail back to a Non-TLS connection if a TLS connection fails. This prohibition includes during the migration of a deployment (see <xref target="MIGRATION"/>).
+                    </t>
                 </section>
                 <section title="TLS 0-RTT">
                     <t>
@@ -568,7 +571,6 @@
                     <li>for Non-TLS connection TACACS+: Port 49.</li>
                     <li>for TLS connection TACACS+: (TBD).</li>
                 </ul>
-
                 <t>
                     Implementors may offer a single option for TACACS+ clients and servers to disable all
                     Non-TLS TACACS+ operations. When enabled on a TACACS+ server, it will
@@ -648,6 +650,12 @@
                     for the TLS clients.
                 </t>
             </section>
+
+            <section title="YANG Model for TACACS+ Clients">
+                <t>
+                    <xref target="ietf-opsawg-secure-tacacs-yang"/> specifies a YANG model for managing TACACS+ clients, including TLS support.
+                </t>
+            </section>
         </section>
 
         <section title="IANA Considerations" anchor="ICTBD">
@@ -680,6 +688,8 @@
                 Considerations about service discovery are out of scope of this document.
             </t>
         </section>
+
+
 
         <section title="Acknowledgments">
             <t>
@@ -759,6 +769,22 @@
             <?rfc include="reference.RFC.6335.xml"?>
             <?rfc include="reference.RFC.9190.xml"?>
             <?rfc include="reference.RFC.9257.xml"?>
+
+            <reference anchor="ietf-opsawg-secure-tacacs-yang"
+                       target="https://datatracker.ietf.org/doc/draft-ietf-opsawg-secure-tacacs-yang/">
+                <front>
+                    <title>A YANG Data Model for Terminal Access Controller Access-Control System Plus (TACACS+) </title>
+                        <author fullname="Mohamed Boucadair" role="editor">
+                        </author>
+                        <author fullname="Bo Wu">
+                        </author>
+                        <author fullname="Guangying Zheng">
+                        </author>
+                        <author fullname="Michael Wang">
+                        </author>
+                </front>
+            </reference>
+
 
             <reference anchor="TLSCSREC"
                        target="https://www.iana.org/assignments/tls-parameters/tls-parameters.xhtml#tls-parameters-4">
