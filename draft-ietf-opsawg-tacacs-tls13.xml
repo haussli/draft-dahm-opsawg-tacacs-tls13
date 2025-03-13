@@ -9,7 +9,7 @@
         <!ENTITY nbhy   "&#8209;">
         <!ENTITY wj     "&#8288;">
         ]>
-<rfc docName="draft-ietf-opsawg-tacacs-tls13-17"
+<rfc docName="draft-ietf-opsawg-tacacs-tls13-18"
      category="std"
      ipr="trust200902"
      submissionType='IETF'
@@ -353,7 +353,8 @@
                         Client Identity validation of a shared identity in the certificate subjectAltName. This is
                         applicable
                         in deployments where the client securely supports an identity which is shared with the
-                        TLS TACACS+ server.
+                        TLS TACACS+ server. Matching of dNSName and iPAddress MUST be supported, other options defined
+                        in <xref target="RFC5280" section="4.2.1.6"/> MAY be supported.
                         This approach allows a client's network location to be reconfigured without issuing a new
                         client
                         certificate.
