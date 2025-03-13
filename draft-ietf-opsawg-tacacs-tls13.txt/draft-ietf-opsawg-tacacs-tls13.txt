@@ -3,14 +3,14 @@
 
 
 Operations and Management Area Working Group                     T. Dahm
-Internet-Draft                                                          
+Internet-Draft
 Updates: 8907 (if approved)                                   J. Heasley
 Intended status: Standards Track                                     NTT
-Expires: 15 August 2025                                 D.C. Medway Gash
+Expires: 17 August 2025                                 D.C. Medway Gash
                                                      Cisco Systems, Inc.
                                                                   A. Ota
                                                              Google Inc.
-                                                        11 February 2025
+                                                        13 February 2025
 
 
 Terminal Access Controller Access-Control System Plus (TACACS+) over TLS
@@ -53,12 +53,12 @@ Status of This Memo
 
 
 
-Dahm, et al.             Expires 15 August 2025                 [Page 1]
+Dahm, et al.             Expires 17 August 2025                 [Page 1]
 
 Internet-Draft  Terminal Access Controller Access-Contro   February 2025
 
 
-   This Internet-Draft will expire on 15 August 2025.
+   This Internet-Draft will expire on 17 August 2025.
 
 Copyright Notice
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Dahm, et al.             Expires 15 August 2025                 [Page 2]
+Dahm, et al.             Expires 17 August 2025                 [Page 2]
 
 Internet-Draft  Terminal Access Controller Access-Contro   February 2025
 
@@ -165,7 +165,7 @@ Internet-Draft  Terminal Access Controller Access-Contro   February 2025
 
 
 
-Dahm, et al.             Expires 15 August 2025                 [Page 3]
+Dahm, et al.             Expires 17 August 2025                 [Page 3]
 
 Internet-Draft  Terminal Access Controller Access-Contro   February 2025
 
@@ -221,7 +221,7 @@ Internet-Draft  Terminal Access Controller Access-Contro   February 2025
 
 
 
-Dahm, et al.             Expires 15 August 2025                 [Page 4]
+Dahm, et al.             Expires 17 August 2025                 [Page 4]
 
 Internet-Draft  Terminal Access Controller Access-Contro   February 2025
 
@@ -277,7 +277,7 @@ Internet-Draft  Terminal Access Controller Access-Contro   February 2025
 
 
 
-Dahm, et al.             Expires 15 August 2025                 [Page 5]
+Dahm, et al.             Expires 17 August 2025                 [Page 5]
 
 Internet-Draft  Terminal Access Controller Access-Contro   February 2025
 
@@ -333,7 +333,7 @@ Internet-Draft  Terminal Access Controller Access-Contro   February 2025
 
 
 
-Dahm, et al.             Expires 15 August 2025                 [Page 6]
+Dahm, et al.             Expires 17 August 2025                 [Page 6]
 
 Internet-Draft  Terminal Access Controller Access-Contro   February 2025
 
@@ -389,7 +389,7 @@ Internet-Draft  Terminal Access Controller Access-Contro   February 2025
 
 
 
-Dahm, et al.             Expires 15 August 2025                 [Page 7]
+Dahm, et al.             Expires 17 August 2025                 [Page 7]
 
 Internet-Draft  Terminal Access Controller Access-Contro   February 2025
 
@@ -445,7 +445,7 @@ Internet-Draft  Terminal Access Controller Access-Contro   February 2025
 
 
 
-Dahm, et al.             Expires 15 August 2025                 [Page 8]
+Dahm, et al.             Expires 17 August 2025                 [Page 8]
 
 Internet-Draft  Terminal Access Controller Access-Contro   February 2025
 
@@ -501,7 +501,7 @@ Internet-Draft  Terminal Access Controller Access-Contro   February 2025
 
 
 
-Dahm, et al.             Expires 15 August 2025                 [Page 9]
+Dahm, et al.             Expires 17 August 2025                 [Page 9]
 
 Internet-Draft  Terminal Access Controller Access-Contro   February 2025
 
@@ -557,7 +557,7 @@ Internet-Draft  Terminal Access Controller Access-Contro   February 2025
 
 
 
-Dahm, et al.             Expires 15 August 2025                [Page 10]
+Dahm, et al.             Expires 17 August 2025                [Page 10]
 
 Internet-Draft  Terminal Access Controller Access-Contro   February 2025
 
@@ -613,7 +613,7 @@ Internet-Draft  Terminal Access Controller Access-Contro   February 2025
 
 
 
-Dahm, et al.             Expires 15 August 2025                [Page 11]
+Dahm, et al.             Expires 17 August 2025                [Page 11]
 
 Internet-Draft  Terminal Access Controller Access-Contro   February 2025
 
@@ -669,7 +669,7 @@ Internet-Draft  Terminal Access Controller Access-Contro   February 2025
 
 
 
-Dahm, et al.             Expires 15 August 2025                [Page 12]
+Dahm, et al.             Expires 17 August 2025                [Page 12]
 
 Internet-Draft  Terminal Access Controller Access-Contro   February 2025
 
@@ -725,7 +725,7 @@ Internet-Draft  Terminal Access Controller Access-Contro   February 2025
 
 
 
-Dahm, et al.             Expires 15 August 2025                [Page 13]
+Dahm, et al.             Expires 17 August 2025                [Page 13]
 
 Internet-Draft  Terminal Access Controller Access-Contro   February 2025
 
@@ -781,7 +781,7 @@ Internet-Draft  Terminal Access Controller Access-Contro   February 2025
 
 
 
-Dahm, et al.             Expires 15 August 2025                [Page 14]
+Dahm, et al.             Expires 17 August 2025                [Page 14]
 
 Internet-Draft  Terminal Access Controller Access-Contro   February 2025
 
@@ -837,7 +837,7 @@ Internet-Draft  Terminal Access Controller Access-Contro   February 2025
 
 
 
-Dahm, et al.             Expires 15 August 2025                [Page 15]
+Dahm, et al.             Expires 17 August 2025                [Page 15]
 
 Internet-Draft  Terminal Access Controller Access-Contro   February 2025
 
@@ -893,7 +893,7 @@ Internet-Draft  Terminal Access Controller Access-Contro   February 2025
 
 
 
-Dahm, et al.             Expires 15 August 2025                [Page 16]
+Dahm, et al.             Expires 17 August 2025                [Page 16]
 
 Internet-Draft  Terminal Access Controller Access-Contro   February 2025
 
@@ -949,7 +949,7 @@ Authors' Addresses
 
 
 
-Dahm, et al.             Expires 15 August 2025                [Page 17]
+Dahm, et al.             Expires 17 August 2025                [Page 17]
 
 Internet-Draft  Terminal Access Controller Access-Contro   February 2025
 
@@ -1005,4 +1005,4 @@ Internet-Draft  Terminal Access Controller Access-Contro   February 2025
 
 
 
-Dahm, et al.             Expires 15 August 2025                [Page 18]
+Dahm, et al.             Expires 17 August 2025                [Page 18]
