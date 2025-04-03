@@ -6,11 +6,11 @@ Operations and Management Area Working Group                     T. Dahm
 Internet-Draft                                                          
 Updates: 8907 (if approved)                                   J. Heasley
 Intended status: Standards Track                                     NTT
-Expires: 14 September 2025                              D.C. Medway Gash
+Expires: 5 October 2025                                 D.C. Medway Gash
                                                      Cisco Systems, Inc.
                                                                   A. Ota
                                                              Google Inc.
-                                                           13 March 2025
+                                                            3 April 2025
 
 
 Terminal Access Controller Access-Control System Plus (TACACS+) over TLS
@@ -53,12 +53,12 @@ Status of This Memo
 
 
 
-Dahm, et al.            Expires 14 September 2025               [Page 1]
+Dahm, et al.             Expires 5 October 2025                 [Page 1]
 
-Internet-Draft  Terminal Access Controller Access-Contro      March 2025
+Internet-Draft  Terminal Access Controller Access-Contro      April 2025
 
 
-   This Internet-Draft will expire on 14 September 2025.
+   This Internet-Draft will expire on 5 October 2025.
 
 Copyright Notice
 
@@ -78,47 +78,42 @@ Table of Contents
 
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   3
    2.  Technical Definitions . . . . . . . . . . . . . . . . . . . .   3
-     2.1.  Obfuscation . . . . . . . . . . . . . . . . . . . . . . .   3
-     2.2.  Non-TLS Connection  . . . . . . . . . . . . . . . . . . .   4
-     2.3.  TLS Connection  . . . . . . . . . . . . . . . . . . . . .   4
-     2.4.  TLS TACACS+ Server  . . . . . . . . . . . . . . . . . . .   4
-     2.5.  Peer  . . . . . . . . . . . . . . . . . . . . . . . . . .   4
    3.  TACACS+ over TLS  . . . . . . . . . . . . . . . . . . . . . .   4
-     3.1.  Separating TLS Connections  . . . . . . . . . . . . . . .   5
+     3.1.  Separating TLS Connections  . . . . . . . . . . . . . . .   4
      3.2.  TLS Connection  . . . . . . . . . . . . . . . . . . . . .   5
-     3.3.  TLS Authentication Options  . . . . . . . . . . . . . . .   6
+     3.3.  TLS Authentication Options  . . . . . . . . . . . . . . .   5
      3.4.  TLS Certificate Authentication  . . . . . . . . . . . . .   6
-       3.4.1.  TLS Certificate Path Verification . . . . . . . . . .   7
+       3.4.1.  TLS Certificate Path Verification . . . . . . . . . .   6
        3.4.2.  TLS Certificate Identification  . . . . . . . . . . .   7
        3.4.3.  Cipher Suites Requirements  . . . . . . . . . . . . .   8
      3.5.  TLS PSK Authentication  . . . . . . . . . . . . . . . . .   8
      3.6.  TLS Resumption  . . . . . . . . . . . . . . . . . . . . .   9
-   4.  Obsolescence of TACACS+ Obfuscation . . . . . . . . . . . . .  10
+   4.  Obsolescence of TACACS+ Obfuscation . . . . . . . . . . . . .   9
    5.  Security Considerations . . . . . . . . . . . . . . . . . . .  10
      5.1.  TLS . . . . . . . . . . . . . . . . . . . . . . . . . . .  10
        5.1.1.  TLS Use . . . . . . . . . . . . . . . . . . . . . . .  11
        5.1.2.  TLS 0-RTT . . . . . . . . . . . . . . . . . . . . . .  11
-       5.1.3.  TLS Options . . . . . . . . . . . . . . . . . . . . .  12
+       5.1.3.  TLS Options . . . . . . . . . . . . . . . . . . . . .  11
        5.1.4.  Unreachable Certification Authority (CA)  . . . . . .  12
        5.1.5.  TLS Server Name Indicator (SNI) . . . . . . . . . . .  12
      5.2.  TACACS+ Configuration . . . . . . . . . . . . . . . . . .  12
-     5.3.  Well-Known TCP/IP Port  . . . . . . . . . . . . . . . . .  13
+     5.3.  Well-Known TCP/IP Port  . . . . . . . . . . . . . . . . .  12
    6.  Operational Considerations  . . . . . . . . . . . . . . . . .  13
      6.1.  Migration . . . . . . . . . . . . . . . . . . . . . . . .  13
      6.2.  Maintaining Non-TLS TACACS+ Clients . . . . . . . . . . .  14
-
-
-
-Dahm, et al.            Expires 14 September 2025               [Page 2]
-
-Internet-Draft  Terminal Access Controller Access-Contro      March 2025
-
-
      6.3.  YANG Model for TACACS+ Clients  . . . . . . . . . . . . .  14
    7.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  14
    8.  Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .  15
    9.  Normative References  . . . . . . . . . . . . . . . . . . . .  15
    10. Informative References  . . . . . . . . . . . . . . . . . . .  16
+
+
+
+Dahm, et al.             Expires 5 October 2025                 [Page 2]
+
+Internet-Draft  Terminal Access Controller Access-Contro      April 2025
+
+
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  17
 
 1.  Introduction
@@ -148,58 +143,45 @@ Internet-Draft  Terminal Access Controller Access-Contro      March 2025
    and will not be repeated.  The following terms are also used in this
    document.
 
-2.1.  Obfuscation
+   Obfuscation: TACACS+ was originally intended to incorporate a
+   mechanism for securing the body of its packets.  The algorithm is
+   categorized as Obfuscation in Section 10.5.2 of [RFC8907].  The term
+   is used to ensure that the algorithm is not mistaken for encryption.
+   It should not be considered secure.
 
-   TACACS+ was originally intended to incorporate a mechanism for
-   securing the body of its packets.  The algorithm is categorized as
-   Obfuscation in Section 10.5.2 of [RFC8907].  The term is used to
-   ensure that the algorithm is not mistaken for encryption.  It should
-   not be considered secure.
+   Non-TLS Connection: This term refers to the connection defined in
+   [RFC8907].  It is a connection without TLS and therefore would be
+   using the unsecure TACACS+ authentication and obfuscation (or the
+   totally unobfuscated option for test).  The use of well-known TCP/IP
+   host port number 49 is specified as the default for Non-TLS
+   connections.
+
+   TLS Connection: A TLS connection is a TCP/IP connection with TLS
+   authentication and encryption used by TACACS+ for transport.  A TLS
+   connection for TACACS+ is always between one TACACS+ client and one
+   TACACS+ server.
 
 
 
 
 
-
-
-
-
-
-Dahm, et al.            Expires 14 September 2025               [Page 3]
+Dahm, et al.             Expires 5 October 2025                 [Page 3]
 
-Internet-Draft  Terminal Access Controller Access-Contro      March 2025
+Internet-Draft  Terminal Access Controller Access-Contro      April 2025
 
 
-2.2.  Non-TLS Connection
+   TLS TACACS+ Server: This document describes a variant of the TACACS+
+   server, introduced in Section 3.2 of [RFC8907], which utilises TLS
+   for transport, and makes some associated protocol optimisations.
+   Both variants respond to TACACS+ traffic, but we specifically define
+   a TACACS+ server (whether TLS or Non-TLS) as being bound to specific
+   port number on a particular IP address or hostname.  This definition
+   is important in the context of the configuration of TACACS+ clients,
+   to ensure they direct their traffic to the correct TACACS+ servers.
 
-   This term refers to the connection defined in [RFC8907].  It is a
-   connection without TLS and therefore would be using the unsecure
-   TACACS+ authentication and obfuscation (or the totally unobfuscated
-   option for test).  The use of well-known TCP/IP host port number 49
-   is specified as the default for Non-TLS connections.
-
-2.3.  TLS Connection
-
-   A TLS connection is a TCP/IP connection with TLS authentication and
-   encryption used by TACACS+ for transport.  A TLS connection for
-   TACACS+ is always between one TACACS+ client and one TACACS+ server.
-
-2.4.  TLS TACACS+ Server
-
-   This document describes a variant of the TACACS+ server, introduced
-   in Section 3.2 of [RFC8907], which utilises TLS for transport, and
-   makes some associated protocol optimisations.  Both variants respond
-   to TACACS+ traffic, but we specifically define a TACACS+ server
-   (whether TLS or Non-TLS) as being bound to specific port number on a
-   particular IP address or hostname.  This definition is important in
-   the context of the configuration of TACACS+ clients, to ensure they
-   direct their traffic to the correct TACACS+ servers.
-
-2.5.  Peer
-
-   The peer of a TACACS+ client (or server) in the context of a TACACS+
-   connection, is a TACACS+ server (or client).  Together, the ends of a
-   TACACS+ connection are referred to as peers.
+   Peer: The peer of a TACACS+ client (or server) in the context of a
+   TACACS+ connection, is a TACACS+ server (or client).  Together, the
+   ends of a TACACS+ connection are referred to as peers.
 
 3.  TACACS+ over TLS
 
@@ -219,13 +201,6 @@ Internet-Draft  Terminal Access Controller Access-Contro      March 2025
        confidentiality and integrity without requiring the provision of
        a secured network.
 
-
-
-Dahm, et al.            Expires 14 September 2025               [Page 4]
-
-Internet-Draft  Terminal Access Controller Access-Contro      March 2025
-
-
    2.  Peer authentication: The authentication capabilities of TLS
        replace the shared secrets of obfuscation for mutual
        authentication.
@@ -243,9 +218,17 @@ Internet-Draft  Terminal Access Controller Access-Contro      March 2025
    widespread use of default port number settings in numerous existing
    TACACS+ client configurations, a well-known system TCP/IP port number
    is assigned: the designated port number is [TBD] (Section 7) with the
-   service name [TBDN] (Section 7).  This way the client can ensure that
-   TLS and non TLS traffic are separated even where default port numbers
-   are omitted from its TACACS+ server connection configuration.
+
+
+
+Dahm, et al.             Expires 5 October 2025                 [Page 4]
+
+Internet-Draft  Terminal Access Controller Access-Contro      April 2025
+
+
+   service name [TBDN] (Section 7).  This ensures the client can
+   separate TLS and non TLS traffic even where default port numbers are
+   omitted from its TACACS+ server connection configuration.
 
    Under exceptional circumstances, this document permits any other TCP
    port number to be configured when required by deployment specifics,
@@ -269,19 +252,6 @@ Internet-Draft  Terminal Access Controller Access-Contro      March 2025
    TLS as TLS application data and without TACACS+ obfuscation
    (Section 4)
 
-
-
-
-
-
-
-
-
-Dahm, et al.            Expires 14 September 2025               [Page 5]
-
-Internet-Draft  Terminal Access Controller Access-Contro      March 2025
-
-
    The connection persists until the TLS TACACS+ server or client closes
    it, either due to an error, or at the conclusion of the TACACS+
    session, or, if Single Connection Mode (Section 4.3 of [RFC8907]) has
@@ -302,27 +272,32 @@ Internet-Draft  Terminal Access Controller Access-Contro      March 2025
 3.3.  TLS Authentication Options
 
    Implementations MUST support certificate based mutual authentication,
-   to provide a core option for interoperability betwwen deployments.
+   to provide a core option for interoperability between deployments.
    This authentication option is specified in Section 3.4.
 
-   In addition to full certificate-based TLS authentication,
-   implementations MAY support the following alternative authentication
-   mechanisms:
+
+
+Dahm, et al.             Expires 5 October 2025                 [Page 5]
+
+Internet-Draft  Terminal Access Controller Access-Contro      April 2025
+
+
+   In addition to certificate-based TLS authentication, implementations
+   MAY support the following alternative authentication mechanisms:
 
    *  Pre-Shared Keys (PSKs) (Section 3.5), also known as external PSKs
       in TLS 1.3
 
-   *  Raw Public Keys (RPK).  There is no definitive description of Raw
-      Public Keys in TLS 1.3 at time of writing, so [RFC7250] must be
-      used in context of [RFC8446].  The details of RPK are considered
-      out-of-scope for this document.  Please refer to the RFCs above
-      for implementation, deployment, and security considerations.
+   *  Raw Public Keys (RPK).  The details of RPK are considered out-of-
+      scope for this document.  Please refer to [RFC7250] and
+      Section 4.4.2 of [RFC8446] for implementation, deployment, and
+      security considerations.
 
 3.4.  TLS Certificate Authentication
 
-   TLS certificate authentication is the primary authentication
-   mechanism for TACACS+ over TLS.  This sections covers certificate
-   authentication only.
+   TLS certificate authentication is the primary authentication option
+   for TACACS+ over TLS.  This section covers certificate authentication
+   only.
 
    Deploying TLS Certificate Authentication correctly will considerably
    improve the security of TACACS+ deployments.  It is essential for
@@ -330,13 +305,6 @@ Internet-Draft  Terminal Access Controller Access-Contro      March 2025
    Certificate Authentication solution, including the correct handling
    of certificates, CAs, and all elements of TLS configuration.  For
    guidance, please start with BCP195.
-
-
-
-Dahm, et al.            Expires 14 September 2025               [Page 6]
-
-Internet-Draft  Terminal Access Controller Access-Contro      March 2025
-
 
    Each peer MUST validate the certificate path of the remote peer,
    including revocation checking, as described in Section 3.4.1.
@@ -362,6 +330,14 @@ Internet-Draft  Terminal Access Controller Access-Contro      March 2025
    where the entire chain of the remote's certificate is stored on the
    local peer.
 
+
+
+
+Dahm, et al.             Expires 5 October 2025                 [Page 6]
+
+Internet-Draft  Terminal Access Controller Access-Contro      April 2025
+
+
    TLS Cached Information Extension [RFC7924] SHOULD be implemented.
    This MAY be augmented with Raw Public Keys [RFC7250], though
    revocation must be handled as it is not part of the standard.
@@ -386,14 +362,6 @@ Internet-Draft  Terminal Access Controller Access-Contro      March 2025
    character MUST NOT be included in the presented TLS TACACS+ server
    identities.
 
-
-
-
-Dahm, et al.            Expires 14 September 2025               [Page 7]
-
-Internet-Draft  Terminal Access Controller Access-Contro      March 2025
-
-
    For the TLS TACACS+ server-side validation of client identities,
    implementations MUST support the ability to configure which fields of
    a certificate are used for client identification, to verify that the
@@ -412,6 +380,19 @@ Internet-Draft  Terminal Access Controller Access-Contro      March 2025
    options defined in Section 4.2.1.6 of [RFC5280] MAY be supported.
    This approach allows a client's network location to be reconfigured
    without issuing a new client certificate.
+
+
+
+
+
+
+
+
+
+Dahm, et al.             Expires 5 October 2025                 [Page 7]
+
+Internet-Draft  Terminal Access Controller Access-Contro      April 2025
+
 
    Implementations MUST support the TLS Server Name Indication extension
    (SNI) (Section 3 of [RFC6066]).  TLS TACACS+ clients MUST support the
@@ -441,15 +422,6 @@ Internet-Draft  Terminal Access Controller Access-Contro      March 2025
    based authentication.  It is RECOMMENDED that systems follow the
    directions of Section 4 of [RFC8446], and [RFC9257]
 
-
-
-
-
-Dahm, et al.            Expires 14 September 2025               [Page 8]
-
-Internet-Draft  Terminal Access Controller Access-Contro      March 2025
-
-
    Where PSK Authentication is implemented, PSK lengths of at least 16
    octets MUST be supported.
 
@@ -462,6 +434,20 @@ Internet-Draft  Terminal Access Controller Access-Contro      March 2025
    migration (see Section 6.1).  In such cases, the shared secrets
    configured for TACACS+ obfuscation clients MUST NOT be the same as
    the PSKs configured for TLS clients.
+
+
+
+
+
+
+
+
+
+
+
+Dahm, et al.             Expires 5 October 2025                 [Page 8]
+
+Internet-Draft  Terminal Access Controller Access-Contro      April 2025
 
 
 3.6.  TLS Resumption
@@ -498,14 +484,6 @@ Internet-Draft  Terminal Access Controller Access-Contro      March 2025
    zero seconds lifetime.  Please refer to Section 4.6.1 of [RFC8446]
    for guidance on ticket lifetime.
 
-
-
-
-Dahm, et al.            Expires 14 September 2025               [Page 9]
-
-Internet-Draft  Terminal Access Controller Access-Contro      March 2025
-
-
 4.  Obsolescence of TACACS+ Obfuscation
 
    [RFC8907] describes the obfuscation mechanism, documented in
@@ -518,6 +496,15 @@ Internet-Draft  Terminal Access Controller Access-Contro      March 2025
    obfuscation mechanism.
 
    Peers MUST NOT use obfuscation with TLS.
+
+
+
+
+
+Dahm, et al.             Expires 5 October 2025                 [Page 9]
+
+Internet-Draft  Terminal Access Controller Access-Contro      April 2025
+
 
    A TACACS+ client initiating a TACACS+ TLS connection MUST set the
    TAC_PLUS_UNENCRYPTED_FLAG bit, thereby asserting that obfuscation is
@@ -551,17 +538,6 @@ Internet-Draft  Terminal Access Controller Access-Contro      March 2025
    practices for ensuring the integrity of network devices and selecting
    secure TLS key and encryption algorithms.
 
-
-
-
-
-
-
-Dahm, et al.            Expires 14 September 2025              [Page 10]
-
-Internet-Draft  Terminal Access Controller Access-Contro      March 2025
-
-
    [BCP195] offers substantial guidance for implementing protocols that
    use TLS and their deployment.  Those implementing and deploying
    Secure TACACS+ must adhere to the recommendations relevant to TLS 1.3
@@ -571,6 +547,20 @@ Internet-Draft  Terminal Access Controller Access-Contro      March 2025
    [BCP195] For example, any recommendations referring to TLS 1.2,
    including the mandatory support, are not relevant for Secure TACACS+
    as TLS 1.3 or above is mandated.
+
+
+
+
+
+
+
+
+
+
+Dahm, et al.             Expires 5 October 2025                [Page 10]
+
+Internet-Draft  Terminal Access Controller Access-Contro      April 2025
+
 
    This document concerns the use of TLS as transport for TACACS+, and
    does not make any changes to the core TACACS+ protocol, other than
@@ -585,8 +575,8 @@ Internet-Draft  Terminal Access Controller Access-Contro      March 2025
    New TACACS+ production deployments SHOULD use TLS authentication and
    encryption.  Also see [RFC3365].
 
-   TLS TACACS+ servers (see definition in Section 2.4) MUST NOT allow
-   Non-TLS connections, because of the threat of downgrade attacks or
+   TLS TACACS+ servers (as defined in Section 2) MUST NOT allow Non-TLS
+   connections, because of the threat of downgrade attacks or
    misconfiguration described in Section 5.3.  Instead, separate Non-TLS
    TACACS+ servers SHOULD be set up to cater for these clients.
 
@@ -608,16 +598,6 @@ Internet-Draft  Terminal Access Controller Access-Contro      March 2025
    completes; that is, clients MUST NOT send 0-RTT data and TLS TACACS+
    servers MUST abruptly disconnect clients that do.
 
-
-
-
-
-
-Dahm, et al.            Expires 14 September 2025              [Page 11]
-
-Internet-Draft  Terminal Access Controller Access-Contro      March 2025
-
-
 5.1.3.  TLS Options
 
    Recommendations in [BCP195] MUST be followed, in order to determine
@@ -625,6 +605,18 @@ Internet-Draft  Terminal Access Controller Access-Contro      March 2025
    obsoleted, or abandoned.
 
    Also, Section 9 of [RFC8446] prescribes mandatory supported options.
+
+
+
+
+
+
+
+
+Dahm, et al.             Expires 5 October 2025                [Page 11]
+
+Internet-Draft  Terminal Access Controller Access-Contro      April 2025
+
 
 5.1.4.  Unreachable Certification Authority (CA)
 
@@ -663,17 +655,6 @@ Internet-Draft  Terminal Access Controller Access-Contro      March 2025
    TACACS+ client connections.  When enabled on a TACACS+ client, it
    will not establish any Non-TLS TACACS+ server connections.
 
-
-
-
-
-
-
-Dahm, et al.            Expires 14 September 2025              [Page 12]
-
-Internet-Draft  Terminal Access Controller Access-Contro      March 2025
-
-
 5.3.  Well-Known TCP/IP Port
 
    A new port is considered appropriate and superior to a "STARTTLS"
@@ -684,6 +665,14 @@ Internet-Draft  Terminal Access Controller Access-Contro      March 2025
 
    *  passive Intrusion Detection Systems (IDSs) monitoring the
       unobfuscated to be unaffected by the introduction of TLS,
+
+
+
+
+Dahm, et al.             Expires 5 October 2025                [Page 12]
+
+Internet-Draft  Terminal Access Controller Access-Contro      April 2025
+
 
    *  avoidance of Man in the Middle (MitM) attacks that can interfere
       with STARTTLS,
@@ -722,14 +711,6 @@ Internet-Draft  Terminal Access Controller Access-Contro      March 2025
    deployment, operators may need to support both TLS and Non-TLS
    TACACS+ servers.  This migration phase allows operators to gradually
    transition their deployments from an insecure state to a more secure
-
-
-
-Dahm, et al.            Expires 14 September 2025              [Page 13]
-
-Internet-Draft  Terminal Access Controller Access-Contro      March 2025
-
-
    one, but it is important to note that it is vulnerable to downgrade
    attacks.  Therefore, the migration phase should be considered
    insecure until it is fully completed.  To mitigate this hazard:
@@ -738,7 +719,16 @@ Internet-Draft  Terminal Access Controller Access-Contro      March 2025
       TLS TACACS+ servers should be minimized.
 
    *  the operator must consider the impact of mixed TLS and Non-TLS on
-      security.
+      security, as mentioned above.
+
+
+
+
+
+Dahm, et al.             Expires 5 October 2025                [Page 13]
+
+Internet-Draft  Terminal Access Controller Access-Contro      April 2025
+
 
 6.2.  Maintaining Non-TLS TACACS+ Clients
 
@@ -755,17 +745,15 @@ Internet-Draft  Terminal Access Controller Access-Contro      March 2025
 
 7.  IANA Considerations
 
-   The authors request that, when this draft is accepted by the working
-   group, the OPSAWG Chairs submit a request to IANA for an early
-   allocation, per [RFC4020] and [RFC6335], of a new well-known system
-   TCP/IP port number for the service name "tacacss" (referenced in this
-   document also as "TACACS+ TLS well-known port ([TBD])"), described as
-   "TACACS+ over TLS".  The service name "tacacss" follows the common
-   practice of appending an "s" to the name given to the Non-TLS well-
-   known port name.  This allocation is justified in Section 5.3.
+   IANA has allocated a new well-known system TCP/IP port number ([TBD])
+   for the service name "tacacss", per [RFC4020] and [RFC6335],
+   described as "TACACS+ over TLS".  The service name "tacacss" follows
+   the common practice of appending an "s" to the name given to the Non-
+   TLS well-known port name.  This allocation is justified in
+   Section 5.3.
 
-   This document requests IANA to add a new entity from the "Service
-   name and Transport Protocol Port Number Registry" available at
+   IANA has added (TBD) a new entity to the "Service name and Transport
+   Protocol Port Number Registry" available at
    https://www.iana.org/assignments/service-names-port-numbers/
 
    Service Name: tacacss
@@ -778,14 +766,6 @@ Internet-Draft  Terminal Access Controller Access-Contro      March 2025
 
    Assignee: IESG
 
-
-
-
-Dahm, et al.            Expires 14 September 2025              [Page 14]
-
-Internet-Draft  Terminal Access Controller Access-Contro      March 2025
-
-
    Contact: IETF Chair
 
    Reference: [TBDN] (This Document)
@@ -795,6 +775,16 @@ Internet-Draft  Terminal Access Controller Access-Contro      March 2025
 
    Considerations about service discovery are out of scope of this
    document.
+
+
+
+
+
+
+Dahm, et al.             Expires 5 October 2025                [Page 14]
+
+Internet-Draft  Terminal Access Controller Access-Contro      April 2025
+
 
 8.  Acknowledgments
 
@@ -835,17 +825,22 @@ Internet-Draft  Terminal Access Controller Access-Contro      March 2025
               Syslog", RFC 5425, DOI 10.17487/RFC5425, March 2009,
               <https://www.rfc-editor.org/info/rfc5425>.
 
-
-
-Dahm, et al.            Expires 14 September 2025              [Page 15]
-
-Internet-Draft  Terminal Access Controller Access-Contro      March 2025
-
-
    [RFC6066]  Eastlake 3rd, D., "Transport Layer Security (TLS)
               Extensions: Extension Definitions", RFC 6066,
               DOI 10.17487/RFC6066, January 2011,
               <https://www.rfc-editor.org/info/rfc6066>.
+
+
+
+
+
+
+
+
+Dahm, et al.             Expires 5 October 2025                [Page 15]
+
+Internet-Draft  Terminal Access Controller Access-Contro      April 2025
+
 
    [RFC7250]  Wouters, P., Ed., Tschofenig, H., Ed., Gilmore, J.,
               Weiler, S., and T. Kivinen, "Using Raw Public Keys in
@@ -891,17 +886,17 @@ Internet-Draft  Terminal Access Controller Access-Contro      March 2025
               <https://datatracker.ietf.org/doc/draft-ietf-opsawg-
               secure-tacacs-yang/>.
 
-
-
-Dahm, et al.            Expires 14 September 2025              [Page 16]
-
-Internet-Draft  Terminal Access Controller Access-Contro      March 2025
-
-
    [RFC3365]  Schiller, J., "Strong Security Requirements for Internet
               Engineering Task Force Standard Protocols", BCP 61,
               RFC 3365, DOI 10.17487/RFC3365, August 2002,
               <https://www.rfc-editor.org/info/rfc3365>.
+
+
+
+Dahm, et al.             Expires 5 October 2025                [Page 16]
+
+Internet-Draft  Terminal Access Controller Access-Contro      April 2025
+
 
    [RFC4020]  Kompella, K. and A. Zinin, "Early IANA Allocation of
               Standards Track Code Points", RFC 4020,
@@ -945,21 +940,18 @@ Authors' Addresses
    Email: heas@shrubbery.net
 
 
-
-
-
-
-Dahm, et al.            Expires 14 September 2025              [Page 17]
-
-Internet-Draft  Terminal Access Controller Access-Contro      March 2025
-
-
    Douglas C. Medway Gash
    Cisco Systems, Inc.
    170 West Tasman Dr.
    San Jose, CA 95134
    United States of America
    Email: dcmgash@cisco.com
+
+
+
+Dahm, et al.             Expires 5 October 2025                [Page 17]
+
+Internet-Draft  Terminal Access Controller Access-Contro      April 2025
 
 
    Andrej Ota
@@ -1005,4 +997,12 @@ Internet-Draft  Terminal Access Controller Access-Contro      March 2025
 
 
 
-Dahm, et al.            Expires 14 September 2025              [Page 18]
+
+
+
+
+
+
+
+
+Dahm, et al.             Expires 5 October 2025                [Page 18]
