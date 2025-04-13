@@ -185,7 +185,7 @@
                 <li>Peer authentication: The authentication capabilities of TLS replace the shared secrets of obfuscation for mutual authentication.
                 </li>
             </ol>
-            <t>This document adheres to the recommendations in [I-D.ietf-uta-require-tls13]</t>
+            <t>This document adheres to the recommendations in [I-D.ietf-uta-require-tls13].</t>
             <section title="Separating TLS Connections" anchor="TLSPort">
                 <t>
                     All data exchanged by TACACS+ peers MUST be encrypted, including the mutual
