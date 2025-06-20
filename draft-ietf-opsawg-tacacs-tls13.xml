@@ -9,7 +9,7 @@
         <!ENTITY nbhy   "&#8209;">
         <!ENTITY wj     "&#8288;">
         ]>
-<rfc docName="draft-ietf-opsawg-tacacs-tls13-20"
+<rfc docName="draft-ietf-opsawg-tacacs-tls13-21"
      category="std"
      ipr="trust200902"
      submissionType='IETF'
@@ -224,7 +224,7 @@
                 <t>
                     Once the TLS connection is established, the exchange of TACACS+ data proceeds as defined in <xref
                         target="RFC8907"/>, except that it is transmitted over TLS as TLS application data and without
-                    TACACS+ obfuscation (<xref target="ObsolescenceOfTACACSObfuscation"/>)</t>
+                    TACACS+ obfuscation (<xref target="ObsolescenceOfTACACSObfuscation"/>).</t>
                 <t>
                     The connection persists until the TLS TACACS+ peer closes it, either due to an error, or at the
                     conclusion of the TACACS+ session, or, if Single Connection Mode (<xref target="RFC8907" section="4.3"/>)
@@ -318,10 +318,12 @@
                         validation techniques. Identifier types DNS-ID, IP-ID, or SRV-ID
                         are applicable for use with the TLS TACACS+ protocol, selected by operators depending upon
                         the
-                        deployment design. TLS TACACS+ does not use URI-IDs for TLS TACACS+ server identity verification. The
-                        wildcard
-                        character MUST NOT be included in the presented TLS TACACS+ server identities.
-                    </t>
+                        deployment design. TLS TACACS+ does not use URI-IDs for TLS TACACS+ server identity verification.</t>
+                    <t>Wildcards in TLS TACACS+ server identities simplify certificate management by allowing a single
+                        certificate to secure multiple servers in a deployment. However, this introduces security risks,
+                        as compromising the private key of a wildcard certificate impacts all servers using it.
+                        To address these risks, the guidelines in <xref target="RFC9525" section="6.3"/> MUST be followed,
+                        and the wildcard SHOULD be confined to a subdomain dedicated solely to TACACS+ servers.</t>
                     <t>
                         For the TLS TACACS+ server-side validation of client identities, implementations MUST support the
                         ability to
@@ -373,7 +375,7 @@
                 </t>
                 <t>
                     The use of External PSKs is less well established than certificate-based authentication. It is
-                    RECOMMENDED that systems follow the directions of <xref target="RFC9257"/> and <xref target="RFC8446" section="4"/>
+                    RECOMMENDED that systems follow the directions of <xref target="RFC9257"/> and <xref target="RFC8446" section="4"/>.
                 </t>
                 <t>
                     Where PSK Authentication is implemented, PSK lengths of at least 16 octets MUST be supported.
@@ -435,18 +437,18 @@
             <t>
                 A TACACS+ client initiating a TACACS+ TLS connection MUST set the TAC_PLUS_UNENCRYPTED_FLAG bit, thereby
                 asserting that obfuscation is not used for the session.
-                All subsequent packets MUST have the TAC_PLUS_UNENCRYPTED_FLAG set.
+                All subsequent packets MUST have the TAC_PLUS_UNENCRYPTED_FLAG bit set to 1.
             </t>
             <t>
-                A TLS TACACS+ server that receives a packet with the TAC_PLUS_UNENCRYPTED_FLAG not set (cleared) over a TLS
+                A TLS TACACS+ server that receives a packet with the TAC_PLUS_UNENCRYPTED_FLAG bit not set to 1 over a TLS
                 connection, MUST return an error of TAC_PLUS_AUTHEN_STATUS_ERROR, TAC_PLUS_AUTHOR_STATUS_ERROR, or
                 TAC_PLUS_ACCT_STATUS_ERROR as appropriate for the TACACS+ message type, with the
-                TAC_PLUS_UNENCRYPTED_FLAG set, and terminate the session.
+                TAC_PLUS_UNENCRYPTED_FLAG bit set to 1, and terminate the session.
                 This behavior corresponds to that defined in Section 4.5 of
                 <xref target="RFC8907"/> Data Obfuscation for TAC_PLUS_UNENCRYPTED_FLAG or key mismatches.
             </t>
             <t>
-                A TACACS+ client that receives a packet with the TAC_PLUS_UNENCRYPTED_FLAG not set MUST
+                A TACACS+ client that receives a packet with the TAC_PLUS_UNENCRYPTED_FLAG bit not set to 1 MUST
                 terminate the session, and SHOULD log this error.
             </t>
         </section>
@@ -540,6 +542,16 @@
                         Operators should be aware that the TLS SNI extension is part of the TLS client hello and is,
                         therefore, subject to eavesdropping.
                         Also see <xref target="RFC6066" section="11.1"/>.
+                    </t>
+                </section>
+                <section title="Server Identity Wildcards" anchor="SIWildcards">
+                    <t>
+                        The use of wildcards in TLS server identities creates a single point of failure:
+                        a compromised private key of a wildcard certificate impacts all servers using it.
+                        Their use MUST follow recommendations of <xref target="RFC9525" section="7.1"/>.
+                        Operators MUST ensure that the wildcard is limited to a subdomain dedicated solely to TLS TACACS+ servers.
+                        Further, operators MUST ensure that the TLS TACACS+ servers covered by a wildcard certificate MUST be impervious
+                        to redirection of traffic to a different server (for example, due to MiTM attacks or DNS cache poisoning).
                     </t>
                 </section>
             </section>
@@ -637,6 +649,7 @@
                     for the TLS clients.
                 </t>
             </section>
+
 
             <section title="YANG Model for TACACS+ Clients">
                 <t>
