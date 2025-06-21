@@ -9,7 +9,7 @@
         <!ENTITY nbhy   "&#8209;">
         <!ENTITY wj     "&#8288;">
         ]>
-<rfc docName="draft-ietf-opsawg-tacacs-tls13-21"
+<rfc docName="draft-ietf-opsawg-tacacs-tls13-22"
      category="std"
      ipr="trust200902"
      submissionType='IETF'
@@ -263,7 +263,7 @@
                 <t>
                     TLS certificate authentication is the primary authentication option for TACACS+ over TLS.
                     This section covers certificate-based authentication only.</t>
-                <t>Deploying TLS certificate-based uthentication correctly will considerably improve the security of TACACS+
+                <t>Deploying TLS certificate-based authentication correctly will considerably improve the security of TACACS+
                     deployments. It is essential for implementers and operators to understand the implications of a TLS
                     certificate-based authentication solution, including the correct handling of certificates, Certificate Authorities (CAs), and all
                     elements of TLS configuration. For guidance, start with <xref target="BCP195"/>.</t>
@@ -428,7 +428,7 @@
             <t>
                 The introduction of TLS PSK, certificate peer authentication, and TLS encryption to TACACS+ replaces
                 these former mechanisms and so obfuscation is hereby obsoleted.
-                This section describes how the TACACS+ client and servers MUST operate with regards to the obfuscation
+                This section describes how the TACACS+ client and servers MUST operate regarding the obfuscation
                 mechanism.
             </t>
             <t>
@@ -551,7 +551,7 @@
                         Their use MUST follow recommendations of <xref target="RFC9525" section="7.1"/>.
                         Operators MUST ensure that the wildcard is limited to a subdomain dedicated solely to TLS TACACS+ servers.
                         Further, operators MUST ensure that the TLS TACACS+ servers covered by a wildcard certificate MUST be impervious
-                        to redirection of traffic to a different server (for example, due to MiTM attacks or DNS cache poisoning).
+                        to redirection of traffic to a different server (for example, due to on-path attacks or DNS cache poisoning).
                     </t>
                 </section>
             </section>
@@ -776,15 +776,6 @@
                         </author>
                         <author fullname="Michael Wang">
                         </author>
-                </front>
-            </reference>
-
-
-            <reference anchor="TLSCSREC"
-                       target="https://www.iana.org/assignments/tls-parameters/tls-parameters.xhtml#tls-parameters-4">
-                <front>
-                    <title>Transport Layer Security (TLS) Parameters</title>
-                    <author fullname="IANA"></author>
                 </front>
             </reference>
         </references>
