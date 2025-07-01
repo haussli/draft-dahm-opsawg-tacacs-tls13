@@ -9,7 +9,7 @@
         <!ENTITY nbhy   "&#8209;">
         <!ENTITY wj     "&#8288;">
         ]>
-<rfc docName="draft-ietf-opsawg-tacacs-tls13-22"
+<rfc docName="draft-ietf-opsawg-tacacs-tls13-23"
      category="std"
      ipr="trust200902"
      submissionType='IETF'
@@ -185,7 +185,7 @@
                 <li>Peer authentication: The authentication capabilities of TLS replace the shared secrets of obfuscation for mutual authentication.
                 </li>
             </ol>
-            <t>This document adheres to the recommendations in [I-D.ietf-uta-require-tls13].</t>
+            <t>This document adheres to the recommendations in <xref target="I-D.ietf-uta-require-tls13"/>.</t>
             <section title="Separating TLS Connections" anchor="TLSPort">
                 <t>
                     All data exchanged by TACACS+ peers MUST be encrypted, including the mutual
@@ -589,7 +589,7 @@
                     <li>passive Intrusion Detection Systems (IDSs) monitoring the unobfuscated to be unaffected by the
                         introduction of TLS,
                     </li>
-                    <li>avoidance of Man in the Middle (MitM) attacks that can interfere with STARTTLS,</li>
+                    <li>avoidance of on-path attacks that can interfere with STARTTLS,</li>
                     <li>prevention of the accidental exposure of sensitive information due to misconfiguration.</li>
                 </ul>
                 <t>
@@ -694,7 +694,7 @@
                 review, and/or comments.
                 <xref target="RFC5425"/> was also used as a basis for the general approach to TLS.
                 <xref target="RFC9190"/> was used as a basis for TLS Resumption Recommendations.
-                draft-ietf-radext-tls-psk, although still in draft form at the time of writing, was used as a model for PSK Recommendations.
+                Although still in draft form at the time of writing, <xref target="I-D.ietf-radext-tls-psk"/> was used as a model for PSK Recommendations.
 
             </t>
         </section>
@@ -778,6 +778,49 @@
                         </author>
                 </front>
             </reference>
+             <reference anchor="I-D.ietf-radext-tls-psk">
+              <front>
+                <title>Operational Considerations for RADIUS and TLS-PSK</title>
+                <author fullname="Alan DeKok" initials="A." surname="DeKok">
+                  <organization>InkBridge Networks</organization>
+                </author>
+                <date day="21" month="January" year="2025"/>
+                <abstract>
+                  <t>   This document provides implementation and operational considerations
+       for using TLS-PSK with RADIUS/TLS (RFC6614) and RADIUS/DTLS
+       (RFC7360).  The purpose of the document is to help smooth the
+       operational transition from the use of the RADIUS/UDP to RADIUS/TLS.
+
+                  </t>
+                </abstract>
+              </front>
+          <seriesInfo name="Internet-Draft" value="draft-ietf-radext-tls-psk-12"/>
+        </reference>
+        <reference anchor="I-D.ietf-uta-require-tls13">
+          <front>
+            <title>New Protocols Using TLS Must Require TLS 1.3</title>
+            <author fullname="Rich Salz" initials="R." surname="Salz">
+              <organization>Akamai Technologies</organization>
+            </author>
+            <author fullname="Nimrod Aviram" initials="N." surname="Aviram">
+         </author>
+            <date day="14" month="April" year="2025"/>
+            <abstract>
+              <t>   TLS 1.3 use is widespread, it has had comprehensive security proofs,
+   and it improves both security and privacy over TLS 1.2.  Therefore,
+   new protocols that use TLS must require TLS 1.3.  As DTLS 1.3 is not
+   widely available or deployed, this prescription does not pertain to
+   DTLS (in any DTLS version); it pertains to TLS only.
+
+   This document updates RFC9325 and discusses post-quantum cryptography
+   and the security and privacy improvements over TLS 1.2 as a rationale
+   for that update.
+
+              </t>
+            </abstract>
+          </front>
+          <seriesInfo name="Internet-Draft" value="draft-ietf-uta-require-tls13-12"/>
+        </reference>
         </references>
 
     </back>
